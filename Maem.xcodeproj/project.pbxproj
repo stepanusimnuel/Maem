@@ -15,9 +15,22 @@
 		50D5FB102FF4D0B200DAFA63 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		501EE7012FF51FC500A257BA /* Exceptions for "Maem" folder in "Maem" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 50D5FAF72FF4CACE00DAFA63 /* Maem */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		50D5FAFA2FF4CACE00DAFA63 /* Maem */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				501EE7012FF51FC500A257BA /* Exceptions for "Maem" folder in "Maem" target */,
+			);
 			path = Maem;
 			sourceTree = "<group>";
 		};
@@ -258,8 +271,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T8673BD4PF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Maem/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Maem memerlukan lokasi anda untuk mencari foodcourt terdekat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -289,8 +305,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = T8673BD4PF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Maem/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Maem memerlukan lokasi anda untuk mencari foodcourt terdekat";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

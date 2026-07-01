@@ -6,19 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+
+    @Environment(\.modelContext)
+    private var modelContext
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            ExploreView()
         }
-        .padding()
+        .task {
+            do {
+                try DummySeeder.seedIfNeeded(context: modelContext)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().modelContainer(for: FoodCourt.self)
 }
