@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import CoreLocation
 
 @Model
 final class FoodCourt {
@@ -34,4 +35,15 @@ final class FoodCourt {
         self.latitude = latitude
         self.longitude = longitude
     }
+}
+
+extension FoodCourt {
+
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(
+            latitude: latitude,
+            longitude: longitude
+        )
+    }
+
 }

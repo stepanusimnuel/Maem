@@ -8,10 +8,16 @@
 import Foundation
 import CoreLocation
 
-struct FoodCourtDistance {
+struct FoodCourtDistance: Identifiable, Hashable {
+
+    var id: UUID {
+        foodCourt.id
+    }
 
     let foodCourt: FoodCourt
+
     let distance: CLLocationDistance
+
 }
 
 struct NearestFoodCourtService {
