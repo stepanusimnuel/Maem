@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct NearestFoodCourt {
+struct FoodCourtDistance {
 
     let foodCourt: FoodCourt
     let distance: CLLocationDistance
@@ -16,38 +16,40 @@ struct NearestFoodCourt {
 
 struct NearestFoodCourtService {
 
-    func findNearest(
+    func nearest(
         from userLocation: CLLocation,
         foodCourts: [FoodCourt]
-    ) -> NearestFoodCourt? {
+    ) -> FoodCourtDistance? {
 
-        guard !foodCourts.isEmpty else {
-            return nil
-        }
+        sortedByDistance(
+            from: userLocation,
+            foodCourts: foodCourts
+        ).first
+    }
 
-        var nearest: NearestFoodCourt?
+    func sortedByDistance(
+        from userLocation: CLLocation,
+        foodCourts: [FoodCourt]
+    ) -> [FoodCourtDistance] {
 
-        for foodCourt in foodCourts {
+        foodCourts
+            .map { foodCourt in
 
-            let location = CLLocation(
-                latitude: foodCourt.latitude,
-                longitude: foodCourt.longitude
-            )
+                let location = CLLocation(
+                    latitude: foodCourt.latitude,
+                    longitude: foodCourt.longitude
+                )
 
-            let distance = userLocation.distance(from: location)
-
-            if nearest == nil || distance < nearest!.distance {
-
-                nearest = NearestFoodCourt(
+                return FoodCourtDistance(
                     foodCourt: foodCourt,
-                    distance: distance
+                    distance: userLocation.distance(from: location)
                 )
 
             }
+            .sorted {
+                $0.distance < $1.distance
+            }
 
-        }
-
-        return nearest
     }
 
 }

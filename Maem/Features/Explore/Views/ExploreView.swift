@@ -26,10 +26,31 @@ struct ExploreView: View {
             VStack(alignment: .leading, spacing: 24) {
 
                 CurrentLocationCard(
-                    nearestFoodCourt: viewModel.nearestFoodCourt,
+                    selectedFoodCourt: viewModel.selectedFoodCourt,
                     currentLocation: locationManager.currentLocation,
                     authorizationStatus: locationManager.authorizationStatus
                 )
+
+                NavigationLink {
+
+                    LocationPickerView(
+                        foodCourts: viewModel.foodCourtsByDistance
+                    ) { selectedFoodCourt in
+
+                        viewModel.selectFoodCourt(selectedFoodCourt)
+
+                    }
+
+                } label: {
+
+                    Label(
+                        "Change Location",
+                        systemImage: "location.circle"
+                    )
+                    .frame(maxWidth: .infinity)
+
+                }
+                .buttonStyle(.borderedProminent)
 
                 placeholderSection(
                     title: "Search Menu",
@@ -57,15 +78,19 @@ struct ExploreView: View {
                 context: modelContext
             )
 
+            locationManager.requestLocationPermission()
+
             viewModel.load(
                 repository: repository,
                 currentLocation: locationManager.currentLocation
             )
 
-            locationManager.requestLocationPermission()
-
         }
         .onChange(of: locationManager.currentLocation) { _, newLocation in
+
+            guard viewModel.selectedFoodCourt == nil else {
+                return
+            }
 
             let repository = FoodCourtRepository(
                 context: modelContext

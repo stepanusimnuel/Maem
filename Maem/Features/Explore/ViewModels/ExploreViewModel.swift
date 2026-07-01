@@ -12,9 +12,19 @@ import CoreLocation
 @Observable
 final class ExploreViewModel {
 
-    var nearestFoodCourt: NearestFoodCourt?
+    // MARK: - State
+
+    var selectedFoodCourt: FoodCourtDistance?
+
+    var foodCourtsByDistance: [FoodCourtDistance] = []
+
+    var isManualSelection = false
+
+    // MARK: - Service
 
     private let nearestService = NearestFoodCourtService()
+
+    // MARK: - Load
 
     func load(
         repository: FoodCourtRepositoryProtocol,
@@ -27,12 +37,16 @@ final class ExploreViewModel {
 
             guard let currentLocation else {
 
-                if let first = foodCourts.first {
-
-                    nearestFoodCourt = NearestFoodCourt(
-                        foodCourt: first,
+                foodCourtsByDistance = foodCourts.map {
+                    FoodCourtDistance(
+                        foodCourt: $0,
                         distance: 0
                     )
+                }
+
+                if selectedFoodCourt == nil {
+
+                    selectedFoodCourt = foodCourtsByDistance.first
 
                 }
 
@@ -40,16 +54,31 @@ final class ExploreViewModel {
 
             }
 
-            nearestFoodCourt = nearestService.findNearest(
+            foodCourtsByDistance = nearestService.sortedByDistance(
                 from: currentLocation,
                 foodCourts: foodCourts
             )
+
+            guard !isManualSelection else {
+                return
+            }
+
+            selectedFoodCourt = foodCourtsByDistance.first
 
         } catch {
 
             print(error.localizedDescription)
 
         }
+
+    }
+
+    // MARK: - Manual Selection
+
+    func selectFoodCourt(_ foodCourt: FoodCourtDistance) {
+
+        isManualSelection = true
+        selectedFoodCourt = foodCourt
 
     }
 

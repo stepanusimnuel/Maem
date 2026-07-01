@@ -10,7 +10,7 @@ import CoreLocation
 
 struct CurrentLocationCard: View {
 
-    let nearestFoodCourt: NearestFoodCourt?
+    let selectedFoodCourt: FoodCourtDistance?
     let currentLocation: CLLocation?
     let authorizationStatus: CLAuthorizationStatus
 
@@ -22,23 +22,22 @@ struct CurrentLocationCard: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            if let nearestFoodCourt {
+            if let selectedFoodCourt {
 
                 Label(
-                    nearestFoodCourt.foodCourt.name,
+                    selectedFoodCourt.foodCourt.name,
                     systemImage: "mappin.and.ellipse"
                 )
                 .font(.headline)
 
-                Text(nearestFoodCourt.foodCourt.address)
+                Text(selectedFoodCourt.foodCourt.address)
                     .foregroundStyle(.secondary)
 
-                Text(nearestFoodCourt.foodCourt.floor)
-                    .font(.subheadline)
+                Text(selectedFoodCourt.foodCourt.floor)
                     .foregroundStyle(.secondary)
 
                 Label(
-                    "\(Int(nearestFoodCourt.distance)) m away",
+                    "\(Int(selectedFoodCourt.distance)) m away",
                     systemImage: "figure.walk"
                 )
                 .font(.caption)
@@ -115,11 +114,6 @@ struct CurrentLocationCard: View {
 
             }
 
-            Button("Change Location") {
-
-            }
-            .buttonStyle(.borderedProminent)
-
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
@@ -139,7 +133,7 @@ struct CurrentLocationCard: View {
 #Preview {
 
     CurrentLocationCard(
-        nearestFoodCourt: nil,
+        selectedFoodCourt: nil,
         currentLocation: nil,
         authorizationStatus: .notDetermined
     )
