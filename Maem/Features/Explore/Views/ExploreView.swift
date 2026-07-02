@@ -52,10 +52,28 @@ struct ExploreView: View {
                 }
                 .buttonStyle(.borderedProminent)
 
-                placeholderSection(
-                    title: "Search Menu",
-                    icon: "magnifyingglass"
-                )
+                if let selectedFoodCourt = viewModel.selectedFoodCourt {
+
+                    NavigationLink {
+
+                        MenuSearchView(foodCourt: selectedFoodCourt.foodCourt)
+
+                    } label: {
+
+                        Label("Search Menu", systemImage: "magnifyingglass")
+                            .frame(maxWidth: .infinity)
+
+                    }
+                    .buttonStyle(.borderedProminent)
+
+                } else {
+
+                    placeholderSection(
+                        title: "Search Menu",
+                        icon: "magnifyingglass"
+                    )
+
+                }
 
                 placeholderSection(
                     title: "Kids Friendly",
