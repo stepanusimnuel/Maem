@@ -64,13 +64,13 @@ struct RecommendationEngine {
         var notes: [String] = []
         var matched: [Candidate] = []
 
-        for rung in rungs {
+        for (index, rung) in rungs.enumerated() {
             let found = candidates(from: menus, intent: intent, relaxation: rung.relaxation)
             if !found.isEmpty {
                 matched = found
                 appliedRelaxation = rung.relaxation
-                if !rung.note.isEmpty {
-                    notes.append(rung.note)
+                if index > 0 {
+                    notes = rungs[1...index].map(\.note).filter { !$0.isEmpty }
                 }
                 break
             }
