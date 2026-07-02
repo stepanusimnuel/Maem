@@ -21,6 +21,9 @@ final class FoodCourt {
     var latitude: Double
     var longitude: Double
 
+    @Relationship(deleteRule: .cascade, inverse: \Tenant.foodCourt)
+    var tenants: [Tenant] = []
+
     init(
         name: String,
         address: String,
