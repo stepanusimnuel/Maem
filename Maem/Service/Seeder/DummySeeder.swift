@@ -61,5 +61,7 @@ enum DummySeeder {
         }
 
         try repository.save()
+
+        MenuDummySeeder.seed(into: foodCourts[0], context: context)
     }
 }
