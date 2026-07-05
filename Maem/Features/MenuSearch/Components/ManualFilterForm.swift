@@ -83,7 +83,7 @@ struct ManualFilterForm: View {
             Section {
 
                 Button(action: onSearch) {
-                    Text("Cari Menu")
+                    Text("Terapkan")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)

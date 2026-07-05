@@ -14,21 +14,14 @@ struct MenuSearchView: View {
     @State
     private var showSavedPlan = false
 
+    @State
+    private var showFilterSheet = false
+
     var body: some View {
 
         VStack(spacing: 0) {
 
-            if viewModel.useManualFilter {
-
-                ManualFilterForm(filters: $viewModel.manualFilters) {
-                    Task { await viewModel.search() }
-                }
-
-            } else {
-
-                searchBar
-
-            }
+            searchBar
 
             resultsList
 
@@ -40,10 +33,34 @@ struct MenuSearchView: View {
             ToolbarItem(placement: .topBarTrailing) {
 
                 Button {
+                    showFilterSheet = true
+                } label: {
+                    Image(systemName: "line.3.horizontal.decrease.circle")
+                }
+
+            }
+
+            ToolbarItem(placement: .topBarTrailing) {
+
+                Button {
                     showSavedPlan = true
                 } label: {
                     Image(systemName: "bookmark")
                 }
+
+            }
+
+        }
+        .sheet(isPresented: $showFilterSheet) {
+
+            NavigationStack {
+
+                ManualFilterForm(filters: $viewModel.manualFilters) {
+                    showFilterSheet = false
+                    Task { await viewModel.search() }
+                }
+                .navigationTitle("Filter")
+                .navigationBarTitleDisplayMode(.inline)
 
             }
 
@@ -95,7 +112,7 @@ private extension MenuSearchView {
             Button("Cari") {
                 Task { await viewModel.search() }
             }
-            .disabled(viewModel.searchText.isEmpty || viewModel.isLoading)
+            .disabled(viewModel.isLoading)
 
         }
         .padding()
