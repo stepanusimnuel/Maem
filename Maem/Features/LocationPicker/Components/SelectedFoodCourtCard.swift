@@ -23,9 +23,6 @@ struct SelectedFoodCourtCard: View {
             Text(foodCourt.foodCourt.address)
                 .foregroundStyle(.secondary)
 
-            Text(foodCourt.foodCourt.floor)
-                .foregroundStyle(.secondary)
-
             Label(
                 "\(Int(foodCourt.distance)) m away",
                 systemImage: "figure.walk"
@@ -62,8 +59,8 @@ struct SelectedFoodCourtCard: View {
         foodCourt: FoodCourtDistance(
             foodCourt: FoodCourt(
                 name: "AEON Mall BSD - Food Culture",
-                address: "AEON Mall BSD",
-                floor: "Ground",
+                place: "AEON Mall BSD",
+                address: "Jalan Raya BSD Utama, Padegangan",
                 latitude: 0,
                 longitude: 0
             ),

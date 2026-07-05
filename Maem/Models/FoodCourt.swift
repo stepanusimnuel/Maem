@@ -16,24 +16,31 @@ final class FoodCourt {
     var id: UUID
 
     var name: String
+    var place: String
     var address: String
-    var floor: String
     var latitude: Double
     var longitude: Double
+    
+    var imageName: String?
+    
+    var tenants: [Tenant]
 
     init(
         name: String,
+        place: String,
         address: String,
-        floor: String,
+        imageName: String? = nil,
         latitude: Double,
         longitude: Double
     ) {
         self.id = UUID()
         self.name = name
+        self.place = place
         self.address = address
-        self.floor = floor
+        self.imageName = imageName
         self.latitude = latitude
         self.longitude = longitude
+        self.tenants = []
     }
 }
 

@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 import CoreLocation
+import SwiftData
 
 @Observable
 final class ExploreViewModel {
@@ -20,6 +21,35 @@ final class ExploreViewModel {
 
     var isManualSelection = false
 
+    var menus: [Menu] = []
+    
+    // MARK: Computed
+    var forKidsMenus: [Menu] {
+
+        menus.filter { menu in
+
+            // Tidak pedas
+            guard menu.tags.spicy == false else {
+                return false
+            }
+
+            // Porsi anak
+            guard menu.tags.portion == .kids else {
+                return false
+            }
+
+            // Mudah dikunyah (lembut ATAU berkuah)
+            guard let textures = menu.tags.texture else {
+                return false
+            }
+
+            return textures.contains(.soft) ||
+                   textures.contains(.soupy)
+
+        }
+
+    }
+
     // MARK: - Service
 
     private let nearestService = NearestFoodCourtService()
@@ -28,7 +58,8 @@ final class ExploreViewModel {
 
     func load(
         repository: FoodCourtRepositoryProtocol,
-        currentLocation: CLLocation?
+        currentLocation: CLLocation?,
+        context: ModelContext
     ) {
 
         do {
@@ -38,15 +69,21 @@ final class ExploreViewModel {
             guard let currentLocation else {
 
                 foodCourtsByDistance = foodCourts.map {
+
                     FoodCourtDistance(
                         foodCourt: $0,
                         distance: 0
                     )
+
                 }
 
                 if selectedFoodCourt == nil {
 
                     selectedFoodCourt = foodCourtsByDistance.first
+
+                    loadMenus(
+                        context: context
+                    )
 
                 }
 
@@ -65,7 +102,47 @@ final class ExploreViewModel {
 
             selectedFoodCourt = foodCourtsByDistance.first
 
-        } catch {
+            loadMenus(
+                context: context
+            )
+
+        }
+
+        catch {
+
+            print(error.localizedDescription)
+
+        }
+
+    }
+
+    // MARK: - Menu
+
+    func loadMenus(
+        context: ModelContext
+    ) {
+
+        guard let selectedFoodCourt else {
+
+            menus = []
+
+            return
+
+        }
+
+        let repository = MenuRepository(
+            context: context
+        )
+
+        do {
+
+            menus = try repository.getMenus(
+                in: selectedFoodCourt.foodCourt
+            )
+
+        }
+
+        catch {
 
             print(error.localizedDescription)
 
@@ -75,10 +152,18 @@ final class ExploreViewModel {
 
     // MARK: - Manual Selection
 
-    func selectFoodCourt(_ foodCourt: FoodCourtDistance) {
+    func selectFoodCourt(
+        _ foodCourt: FoodCourtDistance,
+        context: ModelContext
+    ) {
 
         isManualSelection = true
+
         selectedFoodCourt = foodCourt
+
+        loadMenus(
+            context: context
+        )
 
     }
 

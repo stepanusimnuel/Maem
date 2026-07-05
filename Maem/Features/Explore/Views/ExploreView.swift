@@ -18,6 +18,8 @@ struct ExploreView: View {
 
     @State
     private var locationManager = LocationManager()
+    
+    @State private var isShowingLocationPicker = false
 
     var body: some View {
 
@@ -28,50 +30,28 @@ struct ExploreView: View {
                 CurrentLocationCard(
                     selectedFoodCourt: viewModel.selectedFoodCourt,
                     currentLocation: locationManager.currentLocation,
-                    authorizationStatus: locationManager.authorizationStatus
-                )
-
-                NavigationLink {
-
-                    LocationPickerView(
-                        foodCourts: viewModel.foodCourtsByDistance
-                    ) { selectedFoodCourt in
-
-                        viewModel.selectFoodCourt(selectedFoodCourt)
-
+                    authorizationStatus: locationManager.authorizationStatus,
+                    onLocationButtonTapped: {
+                        isShowingLocationPicker = true
                     }
-
-                } label: {
-
-                    Label(
-                        "Change Location",
-                        systemImage: "location.circle"
-                    )
-                    .frame(maxWidth: .infinity)
-
-                }
-                .buttonStyle(.borderedProminent)
-
-                placeholderSection(
-                    title: "Search Menu",
-                    icon: "magnifyingglass"
                 )
+                
+                ForKidsSection(
+                    menus: viewModel.forKidsMenus
+                )
+                .frame(maxWidth: .infinity, maxHeight: 320)
+                .padding(.leading, 4)
+                .padding(.vertical, 16)
+                .background(AppColor.red300)
 
                 placeholderSection(
-                    title: "Kids Friendly",
+                    title: "Untuk semua",
                     icon: "figure.and.child.holdinghands"
                 )
 
-                placeholderSection(
-                    title: "Other Menus",
-                    icon: "fork.knife"
-                )
-
             }
-            .padding()
 
         }
-        .navigationTitle("Explore")
         .task {
 
             let repository = FoodCourtRepository(
@@ -82,7 +62,8 @@ struct ExploreView: View {
 
             viewModel.load(
                 repository: repository,
-                currentLocation: locationManager.currentLocation
+                currentLocation: locationManager.currentLocation,
+                context: modelContext
             )
 
         }
@@ -98,10 +79,37 @@ struct ExploreView: View {
 
             viewModel.load(
                 repository: repository,
-                currentLocation: newLocation
+                currentLocation: newLocation,
+                context: modelContext
             )
 
         }
+        
+        .background(
+            LinearGradient(
+                colors: [AppColor.red50, AppColor.neutralWhite],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        
+        .sheet(isPresented: $isShowingLocationPicker) {
+
+            LocationPickerView(
+                foodCourts: viewModel.foodCourtsByDistance,
+                selectedFoodCourt: viewModel.selectedFoodCourt
+            ) { selected in
+
+                viewModel.selectFoodCourt(
+                    selected,
+                    context: modelContext
+                )
+
+            }
+            .presentationDetents([.fraction(0.9)])
+        }
+        
+        .ignoresSafeArea()
 
     }
 

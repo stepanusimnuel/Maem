@@ -30,9 +30,6 @@ struct FoodCourtMapSheet: View {
             Text(foodCourt.foodCourt.address)
                 .foregroundStyle(.secondary)
 
-            Text(foodCourt.foodCourt.floor)
-                .foregroundStyle(.secondary)
-
             Label(
                 "\(Int(foodCourt.distance)) m away",
                 systemImage: "figure.walk"

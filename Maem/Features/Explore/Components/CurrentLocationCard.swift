@@ -9,133 +9,93 @@ import SwiftUI
 import CoreLocation
 
 struct CurrentLocationCard: View {
+    
 
     let selectedFoodCourt: FoodCourtDistance?
     let currentLocation: CLLocation?
     let authorizationStatus: CLAuthorizationStatus
+    let onLocationButtonTapped: () -> Void
 
+    @State private var searchText: String = ""
+    
     var body: some View {
 
         VStack(alignment: .leading, spacing: 16) {
-
-            Text("Current Food Court")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-
-            if let selectedFoodCourt {
-
-                Label(
-                    selectedFoodCourt.foodCourt.name,
-                    systemImage: "mappin.and.ellipse"
-                )
-                .font(.headline)
-
-                Text(selectedFoodCourt.foodCourt.address)
-                    .foregroundStyle(.secondary)
-
-                Text(selectedFoodCourt.foodCourt.floor)
-                    .foregroundStyle(.secondary)
-
-                Label(
-                    "\(Int(selectedFoodCourt.distance)) m away",
-                    systemImage: "figure.walk"
-                )
-                .font(.caption)
-                .foregroundStyle(.blue)
-
-            } else {
-
-                Label(
-                    "Finding nearest food court...",
-                    systemImage: "clock"
-                )
-
-            }
-
-            Divider()
-
-            Label(
-                authorizationStatus == .authorizedAlways ||
-                authorizationStatus == .authorizedWhenInUse
-                    ? "Location Connected"
-                    : "Location Not Available",
-                systemImage: authorizationStatus == .authorizedAlways ||
-                             authorizationStatus == .authorizedWhenInUse
-                    ? "location.fill"
-                    : "location.slash"
-            )
-            .font(.caption)
-            .foregroundStyle(
-                authorizationStatus == .authorizedAlways ||
-                authorizationStatus == .authorizedWhenInUse
-                ? .green
-                : .orange
-            )
-
-            Text("Current Location")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-
-            switch authorizationStatus {
-
-            case .authorizedAlways,
-                 .authorizedWhenInUse:
-
-                if let currentLocation {
-
-                    Text("Latitude")
-                        .font(.caption)
-
-                    Text("\(currentLocation.coordinate.latitude)")
-
-                    Text("Longitude")
-                        .font(.caption)
-
-                    Text("\(currentLocation.coordinate.longitude)")
-
-                } else {
-
-                    Text("Getting your location...")
-
+            
+            HStack {
+                HStack {
+                    Image(systemName: "mappin.and.ellipse")
+                    
+                    if selectedFoodCourt == nil {
+                        Text("Pilih Food Court")
+                            .font(AppFont.callout(weight: .bold))
+                    } else {
+                        Text("\(selectedFoodCourt!.foodCourt.name),  \(selectedFoodCourt!.foodCourt.place)")
+                            .font(AppFont.callout(weight: .bold))
+                    }
+                    
                 }
-
-            case .denied,
-                 .restricted:
-
-                Text("Location permission denied.")
-
-            case .notDetermined:
-
-                Text("Requesting location permission...")
-
-            @unknown default:
-
-                Text("Unknown status.")
-
+                .foregroundStyle(AppColor.neutralWhite)
+                
+                Spacer()
+                
+                Button {
+                    onLocationButtonTapped()
+                } label: {
+                    Image(systemName: "chevron.down")
+                        .font(AppFont.caption(weight: .bold))
+                        .foregroundStyle(AppColor.red700)
+                        .frame(width: 12, height: 12)
+                }
+                .buttonStyle(.glass)
+                .clipShape(Circle())
+                
             }
+            
+            HStack(spacing: 8) {
+                Image(systemName: "magnifyingglass")
+
+                TextField("makanan untuk anak radang", text: $searchText)
+                    .font(AppFont.callout(weight: .medium))
+            }
+            .font(AppFont.callout(weight: .medium))
+            .padding(.horizontal, 10)
+            .frame(height: 44)
+            .glassEffect(in: .capsule)
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(.background)
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .overlay {
+        .padding(16)
+        .padding(.top, 52)
+        .padding(.bottom, 8)
+        .background(AppColor.red700)
+        .clipShape(
 
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(.gray.opacity(0.2))
+            .rect(
 
-        }
+                topLeadingRadius: 0,
+
+                bottomLeadingRadius: 40,
+
+                bottomTrailingRadius: 40,
+
+                topTrailingRadius: 0
+
+            )
+
+        )
 
     }
 
 }
 
 #Preview {
-
+    
     CurrentLocationCard(
         selectedFoodCourt: nil,
         currentLocation: nil,
-        authorizationStatus: .notDetermined
+        authorizationStatus: .notDetermined,
+        onLocationButtonTapped: {}
     )
     .padding()
 
