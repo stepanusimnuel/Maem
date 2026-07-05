@@ -9,7 +9,6 @@ final class MenuSearchViewModel {
 
     var searchText = ""
     var manualFilters = ManualFilterState()
-    var useManualFilter = false
     var isLoading = false
     var errorMessage: String?
     var result: RecommendationResult?
@@ -19,7 +18,7 @@ final class MenuSearchViewModel {
 
     private var allMenus: [MenuItem] = []
     private let engine = RecommendationEngine()
-    private let parser: IntentParser = FoundationModelIntentParser()
+    private let keywordParser = KeywordIntentParser()
 
     // MARK: - Load
 
@@ -32,7 +31,6 @@ final class MenuSearchViewModel {
         do {
 
             allMenus = try menuRepo.getAll(for: foodCourt)
-            useManualFilter = !FoundationModelIntentParser.isAvailable
             savedIDs = Set(try savedRepo.getAll().compactMap { $0.menuItem?.persistentModelID })
 
         } catch {
@@ -50,19 +48,27 @@ final class MenuSearchViewModel {
         isLoading = true
         defer { isLoading = false }
 
+        let textIntent = await parseText()
+
+        manualFilters.overwrite(with: textIntent)
+
+        let finalIntent = manualFilters.toSearchIntent()
+            .addingCompositionAndStyle(from: textIntent)
+
+        result = engine.recommend(menus: allMenus, intent: finalIntent)
+
+    }
+
+    private func parseText() async -> SearchIntent {
+
+        guard FoundationModelIntentParser.isAvailable else {
+            return keywordParser.parse(searchText)
+        }
+
         do {
-
-            let intent = useManualFilter
-                ? manualFilters.toSearchIntent()
-                : try await parser.parse(searchText)
-
-            result = engine.recommend(menus: allMenus, intent: intent)
-
+            return try await FoundationModelIntentParser().parse(searchText)
         } catch {
-
-            useManualFilter = true
-            errorMessage = "Pencarian otomatis tidak tersedia, silakan gunakan filter manual."
-
+            return keywordParser.parse(searchText)
         }
 
     }
