@@ -17,3 +17,19 @@ struct SearchIntent {
     var texturePreference: Texture? = nil
     var preferHealthy: Bool? = nil
 }
+
+extension SearchIntent {
+
+    func addingCompositionAndStyle(from other: SearchIntent) -> SearchIntent {
+        var copy = self
+        copy.wantCarbs = other.wantCarbs
+        copy.wantProteinHewani = other.wantProteinHewani
+        copy.wantProteinNabati = other.wantProteinNabati
+        copy.wantVeggies = other.wantVeggies
+        copy.cookMethodPreference = other.cookMethodPreference
+        copy.texturePreference = other.texturePreference
+        copy.preferHealthy = other.preferHealthy
+        return copy
+    }
+
+}

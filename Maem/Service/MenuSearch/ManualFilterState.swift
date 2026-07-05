@@ -18,13 +18,25 @@ struct ManualFilterState {
             mealCategory: mealCategory
         )
     }
-}
 
-struct ManualIntentParser: IntentParser {
-
-    let filters: ManualFilterState
-
-    func parse(_ text: String) async throws -> SearchIntent {
-        filters.toSearchIntent()
+    mutating func overwrite(with intent: SearchIntent) {
+        if let avoid = intent.avoidAllergens, !avoid.isEmpty {
+            avoidAllergens = Set(avoid)
+        }
+        if let budget = intent.maxBudget {
+            maxBudget = budget
+        }
+        if let spicy = intent.mustNotSpicy {
+            mustNotSpicy = spicy
+        }
+        if let halal = intent.requireHalal {
+            requireHalal = halal
+        }
+        if let kid = intent.forKid {
+            forKid = kid
+        }
+        if let category = intent.mealCategory {
+            mealCategory = category
+        }
     }
 }
