@@ -32,7 +32,7 @@ struct FoundationModelIntentParser: IntentParser {
       Jika tidak disebut, BIARKAN kosong (nil). Jangan menebak atau mengarang.
     - avoidAllergens: isi HANYA jika user menyebut alergi atau minta hindari bahan.
       Jangan pernah menambahkan alergen yang tidak disebut. (Ini menyangkut keselamatan anak.)
-    - Angka rupiah: "40rb" / "40k" / "40.000" / "empat puluh ribu" -> 40000.
+    - Angka rupiah: "40rb" / "40k" / "40.000" / "empat puluh ribu" / "40000" -> 40000.
     - Jika kalimat tidak mengandung informasi makanan (di luar topik / ngawur),
       kembalikan SearchIntent kosong. Jangan mengarang.
 
