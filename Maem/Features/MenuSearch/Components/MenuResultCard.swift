@@ -53,6 +53,14 @@ struct MenuResultCard: View {
 
                 }
 
+                if let spicyWarning = item.spicyWarning {
+
+                    Label(spicyWarning, systemImage: "flame")
+                        .font(.caption)
+                        .foregroundStyle(.red)
+
+                }
+
             }
 
         }
@@ -95,6 +103,7 @@ struct MenuResultCard: View {
             tenant: Tenant(name: "Ayam Bu Tini", halalStatus: .bersertifikat, googleMapsLink: ""),
             score: 5,
             halalWarning: nil,
+            spicyWarning: nil,
             isKidFriendlyMatch: false
         ),
         isSaved: false,

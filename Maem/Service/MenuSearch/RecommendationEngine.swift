@@ -7,6 +7,7 @@ struct ScoredMenuItem: Identifiable, Hashable {
     let tenant: Tenant
     let score: Int
     let halalWarning: String?
+    let spicyWarning: String?
     let isKidFriendlyMatch: Bool
 }
 
@@ -44,7 +45,7 @@ struct RecommendationEngine {
             ),
             Rung(
                 relaxation: Relaxation(composition: true, budgetMultiplier: 1.0, style: false, forKid: false),
-                note: "Kriteria bahan (nasi/ayam/dll) dilonggarkan jadi nilai tambah, bukan syarat wajib."
+                note: ""
             ),
             Rung(
                 relaxation: Relaxation(composition: true, budgetMultiplier: 1.2, style: false, forKid: false),
@@ -70,7 +71,10 @@ struct RecommendationEngine {
                 matched = found
                 appliedRelaxation = rung.relaxation
                 if index > 0 {
-                    notes = rungs[1...index].map(\.note).filter { !$0.isEmpty }
+                    notes = (1...index).compactMap { i -> String? in
+                        let note = (i == 1) ? compositionRelaxationNote(for: intent) : rungs[i].note
+                        return note.isEmpty ? nil : note
+                    }
                 }
                 break
             }
@@ -121,8 +125,14 @@ struct RecommendationEngine {
                 if Double(menu.price) > budgetLimit { return nil }
             }
 
+            let nameHintMatchedThisItem = intent.nameHints?.contains {
+                menu.name.localizedCaseInsensitiveContains($0)
+            } ?? false
+
             if intent.mustNotSpicy == true, menu.isPedas {
-                return nil
+                if intent.forKid == true || !nameHintMatchedThisItem {
+                    return nil
+                }
             }
 
             if intent.forKid == true, !relaxation.forKid, !menu.isKidFriendly {
@@ -144,6 +154,9 @@ struct RecommendationEngine {
                 }
                 if let wantVeggies = intent.wantVeggies, !wantVeggies.isEmpty,
                    Set(menu.veggies).isDisjoint(with: wantVeggies) {
+                    return nil
+                }
+                if let hints = intent.nameHints, !hints.isEmpty, !nameHintMatchedThisItem {
                     return nil
                 }
             }
@@ -176,6 +189,13 @@ struct RecommendationEngine {
             points += 3
         }
 
+        let nameHintMatchedThisItem = intent.nameHints?.contains {
+            menu.name.localizedCaseInsensitiveContains($0)
+        } ?? false
+        if nameHintMatchedThisItem {
+            points += 3
+        }
+
         if intent.forKid == true, menu.isKidFriendly {
             points += 2
         }
@@ -189,8 +209,13 @@ struct RecommendationEngine {
             points += 1
         }
 
-        if intent.preferHealthy == true, !menu.isInstant {
-            points += 1
+        if intent.preferHealthy == true {
+            if !menu.isInstant {
+                points += 1
+            }
+            if [.kukus, .rebus, .panggang, .mentahSalad].contains(menu.cookMethod) {
+                points += 1
+            }
         }
 
         let halalWarning: String? =
@@ -198,13 +223,34 @@ struct RecommendationEngine {
             ? "Belum tersertifikasi halal, cek mandiri."
             : nil
 
+        let spicyWarning: String? =
+            (intent.mustNotSpicy == true && menu.isPedas && nameHintMatchedThisItem && intent.forKid != true)
+            ? "Menu ini pedas."
+            : nil
+
         return ScoredMenuItem(
             menuItem: menu,
             tenant: candidate.tenant,
             score: points,
             halalWarning: halalWarning,
+            spicyWarning: spicyWarning,
             isKidFriendlyMatch: menu.isKidFriendly
         )
+    }
+
+    private func compositionRelaxationNote(for intent: SearchIntent) -> String {
+
+        var missing: [String] = []
+        if let hints = intent.nameHints { missing += hints }
+        if let carbs = intent.wantCarbs { missing += carbs.map(\.rawValue) }
+        if let ph = intent.wantProteinHewani { missing += ph.map(\.rawValue) }
+        if let pn = intent.wantProteinNabati { missing += pn.map(\.rawValue) }
+
+        guard !missing.isEmpty else {
+            return "Kriteria bahan dilonggarkan jadi nilai tambah, bukan syarat wajib."
+        }
+
+        return "Tidak ada menu \"\(missing.joined(separator: ", "))\" yang cocok dengan kriteria lain (alergen/halal/dll) — berikut menu lain yang tetap memenuhi kriteria tersebut."
     }
 
     private func bindingConstraint(for intent: SearchIntent) -> String {

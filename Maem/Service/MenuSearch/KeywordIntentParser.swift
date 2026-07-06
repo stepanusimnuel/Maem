@@ -14,6 +14,7 @@ struct KeywordIntentParser: IntentParser {
         intent.wantProteinHewani = matchEnum(ProteinHewani.self, in: compositionText)
         intent.wantProteinNabati = matchEnum(ProteinNabati.self, in: compositionText)
         intent.wantVeggies = matchEnum(Veggie.self, in: compositionText)
+        intent.cookMethodPreference = matchCookMethod(in: compositionText)
 
         if containsAny(normalized, Self.forKidPhrases) {
             intent.forKid = true
@@ -40,6 +41,7 @@ struct KeywordIntentParser: IntentParser {
         }
 
         intent.maxBudget = Self.extractBudget(from: normalized)
+        intent.nameHints = Self.extractNameHints(from: compositionText)
 
         return intent
     }
@@ -66,6 +68,40 @@ private extension KeywordIntentParser {
         "wijen": .wijen
     ]
 
+    static let stopwords: Set<String> = [
+        "buat", "anak", "bocil", "dedek", "si", "kecil", "balita",
+        "gak", "ga", "nggak", "ngga", "tidak", "jangan", "pedas", "pedes", "sambal", "tanpa", "boleh",
+        "alergi", "halal",
+        "murah", "murmer", "hemat", "budget", "rb", "ribu", "k",
+        "ngenyangin", "berat", "mengenyangkan", "cemilan", "ngemil", "snack", "minuman", "haus", "seger",
+        "sehat", "berminyak", "fresh", "begah",
+        "dan", "di", "ke", "yang", "untuk", "ya", "dong", "aja", "apa", "mau", "banget", "nih", "itu", "ini",
+        "atau", "dengan", "biar", "kalau", "kalo", "mo", "pengen", "pengin", "enak",
+        "makan", "makanan", "menu", "cari", "carikan", "kasih", "rekomendasi", "kuliner", "jajan",
+        "resto", "warung", "kedai", "mo", "pengin", "ada", "adakah", "gimana", "gmn", "kek", "kayak",
+        "seperti", "tolong", "please", "min", "kak", "bang", "kenyang", "laper", "lapar"
+    ]
+
+    static let knownVocabulary: Set<String> = {
+        var words = Set<String>()
+        for c in Carb.allCases where c.rawValue != "other" {
+            words.formUnion(deCamelCase(c.rawValue).split(separator: " ").map(String.init))
+        }
+        for p in ProteinHewani.allCases where p.rawValue != "other" {
+            words.formUnion(deCamelCase(p.rawValue).split(separator: " ").map(String.init))
+        }
+        for p in ProteinNabati.allCases where p.rawValue != "other" {
+            words.formUnion(deCamelCase(p.rawValue).split(separator: " ").map(String.init))
+        }
+        for v in Veggie.allCases where v.rawValue != "other" {
+            words.formUnion(deCamelCase(v.rawValue).split(separator: " ").map(String.init))
+        }
+        for c in CookMethod.allCases where c.rawValue != "other" {
+            words.formUnion(deCamelCase(c.rawValue).split(separator: " ").map(String.init))
+        }
+        return words
+    }()
+
     func containsAny(_ text: String, _ phrases: [String]) -> Bool {
         phrases.contains { text.contains($0) }
     }
@@ -73,6 +109,10 @@ private extension KeywordIntentParser {
     func matchEnum<T: RawRepresentable & CaseIterable>(_ type: T.Type, in text: String) -> [T]? where T.RawValue == String {
         let matched = T.allCases.filter { $0.rawValue != "other" && text.contains(Self.deCamelCase($0.rawValue)) }
         return matched.isEmpty ? nil : matched
+    }
+
+    func matchCookMethod(in text: String) -> CookMethod? {
+        CookMethod.allCases.first { $0.rawValue != "other" && text.contains(Self.deCamelCase($0.rawValue)) }
     }
 
     static func deCamelCase(_ value: String) -> String {
@@ -138,5 +178,18 @@ private extension KeywordIntentParser {
         }
 
         return found.isEmpty ? nil : Array(found)
+    }
+
+    static func extractNameHints(from text: String) -> [String]? {
+        var seen = Set<String>()
+        var hints: [String] = []
+        for word in text.split(whereSeparator: { !$0.isLetter }) {
+            let lower = word.lowercased()
+            guard lower.count >= 3, !stopwords.contains(lower), !knownVocabulary.contains(lower) else { continue }
+            if seen.insert(lower).inserted {
+                hints.append(lower)
+            }
+        }
+        return hints.isEmpty ? nil : hints
     }
 }

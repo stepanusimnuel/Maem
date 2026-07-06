@@ -16,6 +16,7 @@ struct SearchIntent {
     var cookMethodPreference: CookMethod? = nil
     var texturePreference: Texture? = nil
     var preferHealthy: Bool? = nil
+    var nameHints: [String]? = nil
 }
 
 extension SearchIntent {
@@ -29,6 +30,7 @@ extension SearchIntent {
         copy.cookMethodPreference = other.cookMethodPreference
         copy.texturePreference = other.texturePreference
         copy.preferHealthy = other.preferHealthy
+        copy.nameHints = other.nameHints
         return copy
     }
 
