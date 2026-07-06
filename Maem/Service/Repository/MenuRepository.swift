@@ -51,5 +51,21 @@ final class MenuRepository: MenuRepositoryProtocol {
         }
 
     }
+    
+    func getBookmarkedMenus() throws -> [Menu] {
+
+        let descriptor = FetchDescriptor<Menu>(
+            predicate: #Predicate {
+
+                $0.isBookmarked
+
+            }
+        )
+
+        return try context.fetch(
+            descriptor
+        )
+
+    }
 
 }

@@ -70,7 +70,7 @@ struct ExploreView: View {
         }
         .onChange(of: locationManager.currentLocation) { _, newLocation in
 
-            guard viewModel.selectedFoodCourt == nil else {
+            guard !viewModel.isManualSelection else {
                 return
             }
 
@@ -87,11 +87,7 @@ struct ExploreView: View {
         }
         
         .background(
-            LinearGradient(
-                colors: [AppColor.red50, AppColor.neutralWhite],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            AppColor.red50
         )
         
         .sheet(isPresented: $isShowingLocationPicker) {

@@ -63,7 +63,7 @@ private extension MenuListCard {
             }
 
         }
-        .frame(width: 90, height: 90)
+        .frame(width: 120, height: 100)
         .clipShape(
             RoundedRectangle(cornerRadius: 16)
         )
