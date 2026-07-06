@@ -42,16 +42,17 @@ struct ExploreView: View {
                 .frame(maxWidth: .infinity, maxHeight: 320)
                 .padding(.leading, 4)
                 .padding(.vertical, 16)
-                .background(AppColor.red300)
+                
+                ForAllSection(
 
-                placeholderSection(
-                    title: "Untuk semua",
-                    icon: "figure.and.child.holdinghands"
+                    menus: viewModel.menus
+
                 )
 
             }
 
         }
+        .padding()
         .task {
 
             let repository = FoodCourtRepository(

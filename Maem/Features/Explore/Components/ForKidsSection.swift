@@ -43,6 +43,12 @@ struct ForKidsSection: View {
             }
 
         }
+        .padding(.vertical, 16)
+        .padding(.leading, 6)
+        .background(AppColor.red700)
+        .clipShape(
+            RoundedRectangle(cornerRadius: 20)
+        )
 
     }
 
@@ -57,9 +63,17 @@ private extension ForKidsSection {
             spacing: 2
         ) {
 
-            Text("Untuk Si Kecil")
-                .font(AppFont.title2(weight: .bold))
-                .foregroundStyle(AppColor.red50)
+            HStack(alignment: .center) {
+                Text("Untuk Si Kecil")
+                    .font(AppFont.title2(weight: .bold))
+                    .foregroundStyle(AppColor.red50)
+                
+                Spacer()
+                
+                Text("Lihat Lainnya")
+                    .font(AppFont.caption(weight: .regular))
+                    .foregroundStyle(AppColor.red50)
+            }
 
         }
         .padding(.horizontal)

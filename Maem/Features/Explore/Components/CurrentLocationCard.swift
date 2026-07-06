@@ -35,7 +35,7 @@ struct CurrentLocationCard: View {
                     }
                     
                 }
-                .foregroundStyle(AppColor.neutralWhite)
+                .foregroundStyle(AppColor.neutralBlack)
                 
                 Spacer()
                 
@@ -65,10 +65,8 @@ struct CurrentLocationCard: View {
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
         .padding(.top, 52)
         .padding(.bottom, 8)
-        .background(AppColor.red700)
         .clipShape(
 
             .rect(

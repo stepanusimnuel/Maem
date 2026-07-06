@@ -22,7 +22,7 @@ struct MenuCard: View {
             tagSection
 
         }
-        .frame(width: 180)
+        .frame(maxWidth: 180, maxHeight: 255)
         .padding(12)
         .background(AppColor.neutralWhite)
         .clipShape(
@@ -122,15 +122,27 @@ private extension MenuCard {
 
     var tagSection: some View {
 
-        ScrollView(.horizontal, showsIndicators: false) {
+        VStack(alignment: .leading, spacing: 6) {
 
             HStack(spacing: 6) {
 
-                ForEach(menu.tags.displayTags, id: \.self) { tag in
+                ForEach(Array(menu.tags.displayTags.prefix(2)), id: \.self) {
 
-                    TagChip(
-                        tag: tag
-                    )
+                    TagChip(tag: $0)
+
+                }
+
+            }
+
+            if Array(menu.tags.displayTags.dropFirst(2).prefix(2)).isEmpty {
+
+                HStack(spacing: 6) {
+
+                    ForEach(Array(menu.tags.displayTags.dropFirst(2).prefix(2)), id: \.self) {
+
+                        TagChip(tag: $0)
+
+                    }
 
                 }
 

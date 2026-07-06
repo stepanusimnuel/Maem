@@ -18,13 +18,16 @@ struct TagChip: View {
             Image(tag.iconName)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 15, height: 15)
+                .frame(width: 14, height: 14)
 
             Text(tag.title)
                 .font(AppFont.caption(weight: .medium))
+                .lineLimit(1)
+                .truncationMode(.tail)
 
         }
         .foregroundStyle(AppColor.blue700)
+        .frame(maxWidth: 90)
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
         .background(AppColor.blue100)
