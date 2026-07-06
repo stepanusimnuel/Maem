@@ -31,9 +31,20 @@ struct ForKidsSection: View {
 
                     ForEach(menus) { menu in
 
-                        MenuCard(
-                            menu: menu
-                        )
+                        NavigationLink {
+
+                            MenuDetailView(
+                                menu: menu
+                            )
+
+                        } label: {
+
+                            MenuCard(
+                                menu: menu
+                            )
+
+                        }
+                        .buttonStyle(.plain)
 
                     }
 
@@ -90,6 +101,7 @@ private extension ForKidsSection {
 
                 Menu(
                     name: "Chicken Teriyaki",
+                    menuDescription: "Test",
                     price: 52000,
                     imageName: nil,
                     tags: MenuTags(
@@ -104,6 +116,7 @@ private extension ForKidsSection {
 
                 Menu(
                     name: "Beef Bowl",
+                    menuDescription: "Test",
                     price: 56000,
                     imageName: nil,
                     tags: MenuTags(

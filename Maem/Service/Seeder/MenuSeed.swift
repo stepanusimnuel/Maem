@@ -23,6 +23,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Chicken Teriyaki",
+                menuDescription: "Ayam panggang dengan saus teriyaki khas Jepang yang gurih manis, disajikan bersama nasi hangat dan sayuran segar.",
                 price: 52000,
                 imageName: "chicken-teriyaki",
                 tags: MenuTags(
@@ -43,6 +44,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Ayam Gugugaga",
+                menuDescription: "Potongan ayam renyah berukuran kecil dengan tekstur lembut di bagian dalam, cocok untuk anak-anak.",
                 price: 45000,
                 imageName: "AyamGugugaga",
                 tags: MenuTags(
@@ -63,6 +65,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Nasi Imut",
+                menuDescription: "Porsi nasi dengan irisan daging sapi empuk dan sayuran, dirancang khusus untuk porsi anak.",
                 price: 30000,
                 imageName: "NasiImut",
                 tags: MenuTags(
@@ -89,6 +92,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Nasi Goreng Seafood",
+                menuDescription: "Nasi goreng dengan udang dan telur, dimasak menggunakan bumbu khas Solaria yang kaya rasa.",
                 price: 48000,
                 imageName: "nasi-goreng-seafood",
                 tags: MenuTags(
@@ -109,6 +113,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Chicken Cordon Bleu",
+                menuDescription: "Dada ayam berlapis tepung renyah dengan isian keju lembut, disajikan bersama kentang.",
                 price: 65000,
                 imageName: "cordon-bleu",
                 tags: MenuTags(
@@ -129,6 +134,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Mie Ayam",
+                menuDescription: "Mie ayam dengan topping ayam berbumbu gurih dan sayuran segar.",
                 price: 38000,
                 imageName: "mie-ayam",
                 tags: MenuTags(
@@ -155,6 +161,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Beef Bowl",
+                menuDescription: "Irisan daging sapi tipis dengan saus khas Yoshinoya di atas nasi hangat.",
                 price: 54000,
                 imageName: "beef-bowl",
                 tags: MenuTags(
@@ -175,6 +182,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Chicken Bowl",
+                menuDescription: "Ayam berbumbu khas disajikan di atas nasi hangat dengan saus gurih.",
                 price: 47000,
                 imageName: "chicken-bowl",
                 tags: MenuTags(
@@ -195,6 +203,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Black Pepper Beef",
+                menuDescription: "Daging sapi dengan saus lada hitam yang kaya rasa dan sedikit pedas.",
                 price: 62000,
                 imageName: "blackpepper-beef",
                 tags: MenuTags(
@@ -221,6 +230,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Bakmi Ayam",
+                menuDescription: "Bakmi kenyal dengan ayam cincang berbumbu khas Bakmi GM.",
                 price: 43000,
                 imageName: "bakmi-ayam",
                 tags: MenuTags(
@@ -241,6 +251,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Pangsit Kuah",
+                menuDescription: "Pangsit ayam lembut dalam kuah hangat yang gurih.",
                 price: 36000,
                 imageName: "pangsit-kuah",
                 tags: MenuTags(
@@ -261,6 +272,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Bakso Kuah",
+                menuDescription: "Bakso sapi dengan kuah kaldu hangat yang kaya rasa.",
                 price: 42000,
                 imageName: "bakso-kuah",
                 tags: MenuTags(
@@ -286,6 +298,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Mie Suit",
+                menuDescription: "Mie gurih tanpa level pedas, cocok untuk yang ingin menikmati rasa original.",
                 price: 15000,
                 imageName: "mie-suit",
                 tags: MenuTags(
@@ -306,6 +319,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Mie Hompimpa",
+                menuDescription: "Mie pedas favorit dengan bumbu khas Mie Gacoan.",
                 price: 17000,
                 imageName: "mie-hompimpa",
                 tags: MenuTags(
@@ -326,6 +340,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Udang Rambutan",
+                menuDescription: "Udang goreng berlapis tepung renyah dengan tekstur crispy.",
                 price: 19000,
                 imageName: "udang-rambutan",
                 tags: MenuTags(
@@ -352,6 +367,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Bakso Urat",
+                menuDescription: "Bakso urat sapi dengan kuah kaldu hangat dan taburan bawang goreng.",
                 price: 30000,
                 imageName: "bakso-urat",
                 tags: MenuTags(
@@ -372,6 +388,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Bakso Telur",
+                menuDescription: "Bakso sapi isi telur rebus dengan kuah gurih.",
                 price: 32000,
                 imageName: "bakso-telur",
                 tags: MenuTags(
@@ -392,6 +409,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Mie Ayam Bakso",
+                menuDescription: "Perpaduan mie ayam dan bakso sapi dalam satu mangkuk.",
                 price: 35000,
                 imageName: "mie-ayam-bakso",
                 tags: MenuTags(
@@ -418,6 +436,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Soto Ayam",
+                menuDescription: "Soto ayam dengan kuah bening, suwiran ayam, dan taburan bawang goreng.",
                 price: 28000,
                 imageName: "soto-ayam",
                 tags: MenuTags(
@@ -438,6 +457,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Soto Betawi",
+                menuDescription: "Soto Betawi dengan kuah santan gurih dan potongan daging sapi.",
                 price: 45000,
                 imageName: "soto-betawi",
                 tags: MenuTags(
@@ -458,6 +478,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Soto Daging",
+                menuDescription: "Soto daging sapi dengan kuah hangat dan rempah khas Indonesia.",
                 price: 40000,
                 imageName: "soto-daging",
                 tags: MenuTags(
@@ -484,6 +505,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Ayam Goreng",
+                menuDescription: "Ayam goreng berbumbu rempah dengan tekstur renyah di luar dan lembut di dalam.",
                 price: 27000,
                 imageName: "ayam-goreng",
                 tags: MenuTags(
@@ -504,6 +526,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Sayur Asem",
+                menuDescription: "Sayur asem segar berisi berbagai macam sayuran dengan kuah asam yang ringan.",
                 price: 18000,
                 imageName: "sayur-asem",
                 tags: MenuTags(
@@ -524,6 +547,7 @@ enum MenuSeed {
 
             Menu(
                 name: "Tempe Orek",
+                menuDescription: "Tempe orek manis gurih yang dimasak dengan kecap dan sedikit cabai.",
                 price: 15000,
                 imageName: "tempe-orek",
                 tags: MenuTags(

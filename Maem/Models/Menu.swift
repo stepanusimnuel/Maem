@@ -8,7 +8,6 @@
 import Foundation
 import SwiftData
 
-
 @Model
 final class Menu {
 
@@ -16,6 +15,8 @@ final class Menu {
     var id: UUID
 
     var name: String
+
+    var menuDescription: String
 
     var price: Int
 
@@ -29,6 +30,7 @@ final class Menu {
 
     init(
         name: String,
+        menuDescription: String,
         price: Int,
         imageName: String? = nil,
         tags: MenuTags,
@@ -38,6 +40,8 @@ final class Menu {
         self.id = UUID()
 
         self.name = name
+
+        self.menuDescription = menuDescription
 
         self.price = price
 

@@ -29,9 +29,20 @@ struct ForAllSection: View {
 
                 ForEach(menus) { menu in
 
-                    MenuListCard(
-                        menu: menu
-                    )
+                    NavigationLink {
+
+                        MenuDetailView(
+                            menu: menu
+                        )
+
+                    } label: {
+
+                        MenuListCard(
+                            menu: menu
+                        )
+
+                    }
+                    .buttonStyle(.plain)
 
                 }
 

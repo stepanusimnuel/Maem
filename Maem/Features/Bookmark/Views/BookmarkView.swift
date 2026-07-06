@@ -34,9 +34,20 @@ struct BookmarkView: View {
                             viewModel.bookmarkedMenus
                         ) { menu in
 
-                            MenuListCard(
-                                menu: menu
-                            )
+                            NavigationLink {
+
+                                MenuDetailView(
+                                    menu: menu
+                                )
+
+                            } label: {
+
+                                MenuListCard(
+                                    menu: menu
+                                )
+
+                            }
+                            .buttonStyle(.plain)
 
                         }
 
@@ -47,7 +58,7 @@ struct BookmarkView: View {
 
             }
             .padding()
-            .padding(.top, 32)
+            .padding(.top, 42)
             .background(AppColor.red50)
             .task {
 
