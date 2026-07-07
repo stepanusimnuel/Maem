@@ -19,95 +19,159 @@ struct ExploreView: View {
     @State
     private var locationManager = LocationManager()
     
+    @State private var showAlert = false
+    
     @State private var isShowingLocationPicker = false
 
     var body: some View {
 
-        ScrollView {
+        NavigationStack {
+            ZStack {
+                ScrollView {
 
-            VStack(alignment: .leading, spacing: 24) {
+                    VStack(alignment: .leading, spacing: 24) {
 
-                CurrentLocationCard(
-                    selectedFoodCourt: viewModel.selectedFoodCourt,
-                    currentLocation: locationManager.currentLocation,
-                    authorizationStatus: locationManager.authorizationStatus,
-                    onLocationButtonTapped: {
-                        isShowingLocationPicker = true
+                        CurrentLocationCard(
+                            selectedFoodCourt: viewModel.selectedFoodCourt,
+                            currentLocation: locationManager.currentLocation,
+                            authorizationStatus: locationManager.authorizationStatus,
+                            onLocationButtonTapped: {
+                                isShowingLocationPicker = true
+                            }
+                        )
+                        .padding(.top, 56)
+                        
+                        if let selectedFoodCourt = viewModel.selectedFoodCourt {
+                            
+                            NavigationLink {
+                                
+                                SearchSlicingView(
+                                    
+                                    selectedFoodCourt: selectedFoodCourt.foodCourt
+                                    
+                                )
+                                
+                            } label: {
+                                
+                                HStack(spacing: 8) {
+                                    
+                                    Image(systemName: "magnifyingglass")
+                                    
+                                    Text("makanan untuk anak radang")
+                                        .font(AppFont.callout(weight: .medium))
+                                        .foregroundStyle(AppColor.neutralSystemGrey)
+                                    
+                                    Spacer()
+                                    
+                                }
+                                .padding(.horizontal, 10)
+                                .frame(height: 44)
+                                .glassEffect(in: .capsule)
+                                
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        
+                        
+                        ForKidsSection(
+                            menus: viewModel.forKidsMenus
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: 320)
+                        .padding(.leading, 4)
+                        .padding(.top, 16)
+                        
+                        ForAllSection(
+
+                            menus: viewModel.menus
+
+                        ) { menu in
+                            if menu.isBookmarked {
+                                withAnimation(.spring()) {
+                                    showAlert = true
+                                }
+                            }
+                        }
+
                     }
+
+                }
+                .padding()
+                .task {
+
+                    let repository = FoodCourtRepository(
+                        context: modelContext
+                    )
+
+                    locationManager.requestLocationPermission()
+
+                    viewModel.load(
+                        repository: repository,
+                        currentLocation: locationManager.currentLocation,
+                        context: modelContext
+                    )
+
+                }
+                .onChange(of: locationManager.currentLocation) { _, newLocation in
+
+                    guard !viewModel.isManualSelection else {
+                        return
+                    }
+
+                    let repository = FoodCourtRepository(
+                        context: modelContext
+                    )
+
+                    viewModel.load(
+                        repository: repository,
+                        currentLocation: newLocation,
+                        context: modelContext
+                    )
+
+                }
+                
+                .background(
+                    AppColor.red50
                 )
                 
-                ForKidsSection(
-                    menus: viewModel.forKidsMenus
-                )
-                .frame(maxWidth: .infinity, maxHeight: 320)
-                .padding(.leading, 4)
-                .padding(.vertical, 16)
+                .scrollIndicators(.hidden)
                 
-                ForAllSection(
+                .sheet(isPresented: $isShowingLocationPicker) {
 
-                    menus: viewModel.menus
+                    LocationPickerView(
+                        foodCourts: viewModel.foodCourtsByDistance,
+                        selectedFoodCourt: viewModel.selectedFoodCourt
+                    ) { selected in
 
-                )
+                        viewModel.selectFoodCourt(
+                            selected,
+                            context: modelContext
+                        )
 
+                    }
+                    .presentationDetents([.fraction(0.9)])
+                }
+                
+                .ignoresSafeArea()
+                
+                if showAlert {
+                    VStack {
+                        SaveSuccessAlert(isPresented: $showAlert)
+                            .padding(.top, 16)
+                        Spacer()
+                    }
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .zIndex(100)
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                withAnimation {
+                                    showAlert = false
+                                }
+                            }
+                        }
+                }
             }
-
         }
-        .padding()
-        .task {
-
-            let repository = FoodCourtRepository(
-                context: modelContext
-            )
-
-            locationManager.requestLocationPermission()
-
-            viewModel.load(
-                repository: repository,
-                currentLocation: locationManager.currentLocation,
-                context: modelContext
-            )
-
-        }
-        .onChange(of: locationManager.currentLocation) { _, newLocation in
-
-            guard !viewModel.isManualSelection else {
-                return
-            }
-
-            let repository = FoodCourtRepository(
-                context: modelContext
-            )
-
-            viewModel.load(
-                repository: repository,
-                currentLocation: newLocation,
-                context: modelContext
-            )
-
-        }
-        
-        .background(
-            AppColor.red50
-        )
-        
-        .sheet(isPresented: $isShowingLocationPicker) {
-
-            LocationPickerView(
-                foodCourts: viewModel.foodCourtsByDistance,
-                selectedFoodCourt: viewModel.selectedFoodCourt
-            ) { selected in
-
-                viewModel.selectFoodCourt(
-                    selected,
-                    context: modelContext
-                )
-
-            }
-            .presentationDetents([.fraction(0.9)])
-        }
-        
-        .ignoresSafeArea()
-
+    
     }
 
     @ViewBuilder

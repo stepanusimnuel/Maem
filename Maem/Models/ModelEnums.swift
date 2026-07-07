@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Allergen: String, Codable {
+enum Allergen: String, CaseIterable, Codable {
 
     case peanut
 

@@ -10,6 +10,8 @@ import SwiftUI
 struct ForAllSection: View {
 
     let menus: [Menu]
+    
+    var onBookmarkToggled: (Menu) -> Void
 
     var body: some View {
 
@@ -18,12 +20,21 @@ struct ForAllSection: View {
             spacing: 4
         ) {
 
-            Text("Untuk Semua")
-                .font(
-                    AppFont.title2(weight: .bold)
-                )
-                .padding(.horizontal)
-                .foregroundStyle(AppColor.red700)
+            HStack(alignment: .center, spacing: 3) {
+                Text("Untuk Semua")
+                    .font(
+                        AppFont.title2(weight: .bold)
+                    )
+                    
+                
+                Image(systemName: "chevron.right")
+                    .font(
+                        AppFont.body(weight: .bold)
+                    )
+                    
+            }
+            .padding()
+            .foregroundStyle(AppColor.red700)
 
             LazyVStack(spacing: 16) {
 
@@ -39,7 +50,9 @@ struct ForAllSection: View {
 
                         MenuListCard(
                             menu: menu
-                        )
+                        ) {
+                            onBookmarkToggled(menu)
+                        }
 
                     }
                     .buttonStyle(.plain)

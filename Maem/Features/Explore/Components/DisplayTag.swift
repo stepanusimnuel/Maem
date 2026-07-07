@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DisplayTag: Hashable {
+enum DisplayTag: CaseIterable, Hashable {
 
     case kidsPortion
 

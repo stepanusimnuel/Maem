@@ -10,6 +10,8 @@ import SwiftUI
 struct MenuListCard: View {
 
     let menu: Menu
+    
+    var onBookmarkToggled: () -> Void
 
     var body: some View {
 
@@ -90,7 +92,8 @@ private extension MenuListCard {
                 Button {
 
                     menu.isBookmarked.toggle()
-
+                    onBookmarkToggled()
+                    
                 } label: {
 
                     Image(

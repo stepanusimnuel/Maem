@@ -78,9 +78,9 @@ private extension LocationPickerView {
                     Image(systemName: "chevron.left")
                         .font(AppFont.title2(weight: .medium))
                         .frame(width: 44, height: 44)
-                        .foregroundStyle(Color(#colorLiteral(red: 0.4470588235, green: 0.4470588235, blue: 0.4470588235, alpha: 1)))
+                        .glassEffect()
+                        .foregroundStyle(AppColor.red700)
                 }
-                .background(Color(#colorLiteral(red: 0.4705882353, green: 0.4705882353, blue: 0.5019607843, alpha: 1)).opacity(0.16))
                 .clipShape(Circle())
                 
                 Spacer()

@@ -55,8 +55,7 @@ struct ForKidsSection: View {
 
         }
         .padding(.vertical, 16)
-        .padding(.leading, 6)
-        .background(AppColor.red700)
+        .background(AppColor.red300)
         .clipShape(
             RoundedRectangle(cornerRadius: 20)
         )
@@ -74,17 +73,14 @@ private extension ForKidsSection {
             spacing: 2
         ) {
 
-            HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 3) {
                 Text("Untuk Si Kecil")
                     .font(AppFont.title2(weight: .bold))
-                    .foregroundStyle(AppColor.red50)
+                    
                 
-                Spacer()
-                
-                Text("Lihat Lainnya")
-                    .font(AppFont.caption(weight: .regular))
-                    .foregroundStyle(AppColor.red50)
-            }
+                Image(systemName: "chevron.right")
+                    .font(AppFont.body(weight: .bold))
+            }.foregroundStyle(AppColor.red700)
 
         }
         .padding(.horizontal)

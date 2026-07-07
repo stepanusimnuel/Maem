@@ -22,11 +22,11 @@ struct MenuCard: View {
             tagSection
 
         }
-        .frame(maxWidth: 180, maxHeight: 255)
-        .padding(12)
+        .frame(maxWidth: 180, maxHeight: 217)
+        .padding(8)
         .background(AppColor.neutralWhite)
         .clipShape(
-            RoundedRectangle(cornerRadius: 24)
+            RoundedRectangle(cornerRadius: 20)
         )
 
     }
