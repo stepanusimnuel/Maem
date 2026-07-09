@@ -15,6 +15,13 @@ struct MaemApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: FoodCourt.self)
+        .modelContainer(
+            for: [
+                FoodCourt.self,
+                Tenant.self,
+                Menu.self,
+                SearchHistory.self
+            ]
+        )
     }
 }

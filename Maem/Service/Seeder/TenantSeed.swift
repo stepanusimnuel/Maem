@@ -21,12 +21,24 @@ enum TenantSeed {
 
         let hokben = Tenant(
             name: "HokBen",
-            imageName: "hokben"
+            imageName: "category-rice",
+            tenantImages: ["tenant-image-1", "tenant-image-2"],
+            openDay: 0,
+            closeDay: 5,
+            openTime: "06.00",
+            closeTime: "20.00",
+            detailLocation: "Sebelah kanan eskalator utama."
         )
 
         let solaria = Tenant(
             name: "Solaria",
-            imageName: "solaria"
+            imageName: "category-noodle",
+            tenantImages: ["tenant-image-1", "tenant-image-2"],
+            openDay: 0,
+            closeDay: 6,
+            openTime: "08.00",
+            closeTime: "16.00",
+            detailLocation: "30m dari wastafel barat"
         )
 
         foodCourts[0].tenants.append(hokben)
@@ -39,12 +51,23 @@ enum TenantSeed {
 
         let yoshinoya = Tenant(
             name: "Yoshinoya",
-            imageName: "yoshinoya"
+            imageName: "ayam-bu-tini",
+            tenantImages: ["tenant-image-1", "tenant-image-2"],
+            openDay: 0,
+            closeDay: 4,
+            openTime: "09.00",
+            closeTime: "15.00",
+            detailLocation: "Seberang toilet"
         )
 
         let bakmiGM = Tenant(
             name: "Bakmi GM",
-            imageName: "bakmigm"
+            imageName: "category-soupy",
+            openDay: 0,
+            closeDay: 5,
+            openTime: "06.00",
+            closeTime: "18.00",
+            detailLocation: "Tepat di pintu masuk foodcourt"
         )
 
         foodCourts[1].tenants.append(yoshinoya)
@@ -57,12 +80,22 @@ enum TenantSeed {
 
         let gacoan = Tenant(
             name: "Mie Gacoan",
-            imageName: "gacoan"
+            imageName: "category-snack",
+            openDay: 0,
+            closeDay: 6,
+            openTime: "00.00",
+            closeTime: "23.59",
+            detailLocation: "Di ujung kanan dari pintu masuk foodcourt"
         )
 
         let baksoSolo = Tenant(
             name: "Bakso Solo",
-            imageName: "bakso"
+            imageName: "category-drink",
+            openDay: 0,
+            closeDay: 4,
+            openTime: "12.30",
+            closeTime: "21.00",
+            detailLocation: "Di sebelah Mie Gacoan persis"
         )
 
         foodCourts[2].tenants.append(gacoan)
@@ -75,12 +108,22 @@ enum TenantSeed {
 
         let soto = Tenant(
             name: "Soto Ayam Pak Haji",
-            imageName: "soto"
+            imageName: "category-soupy",
+            openDay: 0,
+            closeDay: 6,
+            openTime: "08.00",
+            closeTime: "17.00",
+            detailLocation: "Di tengah ruangan foodcourt"
         )
 
         let warteg = Tenant(
             name: "Warteg Nusantara",
-            imageName: "warteg"
+            imageName: "cateory-rice",
+            openDay: 0,
+            closeDay: 5,
+            openTime: "06.00",
+            closeTime: "21.30",
+            detailLocation: "Tidak jauh dari pintu masuk foodcourt"
         )
 
         foodCourts[3].tenants.append(soto)

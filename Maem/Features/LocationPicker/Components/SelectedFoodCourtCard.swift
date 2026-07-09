@@ -59,6 +59,7 @@ struct SelectedFoodCourtCard: View {
         foodCourt: FoodCourtDistance(
             foodCourt: FoodCourt(
                 name: "AEON Mall BSD - Food Culture",
+                fcDescription: "Testing Description",
                 place: "AEON Mall BSD",
                 address: "Jalan Raya BSD Utama, Padegangan",
                 latitude: 0,

@@ -10,6 +10,8 @@ import SwiftUI
 struct MenuCard: View {
 
     let menu: Menu
+    
+    let onBookmarkTapped: (Menu) -> Void
 
     var body: some View {
 
@@ -75,20 +77,13 @@ private extension MenuCard {
                 Spacer()
                 
                 Button {
-
-                    menu.isBookmarked.toggle()
-
+                    onBookmarkTapped(menu)
                 } label: {
-
-                    Image(
-                        systemName: menu.isBookmarked
-                        ? "bookmark.fill"
-                        : "bookmark"
-                    )
-                    .font(AppFont.callout(weight: .bold))
-                    .foregroundStyle(AppColor.red700)
-
+                    Image(systemName: menu.isBookmarked ? "bookmark.fill" : "bookmark")
+                        .font(AppFont.callout(weight: .bold))
+                        .foregroundStyle(AppColor.red700)
                 }
+                .buttonStyle(.plain)
             }
             
             HStack(spacing: 2) {

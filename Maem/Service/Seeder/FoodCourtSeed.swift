@@ -15,6 +15,7 @@ enum FoodCourtSeed {
 
             FoodCourt(
                 name: "Food Carnival",
+                fcDescription: "Foodcourt Lantai 3",
                 place: "AEON Mall BSD City",
                 address: "Jl. BSD Raya Utama, Pagedangan",
                 imageName: "aeon-carnival",
@@ -24,7 +25,7 @@ enum FoodCourtSeed {
 
             FoodCourt(
                 name: "Food Court",
-                place: "AEON Mall BSD City",
+                fcDescription: "Foodcourt Lantai 1", place: "AEON Mall BSD City",
                 address: "Jl. BSD Raya Utama, Pagedangan",
                 imageName: "aeon-foodcourt",
                 latitude: -6.3047,
@@ -33,6 +34,7 @@ enum FoodCourtSeed {
 
             FoodCourt(
                 name: "Food Court",
+                fcDescription: "Foodcourt Lantai 4",
                 place: "ITC BSD City",
                 address: "Jl. Pahlawan Seribu, BSD",
                 imageName: "itc",
@@ -42,6 +44,7 @@ enum FoodCourtSeed {
 
             FoodCourt(
                 name: "Food Court",
+                fcDescription: "Foodcourt Lantai 1",
                 place: "Pasar Modern Intermoda BSD",
                 address: "Jl. Raya Cisauk",
                 imageName: "intermoda",

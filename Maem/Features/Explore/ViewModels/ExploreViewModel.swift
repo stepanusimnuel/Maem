@@ -23,22 +23,11 @@ final class ExploreViewModel {
 
     var menus: [Menu] = []
     
-    // MARK: Computed
     var forKidsMenus: [Menu] {
 
         menus.filter { menu in
 
-            // Tidak pedas
-            guard menu.tags.spicy == false else {
-                return false
-            }
-
-            // Porsi anak
-            guard menu.tags.portion == .kids else {
-                return false
-            }
-
-            return true
+            return menu.tags.isKidFriendly
 
         }
 

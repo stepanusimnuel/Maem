@@ -72,25 +72,64 @@ struct ExploreView: View {
                             .buttonStyle(.plain)
                         }
                         
-                        
-                        ForKidsSection(
-                            menus: viewModel.forKidsMenus
-                        )
-                        .frame(maxWidth: .infinity, maxHeight: 320)
-                        .padding(.leading, 4)
-                        
-                        ForAllSection(
+                        if let selectedFoodCourt = viewModel.selectedFoodCourt {
 
-                            menus: viewModel.menus
+                            NavigationLink {
 
-                        ) { menu in
-                            if menu.isBookmarked {
-                                withAnimation(.spring()) {
-                                    showAlert = true
+                                ResultView(
+                                    mode: .kids,
+                                    foodCourt: selectedFoodCourt.foodCourt
+                                )
+
+                            } label: {
+
+                                ForKidsSection(
+                                    menus: viewModel.forKidsMenus
+                                ) { clickedMenu in
+
+                                    clickedMenu.isBookmarked.toggle()
+
+                                    if clickedMenu.isBookmarked {
+
+                                        withAnimation(.spring()) {
+
+                                            showAlert = true
+
+                                        }
+
+                                    }
+
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: 320)
+                                .padding(.leading, 4)
+
+                            }
+                            
+                            NavigationLink {
+
+                                ResultView(
+
+                                    mode: .all,
+
+                                    foodCourt: viewModel.selectedFoodCourt!.foodCourt
+
+                                )
+
+                            } label: {
+                                ForAllSection(
+
+                                    menus: viewModel.menus
+
+                                ) { menu in
+                                    if menu.isBookmarked {
+                                        withAnimation(.spring()) {
+                                            showAlert = true
+                                        }
+                                    }
                                 }
                             }
-                        }
 
+                        }
                     }
 
                 }
@@ -127,10 +166,6 @@ struct ExploreView: View {
                     )
 
                 }
-                
-                .background(
-                    AppColor.red50
-                )
                 
                 .scrollIndicators(.hidden)
                 

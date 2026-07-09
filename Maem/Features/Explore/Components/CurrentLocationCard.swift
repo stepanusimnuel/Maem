@@ -30,7 +30,7 @@ struct CurrentLocationCard: View {
                     
                     if selectedFoodCourt == nil {
                         Text("Pilih Food Court")
-                            .font(AppFont.callout(weight: .bold))
+                            .font(AppFont.callout(weight: .regular))
                             
                     } else {
                         Text("\(selectedFoodCourt!.foodCourt.name),  \(selectedFoodCourt!.foodCourt.place)")

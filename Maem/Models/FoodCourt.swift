@@ -16,6 +16,7 @@ final class FoodCourt {
     var id: UUID
 
     var name: String
+    var fcDescription: String
     var place: String
     var address: String
     var latitude: Double
@@ -27,6 +28,7 @@ final class FoodCourt {
 
     init(
         name: String,
+        fcDescription: String,
         place: String,
         address: String,
         imageName: String? = nil,
@@ -35,6 +37,7 @@ final class FoodCourt {
     ) {
         self.id = UUID()
         self.name = name
+        self.fcDescription = fcDescription
         self.place = place
         self.address = address
         self.imageName = imageName

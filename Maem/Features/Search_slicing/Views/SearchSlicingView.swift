@@ -74,9 +74,12 @@ struct SearchSlicingView: View {
             .navigationDestination(
                 isPresented: $viewModel.showResult
             ) {
-                SearchResultView(
-                    searchText: viewModel.searchText,
+                ResultView(
+
+                    mode: .search(viewModel.searchText),
+
                     foodCourt: selectedFoodCourt
+
                 )
             }
         }
@@ -86,5 +89,5 @@ struct SearchSlicingView: View {
 }
 
 #Preview {
-    SearchSlicingView(selectedFoodCourt: FoodCourt(name: "asdad", place: "adas", address: "asdasd", latitude: 2.4, longitude: 3.2))
+    SearchSlicingView(selectedFoodCourt: FoodCourt(name: "asdad", fcDescription: "Testing Description", place: "adas", address: "asdasd", latitude: 2.4, longitude: 3.2))
 }

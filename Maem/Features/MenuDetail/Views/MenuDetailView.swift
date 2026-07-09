@@ -21,6 +21,8 @@ struct MenuDetailView: View {
     
     @State
     private var showAlert: Bool = false
+    
+    @State var navigateToTenant: Bool = false
 
     init(menu: Menu) {
 
@@ -81,6 +83,9 @@ struct MenuDetailView: View {
                         }
                     }
             }
+        }
+        .navigationDestination(for: Menu.self) { selectedMenu in
+            MenuDetailView(menu: selectedMenu)
         }
 
     }
@@ -177,9 +182,16 @@ private extension MenuDetailView {
                 menus: viewModel.otherMenus
 
             ) {
-
-                
-
+                if viewModel.menu.tenant != nil {
+                    navigateToTenant = true
+                }
+            } onBookmarkTapped: { clickedMenu in
+                clickedMenu.isBookmarked.toggle()
+                if clickedMenu.isBookmarked {
+                    withAnimation(.spring()) {
+                        showAlert = true
+                    }
+                }
             }
 
             HorizontalMenuSection(
@@ -190,10 +202,22 @@ private extension MenuDetailView {
 
             ) {
 
+            } onBookmarkTapped: { clickedMenu in
+                clickedMenu.isBookmarked.toggle()
+                if clickedMenu.isBookmarked {
+                    withAnimation(.spring()) {
+                        showAlert = true
+                    }
+                }
             }
 
         }
         .padding(.horizontal)
+        .navigationDestination(isPresented: $navigateToTenant) {
+            if let tenant = viewModel.menu.tenant {
+                TenantView(tenant: tenant)
+            }
+        }
 
     }
 

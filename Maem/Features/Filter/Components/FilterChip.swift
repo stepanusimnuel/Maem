@@ -19,13 +19,13 @@ struct FilterChip: View {
                 .lineLimit(1)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .foregroundStyle(isSelected ? AppColor.neutralWhite : AppColor.red700)
-                .background(isSelected ? AppColor.red700 : AppColor.red100)
+                .foregroundStyle(isSelected ? AppColor.red700 : AppColor.neutralDarkGrey)
+                .background(isSelected ? AppColor.red100 : AppColor.neutralLightGrey)
                 .clipShape(Capsule())
                 .overlay(
                     Capsule()
                         .stroke(lineWidth: 1)
-                        .foregroundStyle(AppColor.red700)
+                        .foregroundStyle(isSelected ? AppColor.red700 : AppColor.neutralDarkGrey)
                 )
         }
         .buttonStyle(.plain)

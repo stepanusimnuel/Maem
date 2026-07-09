@@ -10,6 +10,8 @@ import SwiftUI
 struct ForKidsSection: View {
 
     let menus: [Menu]
+    
+    var onBookmarkTapped: (Menu) -> Void
 
     var body: some View {
 
@@ -19,38 +21,45 @@ struct ForKidsSection: View {
         ) {
 
             header
-
-            ScrollView(
-                .horizontal,
-                showsIndicators: false
-            ) {
-
-                LazyHStack(
-                    spacing: 16
+            
+            if menus.isEmpty {
+                NotFound(title: "Makanan untuk anak masih kosong", subtitle: "Nanti kalau udah ada bakaln muncul disini kok")
+                    .padding(.horizontal)
+            } else {
+                ScrollView(
+                    .horizontal,
+                    showsIndicators: false
                 ) {
 
-                    ForEach(menus) { menu in
+                    LazyHStack(
+                        spacing: 16
+                    ) {
 
-                        NavigationLink {
+                        ForEach(menus) { menu in
 
-                            MenuDetailView(
-                                menu: menu
-                            )
+                            NavigationLink {
 
-                        } label: {
+                                MenuDetailView(
+                                    menu: menu
+                                )
 
-                            MenuCard(
-                                menu: menu
-                            )
+                            } label: {
+
+                                MenuCard(
+                                    menu: menu
+                                ) { clickedMenu in
+                                    onBookmarkTapped(clickedMenu)
+                                }
+
+                            }
+                            .buttonStyle(.plain)
 
                         }
-                        .buttonStyle(.plain)
 
                     }
+                    .padding(.horizontal)
 
                 }
-                .padding(.horizontal)
-
             }
 
         }
@@ -94,7 +103,6 @@ private extension ForKidsSection {
 
         ForKidsSection(
             menus: [
-
                 Menu(
                     name: "Chicken Teriyaki",
                     menuDescription: "Test",
@@ -105,11 +113,9 @@ private extension ForKidsSection {
                         animalProtein: [.chicken],
                         plantProtein: nil,
                         allergens: [],
-                        portion: .reguler,
-                        
+                        portion: .reguler
                     )
                 ),
-
                 Menu(
                     name: "Beef Bowl",
                     menuDescription: "Test",
@@ -120,13 +126,13 @@ private extension ForKidsSection {
                         animalProtein: [.beef],
                         plantProtein: nil,
                         allergens: [],
-                        portion: .reguler,
+                        portion: .reguler
                     )
                 )
-
             ]
-
-        )
+        ) { clickedMenu in
+            print("Menu \(clickedMenu.name) di-bookmark di preview")
+        }
 
     }
 

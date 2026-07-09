@@ -21,6 +21,8 @@ struct MenuTags: Codable {
     var isInstant: Bool?
     var isContainPork: Bool?
     var isContainAlcohol: Bool?
+    
+    var isKidFriendly: Bool = false
 
     init(
         carbs: [Carb]? = nil,
@@ -48,6 +50,10 @@ struct MenuTags: Codable {
         self.isInstant = isInstant
         self.isContainPork = isContainPork
         self.isContainAlcohol = isContainAlcohol
+    
+        if self.spicy == false && self.portion == .kids {
+            self.isKidFriendly = true
+        }
     }
 }
 

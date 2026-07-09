@@ -33,7 +33,7 @@ struct MenuHeroImage: View {
             }
 
         }
-        .frame(height: 340)
+        .frame(width: .infinity, height: 340)
         .clipped()
 
     }

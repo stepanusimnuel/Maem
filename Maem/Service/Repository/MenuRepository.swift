@@ -15,6 +15,11 @@ protocol MenuRepositoryProtocol {
     func getMenus(
         in foodCourt: FoodCourt
     ) throws -> [Menu]
+    
+    func searchMenus(
+        in foodCourt: FoodCourt,
+        query: String
+    ) throws -> [Menu]
 
 }
 
@@ -157,6 +162,25 @@ final class MenuRepository: MenuRepositoryProtocol {
         }
 
         return score
+
+    }
+    
+    func searchMenus(
+        in foodCourt: FoodCourt,
+        query: String
+    ) throws -> [Menu] {
+
+        let menus = try getMenus(in: foodCourt)
+
+        guard !query.isEmpty else {
+            return menus
+        }
+
+        return menus.filter {
+
+            $0.name.localizedCaseInsensitiveContains(query)
+
+        }
 
     }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct SearchResultView: View {
+struct ResultView: View {
 
     @Environment(\.dismiss)
     private var dismiss
@@ -17,22 +17,20 @@ struct SearchResultView: View {
     private var modelContext
 
     @State
-    private var viewModel: SearchResultViewModel
+    private var viewModel: ResultViewModel
     
     @State private var showAlert: Bool = false
 
     init(
-        searchText: String,
+        mode: MenuListMode,
         foodCourt: FoodCourt
     ) {
-
         _viewModel = State(
-            initialValue: SearchResultViewModel(
-                searchText: searchText,
+            initialValue: ResultViewModel(
+                mode: mode,
                 foodCourt: foodCourt
             )
         )
-
     }
 
     var body: some View {
@@ -63,6 +61,11 @@ struct SearchResultView: View {
                         text: $viewModel.searchText
                     )
                     .foregroundStyle(AppColor.neutralLightGrey)
+                    .onChange(of: viewModel.searchText) { _, _ in
+
+                        viewModel.applyFilter()
+
+                    }
                 }
                 .padding(.horizontal, 12)
                 .frame(height: 36)
@@ -101,7 +104,7 @@ struct SearchResultView: View {
 
 }
 
-private extension SearchResultView {
+private extension ResultView {
 
     var quickFilterSection: some View {
 
@@ -110,11 +113,11 @@ private extension SearchResultView {
             showsIndicators: false
         ) {
 
-            HStack {
+            HStack(spacing: 8) {
+                
+                FilterChip(
 
-                QuickFilterChip(
-                    
-                    systemImage: "line.3.horizontal.decrease",
+                    title: "Filter",
 
                     isSelected: false
 
@@ -124,27 +127,31 @@ private extension SearchResultView {
 
                 }
 
-                QuickFilterChip(
+                FilterChip(
 
-                    title: "Untuk Anak",
+                    title: "Halal",
 
-                    isSelected: viewModel.isKidsOnly
+                    isSelected: viewModel.isHalalOnly
 
                 ) {
 
-                    viewModel.isKidsOnly.toggle()
+                    viewModel.isHalalOnly.toggle()
+
+                    viewModel.applyFilter()
 
                 }
 
-                QuickFilterChip(
+                FilterChip(
 
-                    title: "<30K",
+                    title: "Di bawah 30ribu",
 
                     isSelected: viewModel.isBelow30K
 
                 ) {
 
                     viewModel.isBelow30K.toggle()
+
+                    viewModel.applyFilter()
 
                 }
 
@@ -156,36 +163,52 @@ private extension SearchResultView {
 
 }
 
-private extension SearchResultView {
+private extension ResultView {
 
+    @ViewBuilder
     var resultSection: some View {
 
-        LazyVStack(
-            spacing: 12
-        ) {
+        if viewModel.filteredMenus.isEmpty {
 
-            ForEach(viewModel.filteredMenus) { menu in
+            HStack {
+                Spacer()
+                NotFound(
+                    title: "Pencarian \(viewModel.searchText) tidak ditemukan", subtitle: "Coba lagi dengan kata kunci dan filter lain"
+                )
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                NavigationLink {
+        } else {
 
-                    MenuDetailView(
-                        menu: menu
-                    )
+            LazyVStack(
+                spacing: 12
+            ) {
 
-                } label: {
+                ForEach(viewModel.filteredMenus) { menu in
 
-                    MenuListCard(
-                        menu: menu
-                    ) {
-                        if menu.isBookmarked {
-                            withAnimation(.spring()) {
-                                showAlert = true
+                    NavigationLink {
+
+                        MenuDetailView(
+                            menu: menu
+                        )
+
+                    } label: {
+
+                        MenuListCard(
+                            menu: menu
+                        ) {
+                            if menu.isBookmarked {
+                                withAnimation(.spring()) {
+                                    showAlert = true
+                                }
                             }
                         }
+
                     }
+                    .buttonStyle(.plain)
 
                 }
-                .buttonStyle(.plain)
 
             }
 

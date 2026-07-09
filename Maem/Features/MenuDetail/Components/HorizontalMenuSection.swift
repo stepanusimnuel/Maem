@@ -14,6 +14,8 @@ struct HorizontalMenuSection: View {
     let menus: [Menu]
 
     let onSeeAll: () -> Void
+    
+    var onBookmarkTapped: (Menu) -> Void
 
     var body: some View {
 
@@ -43,9 +45,9 @@ struct HorizontalMenuSection: View {
 
                         } label: {
 
-                            MenuCard(
-                                menu: menu
-                            )
+                            MenuCard(menu: menu) { clickedMenu in
+                                onBookmarkTapped(clickedMenu)
+                            }
 
                         }
                         .buttonStyle(.plain)
