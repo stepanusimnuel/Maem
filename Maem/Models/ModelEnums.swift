@@ -10,15 +10,21 @@ import Foundation
 
 enum Allergen: String, CaseIterable, Codable {
 
-    case peanut
+    case peanut = "Kacang"
 
-    case milk
+    case milk = "Susu"
 
-    case seafood
+    case shrimp = "Udang"
+    
+    case shellfish = "Kerang"
+    
+    case fish = "Ikan"
 
-    case egg
+    case egg = "Telur"
 
-    case gluten
+    case gluten = "Gluten"
+    
+    case sesame = "Wijen"
 
 }
 

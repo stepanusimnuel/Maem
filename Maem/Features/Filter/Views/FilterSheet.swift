@@ -13,7 +13,6 @@ struct FilterSheet: View {
     private var dismiss
 
     @Binding
-
     var filter: SearchFilter
     
     let onApply: () -> Void
@@ -49,6 +48,7 @@ struct FilterSheet: View {
                 toolbar
 
             }
+            .background(AppColor.red50)
 
         }
 
@@ -88,7 +88,7 @@ private extension FilterSheet {
 
             Text("Filter")
                 .font(
-                    AppFont.headline()
+                    AppFont.body(weight: .bold)
                 )
 
         }
@@ -122,47 +122,23 @@ private extension FilterSheet {
 private extension FilterSheet {
 
     var tagSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Tags")
+                .font(AppFont.body(weight: .bold))
 
-        VStack(
-            alignment: .leading,
-            spacing: 12
-        ) {
-
-            Text("Tag")
-                .font(AppFont.title2(weight: .bold))
-
-            ForEach(
-                DisplayTag.allCases,
-                id: \.self
-            ) { tag in
-
-                FilterRow(
-
-                    title: tag.title,
-
-                    isSelected:
-                        filter.tags.contains(tag)
-
-                ) {
-
-                    if filter.tags.contains(tag) {
-
-                        filter.tags.remove(tag)
-
+            FlowLayout(spacing: 12) {
+                ForEach([DisplayTag.isInstant, .spicy, .kidsPortion], id: \.self) { tag in
+                    let isSelected = filter.tags.contains(tag)
+                    FilterChip(title: tag.title, isSelected: isSelected) {
+                        if isSelected {
+                            filter.tags.remove(tag)
+                        } else {
+                            filter.tags.insert(tag)
+                        }
                     }
-
-                    else {
-
-                        filter.tags.insert(tag)
-
-                    }
-
                 }
-
             }
-
         }
-
     }
 
 }
@@ -170,85 +146,52 @@ private extension FilterSheet {
 private extension FilterSheet {
 
     var allergenSection: some View {
-
-        VStack(
-            alignment: .leading,
-            spacing: 12
-        ) {
-
+        VStack(alignment: .leading, spacing: 12) {
             Text("Alergen")
-                .font(AppFont.title2(weight: .bold))
+                .font(AppFont.body(weight: .bold))
 
-            ForEach(
-                Allergen.allCases,
-                id: \.self
-            ) { allergen in
-
-                FilterRow(
-
-                    title: allergen.rawValue.capitalized,
-
-                    isSelected:
-                        filter.allergens.contains(allergen)
-
-                ) {
-
-                    if filter.allergens.contains(allergen) {
-
-                        filter.allergens.remove(allergen)
-
+            FlowLayout(spacing: 12) {
+                ForEach(Allergen.allCases, id: \.self) { allergen in
+                    let isSelected = filter.allergens.contains(allergen)
+                    FilterChip(title: allergen.rawValue.capitalized, isSelected: isSelected) {
+                        if isSelected {
+                            filter.allergens.remove(allergen)
+                        } else {
+                            filter.allergens.insert(allergen)
+                        }
                     }
-
-                    else {
-
-                        filter.allergens.insert(allergen)
-
-                    }
-
                 }
-
             }
-
         }
-
     }
 
 }
 
+
 private extension FilterSheet {
 
     var priceSection: some View {
-
         VStack(
             alignment: .leading,
             spacing: 12
         ) {
-
             Text("Harga")
-                .font(AppFont.title2(weight: .bold))
+                .font(AppFont.body(weight: .bold))
 
-            ForEach(
-                PriceFilter.allCases,
-                id: \.self
-            ) { option in
-
-                PriceOptionRow(
-
-                    title: option.title,
-
-                    isSelected:
-                        filter.priceFilter == option
-
-                ) {
-
-                    filter.priceFilter = option
-
+            FlowLayout(spacing: 12) {
+                ForEach(PriceFilter.allCases, id: \.self) { option in
+                    let isSelected = filter.priceFilter == option
+                    
+                    FilterChip(title: option.title, isSelected: isSelected) {
+                        if isSelected {
+                            filter.priceFilter = nil
+                        } else {
+                            filter.priceFilter = option
+                        }
+                    }
                 }
-
             }
-
         }
-
     }
 
 }
@@ -256,27 +199,42 @@ private extension FilterSheet {
 private extension FilterSheet {
 
     var manualPriceSection: some View {
-
         VStack(
             alignment: .leading,
             spacing: 12
         ) {
-
-            Text("Harga Manual")
-                .font(AppFont.title2(weight: .bold))
-
-            PriceRangeInput(
-
-                minimum: $filter.minimumPrice,
-
-                maximum: $filter.maximumPrice
-
-            )
-
+            HStack(spacing: 16) {
+                CustomPriceField(label: "Min", text: $filter.minimumPrice)
+                CustomPriceField(label: "Max", text: $filter.maximumPrice)
+            }
         }
-
+        .padding(.horizontal)
     }
 
+}
+
+struct CustomPriceField: View {
+    let label: String
+    @Binding var text: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(label)
+                .font(AppFont.callout(weight: .regular))
+                .foregroundStyle(AppColor.neutralBlack)
+            
+            Rectangle()
+                .fill(AppColor.neutralSystemGrey.opacity(0.3))
+                .frame(height: 1)
+            
+            VStack(spacing: 0) {
+                TextField("0", text: $text)
+                    .keyboardType(.numberPad)
+                    .font(AppFont.body())
+                    .frame(height: 48)
+            }
+        }
+    }
 }
 
 private extension FilterSheet {
@@ -289,23 +247,26 @@ private extension FilterSheet {
         ) {
 
             Text("Jenis Makanan")
-                .font(AppFont.title2(weight: .bold))
+                .font(AppFont.body(weight: .bold))
+            
+            FilterRow(
+                title: "Semua makanan",
+                isSelected: filter.category == nil
+            ) {
+                filter.category = nil
+            }
 
-            ForEach(
-                FoodCategory.allCases
-            ) { category in
+            ForEach(FoodCategory.allCases) { category in
 
-                FoodCategoryRow(
-
-                    category: category,
-
-                    isSelected:
-                        filter.category == category
-
+                FilterRow(
+                    title: category.title,
+                    isSelected: filter.category == category
                 ) {
-
-                    filter.category = category
-
+                    if filter.category == category {
+                        filter.category = nil
+                    } else {
+                        filter.category = category
+                    }
                 }
 
             }
@@ -315,6 +276,9 @@ private extension FilterSheet {
     }
 
 }
+
+
+
 
 #Preview {
 

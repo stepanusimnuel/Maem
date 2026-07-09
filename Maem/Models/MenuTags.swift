@@ -56,23 +56,31 @@ extension MenuTags {
     var displayTags: [DisplayTag] {
 
         var tags: [DisplayTag] = []
-
-        if portion == .kids {
-            tags.append(.kidsPortion)
-        }
-
-        if animalProtein != nil || plantProtein != nil {
-            tags.append(.protein)
+        
+        if let allergens, !allergens.isEmpty {
+            tags.append(.allergen)
         }
 
         if spicy == false {
             tags.append(.notSpicy)
         }
+        
+        if portion == .kids {
+            tags.append(.kidsPortion)
+        }
+        
+        if let texture {
 
-        if let allergens,
-           !allergens.isEmpty {
+            if texture.contains(.soupy) {
 
-            tags.append(.allergen)
+                tags.append(.soupy)
+
+            }
+
+        }
+
+        if animalProtein != nil || plantProtein != nil {
+            tags.append(.protein)
         }
 
         if let veggies,
@@ -81,16 +89,6 @@ extension MenuTags {
             tags.append(.vegetable)
         }
 
-        if let texture {
-
-            if texture.contains(.soft) ||
-                texture.contains(.soupy) {
-
-                tags.append(.easyToChew)
-
-            }
-
-        }
 
         return tags
 

@@ -54,6 +54,6 @@ struct ContentView: View {
 
 #Preview {
 
-    ContentView().modelContainer(for: FoodCourt.self)
+    ContentView().modelContainer(for: [FoodCourt.self, SearchHistory.self])
 
 }

@@ -38,13 +38,7 @@ final class ExploreViewModel {
                 return false
             }
 
-            // Mudah dikunyah (lembut ATAU berkuah)
-            guard let textures = menu.tags.texture else {
-                return false
-            }
-
-            return textures.contains(.soft) ||
-                   textures.contains(.soupy)
+            return true
 
         }
 

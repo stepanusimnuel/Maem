@@ -44,8 +44,6 @@ struct SearchResultView: View {
                 spacing: 24
             ) {
 
-                headerSection
-
                 quickFilterSection
 
                 resultSection
@@ -54,7 +52,25 @@ struct SearchResultView: View {
             .padding()
 
         }
-        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack(spacing: 8) {
+                    Image(systemName: "magnifyingglass")
+
+                    TextField(
+                        "makanan untuk anak radang",
+                        text: $viewModel.searchText
+                    )
+                    .foregroundStyle(AppColor.neutralLightGrey)
+                }
+                .padding(.horizontal, 12)
+                .frame(height: 36)
+                .glassEffect(in: .capsule)
+                
+                .padding(.trailing, 8)
+            }
+        }
         .task {
 
             viewModel.load(
@@ -78,55 +94,6 @@ struct SearchResultView: View {
             .presentationDetents([
                 .fraction(0.95)
             ])
-
-        }
-
-    }
-
-}
-
-private extension SearchResultView {
-
-    var headerSection: some View {
-
-        VStack(
-            spacing: 16
-        ) {
-
-            HStack(spacing: 12) {
-
-                Button {
-
-                    dismiss()
-
-                } label: {
-
-                    Image(systemName: "chevron.left")
-                        .font(AppFont.caption(weight: .bold))
-                        .foregroundStyle(AppColor.red700)
-                        .frame(width: 12, height: 12)
-
-                }
-                .buttonStyle(.glass)
-                .clipShape(Circle())
-
-                Spacer()
-
-            }
-
-            HStack(spacing: 8) {
-
-                Image(systemName: "magnifyingglass")
-
-                TextField(
-                    "Cari makanan...",
-                    text: $viewModel.searchText
-                )
-
-            }
-            .padding(.horizontal, 12)
-            .frame(height: 44)
-            .glassEffect(in: .capsule)
 
         }
 

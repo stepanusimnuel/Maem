@@ -20,7 +20,7 @@ struct FoodCategoryCard: View {
             Image(category.imageName)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 72, height: 72)
+                .frame(width: 110, height: 100)
                 .clipShape(
                     RoundedRectangle(
                         cornerRadius: 20

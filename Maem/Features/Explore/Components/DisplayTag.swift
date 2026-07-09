@@ -14,12 +14,16 @@ enum DisplayTag: CaseIterable, Hashable {
     case protein
 
     case notSpicy
+    
+    case spicy
 
     case allergen
 
     case vegetable
-
-    case easyToChew
+    
+    case isInstant
+    
+    case soupy
 
 }
 
@@ -30,23 +34,28 @@ extension DisplayTag {
         switch self {
 
         case .kidsPortion:
-            return "Porsi Anak"
+            return "Porsi Kecil"
 
         case .protein:
             return "Protein"
 
         case .notSpicy:
             return "Tidak Pedas"
+            
+        case .spicy:
+            return "Pedas"
 
         case .allergen:
             return "Alergen"
 
         case .vegetable:
             return "Sayur"
-
-        case .easyToChew:
-            return "Mudah Dikunyah"
-
+            
+        case .isInstant:
+            return "Cepat Saji"
+            
+        case .soupy:
+            return "Berkuah"
         }
 
     }
@@ -63,15 +72,21 @@ extension DisplayTag {
 
         case .notSpicy:
             return "tag-not-spicy"
+            
+        case .spicy:
+            return "tag-spicy"
 
         case .allergen:
             return "tag-allergen"
 
         case .vegetable:
             return "tag-vegetable"
-
-        case .easyToChew:
-            return "tag-easy-chew"
+            
+        case .isInstant:
+            return "tag-is-instant"
+            
+        case .soupy:
+            return "tag-soupy"
 
         }
 

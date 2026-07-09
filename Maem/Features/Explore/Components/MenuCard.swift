@@ -17,12 +17,14 @@ struct MenuCard: View {
 
             imageSection
 
-            infoSection
-
-            tagSection
+            VStack(spacing: 14) {
+                infoSection
+                
+                tagSection
+            }
 
         }
-        .frame(maxWidth: 180, maxHeight: 217)
+        .frame(width: 180, height: 230)
         .padding(8)
         .background(AppColor.neutralWhite)
         .clipShape(
@@ -36,38 +38,24 @@ struct MenuCard: View {
 // MARK: - Image
 
 private extension MenuCard {
-
     @ViewBuilder
     var imageSection: some View {
-
         ZStack(alignment: .topTrailing) {
-
             Group {
-
                 if let imageName = menu.imageName {
-
                     Image(imageName)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-
                 } else {
-
                     Rectangle()
                         .fill(AppColor.red100)
-
                 }
-
             }
-            .frame(height: 140)
+            .frame(width: 180, height: 120)
             .clipped()
-            .clipShape(
-                RoundedRectangle(cornerRadius: 20)
-            )
-
+            .clipShape(RoundedRectangle(cornerRadius: 20))
         }
-
     }
-
 }
 
 // MARK: - Info
@@ -102,12 +90,20 @@ private extension MenuCard {
 
                 }
             }
+            
+            HStack(spacing: 2) {
+                Image(systemName: "storefront.circle")
+                    .frame(width: 15, height: 15)
+                
+                Text(menu.tenant?.name ?? "Unknown")
+            }
+            .font(AppFont.caption2())
 
             Text(
                 menu.price,
                 format: .currency(code: "IDR")
             )
-            .font(AppFont.caption())
+            .font(AppFont.caption3())
             .foregroundStyle(AppColor.neutralSystemGrey)
 
         }
@@ -122,29 +118,11 @@ private extension MenuCard {
 
     var tagSection: some View {
 
-        VStack(alignment: .leading, spacing: 6) {
+        HStack(spacing: 6) {
 
-            HStack(spacing: 6) {
+            ForEach(Array(menu.tags.displayTags.prefix(2)), id: \.self) {
 
-                ForEach(Array(menu.tags.displayTags.prefix(2)), id: \.self) {
-
-                    TagChip(tag: $0)
-
-                }
-
-            }
-
-            if Array(menu.tags.displayTags.dropFirst(2).prefix(2)).isEmpty {
-
-                HStack(spacing: 6) {
-
-                    ForEach(Array(menu.tags.displayTags.dropFirst(2).prefix(2)), id: \.self) {
-
-                        TagChip(tag: $0)
-
-                    }
-
-                }
+                TagChip(tag: $0)
 
             }
 

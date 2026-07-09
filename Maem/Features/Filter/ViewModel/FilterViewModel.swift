@@ -22,15 +22,15 @@ enum PriceFilter: String, CaseIterable {
 
         case .below50:
 
-            "< Rp50.000"
+            "<50.000"
 
         case .between50And100:
 
-            "Rp50.000 - Rp100.000"
+            "50.000 - 100.000"
 
         case .above100:
 
-            "> Rp100.000"
+            ">100.000"
 
         }
 

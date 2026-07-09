@@ -15,7 +15,7 @@ struct ForKidsSection: View {
 
         VStack(
             alignment: .leading,
-            spacing: 4
+            spacing: 12
         ) {
 
             header

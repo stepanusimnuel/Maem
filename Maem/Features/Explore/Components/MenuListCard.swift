@@ -19,7 +19,7 @@ struct MenuListCard: View {
 
             imageSection
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 16) {
 
                 infoSection
 
@@ -108,6 +108,14 @@ private extension MenuListCard {
                 .buttonStyle(.plain)
 
             }
+            
+            HStack(spacing: 2) {
+                Image(systemName: "storefront.circle")
+                    .frame(width: 15, height: 15)
+                
+                Text(menu.tenant?.name ?? "Unknown")
+            }
+            .font(AppFont.caption())
 
             Text(
                 menu.price,
@@ -126,46 +134,18 @@ private extension MenuListCard {
 
     var tagSection: some View {
 
-        VStack(alignment: .leading, spacing: 6) {
+        HStack(spacing: 6) {
 
-            HStack(spacing: 6) {
+            ForEach(
+                Array(menu.tags.displayTags.prefix(2)),
+                id: \.self
+            ) {
 
-                ForEach(
-                    Array(menu.tags.displayTags.prefix(2)),
-                    id: \.self
-                ) {
-
-                    TagChip(tag: $0)
-
-                }
-
-            }
-
-            let secondRow = Array(
-                menu.tags.displayTags
-                    .dropFirst(2)
-                    .prefix(2)
-            )
-
-            if !secondRow.isEmpty {
-
-                HStack(spacing: 6) {
-
-                    ForEach(
-                        secondRow,
-                        id: \.self
-                    ) {
-
-                        TagChip(tag: $0)
-
-                    }
-
-                }
+                TagChip(tag: $0)
 
             }
 
         }
-        .padding(.top, 8)
 
     }
 

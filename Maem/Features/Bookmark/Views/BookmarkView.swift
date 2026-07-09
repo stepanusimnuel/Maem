@@ -21,67 +21,56 @@ struct BookmarkView: View {
     var body: some View {
 
         NavigationStack {
-
+            
             ZStack {
-                ScrollView {
-
-                    VStack(alignment: .leading) {
-                        Text("Menu Tersimpan")
-                            .font(AppFont.title2(weight: .bold))
+                
+                AppColor.red50.ignoresSafeArea()
+                
+                VStack(alignment: .leading) {
+                    Text("Menu Tersimpan")
+                        .font(AppFont.title2(weight: .bold))
+                        .padding(.horizontal)
+                    if viewModel.bookmarkedMenus.isEmpty {
                         
-                        LazyVStack(
-                            spacing: 12
-                        ) {
-
-                            ForEach(
-                                viewModel.bookmarkedMenus
-                            ) { menu in
-
-                                NavigationLink {
-
-                                    MenuDetailView(
-                                        menu: menu
-                                    )
-
-                                } label: {
-
-                                    MenuListCard(
-                                        menu: menu
-                                    ) {
-                                        if menu.isBookmarked {
-                                            withAnimation(.spring()) {
-                                                showAlert = true
+                        NotFound(title: "Belum ada menu", subtitle: "Tambahkan menu favoritmu, yuk!")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        
+                    } else {
+                        
+                        ScrollView {
+                            
+                            LazyVStack(spacing: 12) {
+                                
+                                ForEach(viewModel.bookmarkedMenus) { menu in
+                                    
+                                    NavigationLink {
+                                        MenuDetailView(menu: menu)
+                                    } label: {
+                                        MenuListCard(menu: menu) {
+                                            if menu.isBookmarked {
+                                                withAnimation(.spring()) {
+                                                    showAlert = true
+                                                }
                                             }
                                         }
                                     }
-
+                                    .buttonStyle(.plain)
+                                    
                                 }
-                                .buttonStyle(.plain)
-
+                                
                             }
-
+                            .padding()
+                            
+                            
                         }
-                        .padding()
                     }
                     
-
-                }
-                .padding()
-                .padding(.top, 56)
-                .background(AppColor.red50)
-                .task {
-
-                    loadBookmarks()
-
-                }
-                .ignoresSafeArea()
-                
-                if showAlert {
-                    VStack {
-                        SaveSuccessAlert(isPresented: $showAlert)
-                            .padding(.top, 16)
-                        Spacer()
-                    }
+                    if showAlert {
+                        VStack {
+                            SaveSuccessAlert(isPresented: $showAlert)
+                                .padding(.top, 16)
+                            Spacer()
+                        }
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .zIndex(100)
                         .onAppear {
@@ -91,9 +80,13 @@ struct BookmarkView: View {
                                 }
                             }
                         }
+                    }
                 }
+                .task {
+                    loadBookmarks()
+                }
+                
             }
-
         }
 
     }

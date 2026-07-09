@@ -31,20 +31,25 @@ struct CurrentLocationCard: View {
                     if selectedFoodCourt == nil {
                         Text("Pilih Food Court")
                             .font(AppFont.callout(weight: .bold))
+                            
                     } else {
                         Text("\(selectedFoodCourt!.foodCourt.name),  \(selectedFoodCourt!.foodCourt.place)")
                             .font(AppFont.callout(weight: .bold))
                     }
                     
                 }
-                .foregroundStyle(AppColor.neutralWhite)
+                .foregroundStyle(AppColor.red700)
 
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 16)
-            .background(AppColor.red700)
+            .background(AppColor.red100)
             .clipShape(
                 Capsule()
+            )
+            .overlay(
+                Capsule()
+                    .stroke(AppColor.red700, lineWidth: 1)
             )
         }
 

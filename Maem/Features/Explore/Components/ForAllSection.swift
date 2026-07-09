@@ -17,7 +17,7 @@ struct ForAllSection: View {
 
         VStack(
             alignment: .leading,
-            spacing: 4
+            spacing: 8
         ) {
 
             HStack(alignment: .center, spacing: 3) {
@@ -33,7 +33,7 @@ struct ForAllSection: View {
                     )
                     
             }
-            .padding()
+            .padding(.horizontal)
             .foregroundStyle(AppColor.red700)
 
             LazyVStack(spacing: 16) {

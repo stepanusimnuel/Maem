@@ -21,15 +21,14 @@ struct TagChip: View {
                 .frame(width: 14, height: 14)
 
             Text(tag.title)
-                .font(AppFont.caption(weight: .medium))
+                .font(AppFont.caption2(weight: .regular))
                 .lineLimit(1)
                 .truncationMode(.tail)
 
         }
         .foregroundStyle(AppColor.blue700)
-        .frame(maxWidth: 90)
         .padding(.horizontal, 8)
-        .padding(.vertical, 4)
+        .padding(.vertical, 6)
         .background(AppColor.blue100)
         .clipShape(Capsule())
 
@@ -45,7 +44,6 @@ struct TagChip: View {
 
             TagChip(tag: .protein)
             TagChip(tag: .allergen)
-            TagChip(tag: .easyToChew)
             TagChip(tag: .kidsPortion)
             TagChip(tag: .notSpicy)
             TagChip(tag: .vegetable)

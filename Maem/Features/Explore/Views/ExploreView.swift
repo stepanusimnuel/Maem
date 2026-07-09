@@ -29,7 +29,7 @@ struct ExploreView: View {
             ZStack {
                 ScrollView {
 
-                    VStack(alignment: .leading, spacing: 24) {
+                    VStack(alignment: .leading, spacing: 10) {
 
                         CurrentLocationCard(
                             selectedFoodCourt: viewModel.selectedFoodCourt,
@@ -78,7 +78,6 @@ struct ExploreView: View {
                         )
                         .frame(maxWidth: .infinity, maxHeight: 320)
                         .padding(.leading, 4)
-                        .padding(.top, 16)
                         
                         ForAllSection(
 

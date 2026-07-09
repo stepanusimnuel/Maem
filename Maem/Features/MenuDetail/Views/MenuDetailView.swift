@@ -18,6 +18,9 @@ struct MenuDetailView: View {
 
     @State
     private var viewModel: MenuDetailViewModel
+    
+    @State
+    private var showAlert: Bool = false
 
     init(menu: Menu) {
 
@@ -31,35 +34,53 @@ struct MenuDetailView: View {
 
     var body: some View {
 
-        ScrollView {
+        ZStack {
+            ScrollView {
 
-            VStack(
-                alignment: .leading,
-                spacing: 24
-            ) {
+                VStack(
+                    alignment: .leading,
+                    spacing: 24
+                ) {
 
-                MenuHeroImage(
-                    imageName: viewModel.menu.imageName
-                )
+                    MenuHeroImage(
+                        imageName: viewModel.menu.imageName
+                    )
 
-                content
+                    content
+
+                }
 
             }
+            .ignoresSafeArea(edges: .top)
+            .navigationBarBackButtonHidden()
+            .toolbar {
 
-        }
-        .ignoresSafeArea(edges: .top)
-        .navigationBarBackButtonHidden()
-        .toolbar {
+                toolbarContent
 
-            toolbarContent
+            }
+            .task {
 
-        }
-        .task {
+                viewModel.load(
+                    context: modelContext
+                )
 
-            viewModel.load(
-                context: modelContext
-            )
-
+            }
+            
+            if showAlert {
+                VStack {
+                    SaveSuccessAlert(isPresented: $showAlert)
+                    Spacer()
+                }
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .zIndex(100)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            withAnimation {
+                                showAlert = false
+                            }
+                        }
+                    }
+            }
         }
 
     }
@@ -109,6 +130,12 @@ private extension MenuDetailView {
             Button {
 
                 viewModel.menu.isBookmarked.toggle()
+                
+                if viewModel.menu.isBookmarked {
+                    withAnimation(.spring()) {
+                        showAlert = true
+                    }
+                }
 
             } label: {
 
@@ -151,7 +178,7 @@ private extension MenuDetailView {
 
             ) {
 
-                // nanti buka halaman lihat semua
+                
 
             }
 

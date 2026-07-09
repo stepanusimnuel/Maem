@@ -28,16 +28,16 @@ struct FoodCategorySection: View {
             spacing: 16
         ) {
 
-            Text("Rekomendasi")
+            Text("Jenis makanan")
                 .font(
-                    AppFont.title2(
+                    AppFont.body(
                         weight: .bold
                     )
                 )
 
             LazyVGrid(
                 columns: columns,
-                spacing: 24
+                spacing: 16
             ) {
 
                 ForEach(categories) { category in

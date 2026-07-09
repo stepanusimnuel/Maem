@@ -41,4 +41,8 @@ enum AppFont {
     static func caption2(weight: Font.Weight = .regular) -> Font {
         .system(size: 12, weight: weight, design: .rounded)
     }
+    
+    static func caption3(weight: Font.Weight = .regular) -> Font {
+        .system(size: 10, weight: weight, design: .rounded)
+    }
 }
