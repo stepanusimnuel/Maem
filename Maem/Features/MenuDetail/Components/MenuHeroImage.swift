@@ -33,8 +33,16 @@ struct MenuHeroImage: View {
             }
 
         }
-        .frame(width: .infinity, height: 340)
-        .clipped()
+        .clipShape(
+            UnevenRoundedRectangle(
+                topLeadingRadius: 0,
+                bottomLeadingRadius: 20,
+                bottomTrailingRadius: 20,
+                topTrailingRadius: 0
+            )
+        )
+        .frame(maxWidth: .infinity)
+        .frame(height: 384)
 
     }
 

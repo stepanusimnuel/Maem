@@ -19,7 +19,7 @@ struct MenuCard: View {
 
             imageSection
 
-            VStack(spacing: 14) {
+            VStack(alignment: .leading, spacing: 14) {
                 infoSection
                 
                 tagSection
@@ -115,7 +115,7 @@ private extension MenuCard {
 
         HStack(spacing: 6) {
 
-            ForEach(Array(menu.tags.displayTags.prefix(2)), id: \.self) {
+            ForEach(Array(menu.tags.displayTags.prefix(1)), id: \.self) {
 
                 TagChip(tag: $0)
 

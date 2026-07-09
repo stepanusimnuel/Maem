@@ -25,39 +25,45 @@ struct LocationPickerView: View {
 
             header
 
-            searchField
+            VStack (spacing: 24) {
+                searchField
 
-            ScrollView {
+                ScrollView {
 
-                LazyVStack(spacing: 12) {
+                    LazyVStack(alignment:.leading, spacing: 16) {
+                        
+                        Text("Terdekat dari lokasimu")
+                            .font(AppFont.body(weight: .semibold))
 
-                    ForEach(filteredFoodCourts) { foodCourt in
+                        ForEach(filteredFoodCourts) { foodCourt in
 
-                        Button {
+                            Button {
 
-                            onSelect(foodCourt)
-                            dismiss()
+                                onSelect(foodCourt)
+                                dismiss()
 
-                        } label: {
+                            } label: {
 
-                            FoodCourtCard(
-                                foodCourt: foodCourt,
-                                isSelected: selectedFoodCourt?.id == foodCourt.id
-                            )
+                                FoodCourtCard(
+                                    foodCourt: foodCourt,
+                                    isSelected: selectedFoodCourt?.id == foodCourt.id
+                                )
+                                .shadow(color: Color.black.opacity(0.1), radius: 24, x: 0, y: 8)
+
+                            }
+                            .buttonStyle(.plain)
 
                         }
-                        .buttonStyle(.plain)
 
                     }
+                    .padding(.horizontal)
 
                 }
-                .padding(.horizontal)
-
             }
 
         }
         .padding(.top)
-        .background(AppColor.red50)
+        .background(AppColor.neutralWhite)
 
     }
 

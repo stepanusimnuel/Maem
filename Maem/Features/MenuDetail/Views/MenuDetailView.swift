@@ -113,48 +113,6 @@ private extension MenuDetailView {
 
         }
 
-        ToolbarItem(
-            placement: .principal
-        ) {
-
-            Text(
-                viewModel.menu.tenant?.name ?? ""
-            )
-            .font(
-                AppFont.callout(
-                    weight: .bold
-                )
-            )
-
-        }
-
-        ToolbarItem(
-            placement: .topBarTrailing
-        ) {
-
-            Button {
-
-                viewModel.menu.isBookmarked.toggle()
-                
-                if viewModel.menu.isBookmarked {
-                    withAnimation(.spring()) {
-                        showAlert = true
-                    }
-                }
-
-            } label: {
-
-                Image(
-                    systemName:
-                        viewModel.menu.isBookmarked
-                    ? "bookmark.fill"
-                    : "bookmark"
-                )
-
-            }
-
-        }
-
     }
 
 }
@@ -173,11 +131,13 @@ private extension MenuDetailView {
             tagSection
 
             descriptionSection
+            
+            saveButton
 
             HorizontalMenuSection(
 
                 title:
-                    "Menu Lain dari \(viewModel.menu.tenant?.name ?? "")",
+                    "Menu Tenant Ini",
 
                 menus: viewModel.otherMenus
 
@@ -212,7 +172,7 @@ private extension MenuDetailView {
             }
 
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 36)
         .navigationDestination(isPresented: $navigateToTenant) {
             if let tenant = viewModel.menu.tenant {
                 TenantView(tenant: tenant)
@@ -236,21 +196,34 @@ private extension MenuDetailView {
                 viewModel.menu.name
             )
             .font(
-                AppFont.largeTitle(
+                AppFont.title2(
                     weight: .bold
                 )
             )
 
-            Text(
-                viewModel.menu.tenant?.name
-                ?? ""
-            )
-            .font(
-                AppFont.callout()
-            )
-            .foregroundStyle(
-                AppColor.neutralSystemGrey
-            )
+            HStack (alignment:.top, spacing: 8) {
+                Image(systemName: "storefront.circle")
+                    .frame(width: 22, height: 22)
+                
+                VStack(alignment:.leading, spacing: 8) {
+                    Text(
+                        viewModel.menu.tenant?.name
+                        ?? ""
+                    )
+                    .font(
+                        AppFont.body(weight: .semibold)
+                    )
+                    .foregroundStyle(
+                        AppColor.neutralBlack
+                    )
+                    
+                    if let tenant = viewModel.menu.tenant {
+                        Text(tenant.foodCourt?.fcDescription ?? "Foodcourt Description")
+                        Text(tenant.detailLocation ?? "")
+                    }
+                    
+                }
+            }
 
         }
 
@@ -262,32 +235,56 @@ private extension MenuDetailView {
 
     var tagSection: some View {
 
-        ScrollView(
-            .horizontal,
-            showsIndicators: false
+        FlowLayout(
+            spacing: 6
         ) {
 
-            HStack(
-                spacing: 20
-            ) {
+            ForEach(
+                viewModel.menu.tags.displayTags,
+                id: \.self
+            ) { tag in
 
-                ForEach(
-                    viewModel.menu.tags.displayTags,
-                    id: \.self
-                ) { tag in
-
-                    TagChip(
-                        tag: tag
-                    )
-
-                }
+                TagChip(
+                    tag: tag
+                )
 
             }
 
         }
 
+
     }
 
+}
+
+private extension MenuDetailView {
+    var saveButton: some View {
+        Button {
+            viewModel.menu.isBookmarked.toggle()
+            withAnimation {
+                showAlert.toggle()
+            }
+        } label: {
+            HStack(spacing: 4) {
+                if viewModel.menu.isBookmarked {
+                    Image(systemName: "checkmark")
+                    Text("Tersimpan")
+                } else {
+                    Image(systemName: "bookmark")
+                    Text("Simpan menu")
+                }
+                
+            }
+            .font(AppFont.callout(weight: .bold))
+            .foregroundStyle(AppColor.neutralWhite)
+            .padding()
+            .frame(maxWidth:.infinity)
+            .background(viewModel.menu.isBookmarked ? AppColor.red300 : AppColor.red700)
+            .clipShape(
+                RoundedRectangle(cornerRadius: 20)
+            )
+        }
+    }
 }
 
 private extension MenuDetailView {

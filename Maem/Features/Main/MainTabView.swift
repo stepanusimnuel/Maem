@@ -30,10 +30,12 @@ struct MainTabView: View {
             }
                 .tabItem {
 
-                    Label(
-                        "Tersimpan",
-                        systemImage: "bookmark"
-                    )
+                    VStack {
+                        Image(systemName: "bookmark")
+                            .environment(\.symbolVariants, .none)
+                        
+                        Text("Tersimpan")
+                    }
 
                 }
 

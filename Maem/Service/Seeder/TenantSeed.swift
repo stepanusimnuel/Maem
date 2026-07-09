@@ -78,31 +78,79 @@ enum TenantSeed {
 
         // ITC
 
-        let gacoan = Tenant(
-            name: "Mie Gacoan",
+        let saltNSweet = Tenant(
+            name: "Salt n Sweet",
             imageName: "category-snack",
             openDay: 0,
-            closeDay: 6,
-            openTime: "00.00",
-            closeTime: "23.59",
+            closeDay: 5,
+            openTime: "09.30",
+            closeTime: "19.30",
             detailLocation: "Di ujung kanan dari pintu masuk foodcourt"
         )
 
-        let baksoSolo = Tenant(
-            name: "Bakso Solo",
-            imageName: "category-drink",
+        let RMPadangJaya = Tenant(
+            name: "RM Padang Jaya",
+            imageName: "category-rice",
+            openDay: 6,
+            closeDay: 4,
+            openTime: "11.00",
+            closeTime: "21.00",
+            detailLocation: "Di sebelah saltNSweet persis"
+        )
+        
+        let ayamBuTini = Tenant(
+            name: "Ayam Bu Tini",
+            imageName: "ayam-bu-tini",
             openDay: 0,
             closeDay: 4,
-            openTime: "12.30",
-            closeTime: "21.00",
-            detailLocation: "Di sebelah Mie Gacoan persis"
+            openTime: "08.00",
+            closeTime: "17.00",
+            detailLocation: "Di sebelah kanan eskalator utama"
+        )
+        
+        let serbaJawaTimur = Tenant(
+            name: "Serba Jawa Timur",
+            imageName: "serba-jawa-timur",
+            openDay: 0,
+            closeDay: 4,
+            openTime: "08.00",
+            closeTime: "17.00",
+            detailLocation: "Berada di dekat tangga Ramayana"
+        )
+        
+        let sotoBalapan = Tenant(
+            name: "Soto Balapan",
+            imageName: "soto-balapan",
+            openDay: 0,
+            closeDay: 6,
+            openTime: "08.00",
+            closeTime: "17.00",
+            detailLocation: "Soto yang paling ramai di Foodcourt ITC BSD"
+        )
+        
+        let buburPakAgus = Tenant(
+            name: "Bubur Pak Agus",
+            imageName: "bubur-pak-agus",
+            openDay: 0,
+            closeDay: 6,
+            openTime: "08.00",
+            closeTime: "12.00",
+            detailLocation: "Dekat lift foodcourt"
         )
 
-        foodCourts[2].tenants.append(gacoan)
-        foodCourts[2].tenants.append(baksoSolo)
+        foodCourts[2].tenants.append(saltNSweet)
+        foodCourts[2].tenants.append(RMPadangJaya)
+        foodCourts[2].tenants.append(ayamBuTini)
+        foodCourts[2].tenants.append(serbaJawaTimur)
+        foodCourts[2].tenants.append(sotoBalapan)
+        foodCourts[2].tenants.append(buburPakAgus)
 
-        gacoan.foodCourt = foodCourts[2]
-        baksoSolo.foodCourt = foodCourts[2]
+        saltNSweet.foodCourt = foodCourts[2]
+        RMPadangJaya.foodCourt = foodCourts[2]
+        ayamBuTini.foodCourt = foodCourts[2]
+        serbaJawaTimur.foodCourt = foodCourts[2]
+        sotoBalapan.foodCourt = foodCourts[2]
+        buburPakAgus.foodCourt = foodCourts[2]
 
         // Intermoda
 
@@ -143,10 +191,13 @@ enum TenantSeed {
                 yoshinoya,
                 bakmiGM,
 
-                gacoan,
-                baksoSolo,
-
-                soto,
+                saltNSweet,
+                ayamBuTini,
+                RMPadangJaya,
+                serbaJawaTimur,
+                sotoBalapan,
+                buburPakAgus,
+                
                 warteg
 
             ]

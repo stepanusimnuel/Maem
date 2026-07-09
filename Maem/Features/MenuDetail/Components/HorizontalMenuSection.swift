@@ -72,8 +72,8 @@ private extension HorizontalMenuSection {
 
             Text(title)
                 .font(
-                    AppFont.title2(
-                        weight: .bold
+                    AppFont.body(
+                        weight: .semibold
                     )
                 )
 
@@ -85,12 +85,17 @@ private extension HorizontalMenuSection {
 
             } label: {
 
-                Text("Lihat Semua")
-                    .font(
-                        AppFont.callout(
-                            weight: .semibold
-                        )
+                HStack(spacing: 4) {
+                    Text("Lihat Lainnya")
+                      
+                    Image(systemName: "chevron.right")
+                }
+                .font(
+                    AppFont.callout(
+                        weight: .semibold
                     )
+                )
+                .foregroundStyle(AppColor.red700)
 
             }
 

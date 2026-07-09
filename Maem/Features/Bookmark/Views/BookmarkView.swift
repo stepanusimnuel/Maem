@@ -26,10 +26,11 @@ struct BookmarkView: View {
                 
                 AppColor.red50.ignoresSafeArea()
                 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 16) {
                     Text("Menu Tersimpan")
                         .font(AppFont.title2(weight: .bold))
                         .padding(.horizontal)
+                    
                     if viewModel.bookmarkedMenus.isEmpty {
                         
                         NotFound(title: "Belum ada menu", subtitle: "Tambahkan menu favoritmu, yuk!")
@@ -59,7 +60,7 @@ struct BookmarkView: View {
                                 }
                                 
                             }
-                            .padding()
+                            .padding(.horizontal)
                             
                             
                         }

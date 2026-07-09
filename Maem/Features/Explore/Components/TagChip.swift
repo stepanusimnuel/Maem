@@ -21,14 +21,14 @@ struct TagChip: View {
                 .frame(width: 14, height: 14)
 
             Text(tag.title)
-                .font(AppFont.caption2(weight: .regular))
+                .font(AppFont.caption(weight: .regular))
                 .lineLimit(1)
                 .truncationMode(.tail)
 
         }
         .foregroundStyle(AppColor.blue700)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
         .background(AppColor.blue100)
         .clipShape(Capsule())
 

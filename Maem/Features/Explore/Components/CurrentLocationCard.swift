@@ -34,7 +34,7 @@ struct CurrentLocationCard: View {
                             
                     } else {
                         Text("\(selectedFoodCourt!.foodCourt.name),  \(selectedFoodCourt!.foodCourt.place)")
-                            .font(AppFont.callout(weight: .bold))
+                            .font(AppFont.callout(weight: .regular))
                     }
                     
                 }

@@ -13,10 +13,6 @@ enum MenuSeed {
         tenants: [Tenant]
     ) {
 
-        guard tenants.count == 8 else {
-            return
-        }
-
         // MARK: - HokBen
 
         tenants[0].menus = [
@@ -40,50 +36,7 @@ enum MenuSeed {
                     isContainPork: false,
                     isContainAlcohol: false
                 )
-            ),
-
-            Menu(
-                name: "Ayam Gugugaga",
-                menuDescription: "Potongan ayam renyah berukuran kecil dengan tekstur lembut di bagian dalam, cocok untuk anak-anak.",
-                price: 45000,
-                imageName: "AyamGugugaga",
-                tags: MenuTags(
-                    carbs: [.rice],
-                    veggies: [.carrot],
-                    animalProtein: [.shrimp],
-                    plantProtein: nil,
-                    toppings: [.tomato_sauce],
-                    spicy: false,
-                    texture: [.crispy, .soft],
-                    allergens: [.gluten],
-                    portion: .kids,
-                    isInstant: false,
-                    isContainPork: false,
-                    isContainAlcohol: false
-                )
-            ),
-
-            Menu(
-                name: "Nasi Imut",
-                menuDescription: "Porsi nasi dengan irisan daging sapi empuk dan sayuran, dirancang khusus untuk porsi anak.",
-                price: 30000,
-                imageName: "NasiImut",
-                tags: MenuTags(
-                    carbs: [.rice],
-                    veggies: [.carrot],
-                    animalProtein: [.beef],
-                    plantProtein: nil,
-                    toppings: [.soy_sauce],
-                    spicy: false,
-                    texture: [.soft],
-                    allergens: nil,
-                    portion: .kids,
-                    isInstant: false,
-                    isContainPork: false,
-                    isContainAlcohol: false
-                )
             )
-
         ]
 
         // MARK: - Solaria
@@ -292,67 +245,25 @@ enum MenuSeed {
             )
         ]
             
-        // MARK: - Mie Gacoan
+        // MARK: - Salt n Sweet
 
         tenants[4].menus = [
 
             Menu(
-                name: "Mie Suit",
-                menuDescription: "Mie gurih tanpa level pedas, cocok untuk yang ingin menikmati rasa original.",
+                name: "Puding Cokelat",
+                menuDescription: "Puding dengan cokelat impor dari Jepang sehingga rasanya sangat memanjakan lidah Anda.",
                 price: 15000,
-                imageName: "mie-suit",
-                tags: MenuTags(
-                    carbs: [.noodle],
-                    veggies: nil,
-                    animalProtein: nil,
-                    plantProtein: nil,
-                    toppings: [.soy_sauce],
-                    spicy: false,
-                    texture: [.dry],
-                    allergens: [.gluten],
-                    portion: .reguler,
-                    isInstant: false,
-                    isContainPork: false,
-                    isContainAlcohol: false
-                )
-            ),
-
-            Menu(
-                name: "Mie Hompimpa",
-                menuDescription: "Mie pedas favorit dengan bumbu khas Mie Gacoan.",
-                price: 17000,
-                imageName: "mie-hompimpa",
-                tags: MenuTags(
-                    carbs: [.noodle],
-                    veggies: nil,
-                    animalProtein: nil,
-                    plantProtein: nil,
-                    toppings: [.chili_oil],
-                    spicy: true,
-                    texture: [.dry],
-                    allergens: [.gluten],
-                    portion: .reguler,
-                    isInstant: false,
-                    isContainPork: false,
-                    isContainAlcohol: false
-                )
-            ),
-
-            Menu(
-                name: "Udang Rambutan",
-                menuDescription: "Udang goreng berlapis tepung renyah dengan tekstur crispy.",
-                price: 19000,
-                imageName: "udang-rambutan",
+                imageName: "puding-cokelat",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
-                    animalProtein: [.shrimp],
+                    animalProtein: nil,
                     plantProtein: nil,
-                    toppings: [.chili_sauce],
+                    toppings: nil,
                     spicy: false,
-                    texture: [.crispy],
-                    allergens: [.shrimp],
-                    portion: .reguler,
+                    texture: [.soft],
+                    allergens: [.egg],
+                    portion: .kids,
                     isInstant: false,
                     isContainPork: false,
                     isContainAlcohol: false
@@ -361,65 +272,65 @@ enum MenuSeed {
 
         ]
 
-        // MARK: - Bakso Solo
+        // MARK: - Ayam Bu Tini
 
         tenants[5].menus = [
 
             Menu(
-                name: "Bakso Urat",
-                menuDescription: "Bakso urat sapi dengan kuah kaldu hangat dan taburan bawang goreng.",
-                price: 30000,
-                imageName: "bakso-urat",
+                name: "Nasi Ayam Kecap",
+                menuDescription: "Ayam kecap berbumbu rempah dengan tekstur renyah di luar dan lembut di dalam.",
+                price: 40000,
+                imageName: "nasi-ayam-kecap",
                 tags: MenuTags(
-                    carbs: nil,
-                    veggies: [.spinach],
-                    animalProtein: [.beef],
+                    carbs: [.rice],
+                    veggies: [.tomato],
+                    animalProtein: [.chicken],
+                    plantProtein: [.bean],
+                    toppings: [.chili_sauce],
+                    spicy: false,
+                    texture: [.soft],
+                    allergens: [.peanut],
+                    portion: .kids,
+                    isInstant: false,
+                    isContainPork: false,
+                    isContainAlcohol: false
+                )
+            ),
+
+            Menu(
+                name: "Fried Chicken",
+                menuDescription: "Ayam goreng khas Bu Tini. Resep turun temurun yang sudah dijaga selama lebih dari 50 tahun lamanya.",
+                price: 25000,
+                imageName: "fried-chicken-bu-tini",
+                tags: MenuTags(
+                    carbs: [.rice, .potato],
+                    veggies: [.carrot, .tomato],
+                    animalProtein: [.chicken],
                     plantProtein: nil,
                     toppings: [.crackers],
                     spicy: false,
-                    texture: [.soupy],
+                    texture: [.crispy],
                     allergens: nil,
                     portion: .reguler,
-                    isInstant: false,
+                    isInstant: true,
                     isContainPork: false,
                     isContainAlcohol: false
                 )
             ),
-
+            
             Menu(
-                name: "Bakso Telur",
-                menuDescription: "Bakso sapi isi telur rebus dengan kuah gurih.",
-                price: 32000,
-                imageName: "bakso-telur",
+                name: "Ayam Kremes Hebat",
+                menuDescription: "Dimasak oleh orang yang dipercaya oleh Bu Tini langsung sehingga dijamin rasanya tidak akan mengecewakan",
+                price: 28000,
+                imageName: "ayam-kremes-hebat",
                 tags: MenuTags(
-                    carbs: nil,
-                    veggies: [.spinach],
-                    animalProtein: [.beef, .egg],
-                    plantProtein: nil,
+                    carbs: [.rice, .potato],
+                    veggies: [.carrot, .tomato],
+                    animalProtein: [.chicken],
+                    plantProtein: [.tempeh, .tofu],
                     toppings: [.crackers],
                     spicy: false,
-                    texture: [.soupy],
-                    allergens: [.egg],
-                    portion: .reguler,
-                    isInstant: false,
-                    isContainPork: false,
-                    isContainAlcohol: false
-                )
-            ),
-
-            Menu(
-                name: "Mie Ayam Bakso",
-                menuDescription: "Perpaduan mie ayam dan bakso sapi dalam satu mangkuk.",
-                price: 35000,
-                imageName: "mie-ayam-bakso",
-                tags: MenuTags(
-                    carbs: [.noodle],
-                    veggies: [.spinach],
-                    animalProtein: [.chicken, .beef],
-                    plantProtein: nil,
-                    toppings: [.soy_sauce],
-                    spicy: false,
-                    texture: [.soupy],
+                    texture: [.crispy],
                     allergens: [.gluten],
                     portion: .reguler,
                     isInstant: false,
@@ -430,65 +341,23 @@ enum MenuSeed {
 
         ]
 
-        // MARK: - Soto Ayam Pak Haji
+        // MARK: - RM Padang Jaya
 
         tenants[6].menus = [
 
             Menu(
-                name: "Soto Ayam",
-                menuDescription: "Soto ayam dengan kuah bening, suwiran ayam, dan taburan bawang goreng.",
-                price: 28000,
-                imageName: "soto-ayam",
+                name: "Nasi Padang",
+                menuDescription: "Paket nasi andalan yang mencakup perkedel, daun singkong, ayam bakar, bola ubi, serta sambal free refill.",
+                price: 30000,
+                imageName: "nasi-padang",
                 tags: MenuTags(
                     carbs: [.rice],
-                    veggies: [.tomato],
+                    veggies: [.spinach],
                     animalProtein: [.chicken],
                     plantProtein: nil,
-                    toppings: [.crackers],
-                    spicy: false,
-                    texture: [.soupy],
-                    allergens: nil,
-                    portion: .reguler,
-                    isInstant: false,
-                    isContainPork: false,
-                    isContainAlcohol: false
-                )
-            ),
-
-            Menu(
-                name: "Soto Betawi",
-                menuDescription: "Soto Betawi dengan kuah santan gurih dan potongan daging sapi.",
-                price: 45000,
-                imageName: "soto-betawi",
-                tags: MenuTags(
-                    carbs: [.rice],
-                    veggies: [.tomato],
-                    animalProtein: [.beef],
-                    plantProtein: nil,
-                    toppings: [.crackers],
-                    spicy: false,
-                    texture: [.soupy],
-                    allergens: [.milk],
-                    portion: .reguler,
-                    isInstant: false,
-                    isContainPork: false,
-                    isContainAlcohol: false
-                )
-            ),
-
-            Menu(
-                name: "Soto Daging",
-                menuDescription: "Soto daging sapi dengan kuah hangat dan rempah khas Indonesia.",
-                price: 40000,
-                imageName: "soto-daging",
-                tags: MenuTags(
-                    carbs: [.rice],
-                    veggies: [.tomato],
-                    animalProtein: [.beef],
-                    plantProtein: nil,
-                    toppings: [.crackers],
-                    spicy: false,
-                    texture: [.soupy],
+                    toppings: [.chili_sauce],
+                    spicy: true,
+                    texture: [.dry],
                     allergens: nil,
                     portion: .reguler,
                     isInstant: false,
@@ -498,10 +367,107 @@ enum MenuSeed {
             )
 
         ]
+        
+        tenants[7].menus = [
+
+            Menu(
+                name: "Ayam Mak Dura",
+                menuDescription: "Ayam dengan bumbu hitam khas Madura yang dimasak seharian sehingga sangat lembut dan meresap.",
+                price: 30000,
+                imageName: "ayam-mak-dura",
+                tags: MenuTags(
+                    carbs: [.rice],
+                    veggies: [.carrot, .tomato],
+                    animalProtein: [.chicken],
+                    plantProtein: nil,
+                    toppings: [.chili_sauce, .tomato_sauce],
+                    spicy: true,
+                    texture: [.soft],
+                    allergens: nil,
+                    portion: .reguler,
+                    isInstant: false,
+                    isContainPork: false,
+                    isContainAlcohol: false
+                )
+            )
+
+        ]
+        
+        tenants[8].menus = [
+
+            Menu(
+                name: "Soto Ayam",
+                menuDescription: "Soto ayam yang disajikan dengan suwiran ayam yang melimpah, boleh refill koya.",
+                price: 28000,
+                imageName: "soto-ayam",
+                tags: MenuTags(
+                    carbs: [.rice],
+                    veggies: [.carrot, .tomato, .soup],
+                    animalProtein: [.chicken],
+                    plantProtein: nil,
+                    toppings: [.crackers, .soy_sauce],
+                    spicy: false,
+                    texture: [.soft, .soupy],
+                    allergens: nil,
+                    portion: .kids,
+                    isInstant: false,
+                    isContainPork: false,
+                    isContainAlcohol: false
+                )
+            ),
+            
+            Menu(
+                name: "Soto Daging Sapi",
+                menuDescription: "Soto daging yang disajikan dengan daging yang melimpah, boleh refill koya.",
+                price: 36000,
+                imageName: "soto-ayam",
+                tags: MenuTags(
+                    carbs: [.rice],
+                    veggies: [.carrot, .tomato, .soup],
+                    animalProtein: [.beef],
+                    plantProtein: nil,
+                    toppings: [.crackers, .soy_sauce],
+                    spicy: false,
+                    texture: [.soft, .soupy],
+                    allergens: nil,
+                    portion: .kids,
+                    isInstant: false,
+                    isContainPork: false,
+                    isContainAlcohol: false
+                )
+            )
+
+        ]
+        
+        tenants[9].menus = [
+
+            Menu(
+                name: "Bubur Ayam Polos",
+                menuDescription: "Menu andalan Pak Agus, sudah pernah di review Nex Carlos.",
+                price: 20000,
+                imageName: "bubur-ayam-polos",
+                tags: MenuTags(
+                    carbs: [.rice],
+                    veggies: [.carrot, .tomato],
+                    animalProtein: [.chicken],
+                    plantProtein: [.bean],
+                    toppings: [.crackers, .soy_sauce],
+                    spicy: false,
+                    texture: [.soft, .soupy],
+                    allergens: [.peanut],
+                    portion: .kids,
+                    isInstant: false,
+                    isContainPork: false,
+                    isContainAlcohol: false
+                )
+            )
+
+        ]
+        
 
         // MARK: - Warteg Nusantara
 
-        tenants[7].menus = [
+        tenants[10].menus = [
 
             Menu(
                 name: "Ayam Goreng",

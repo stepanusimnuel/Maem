@@ -116,6 +116,7 @@ private extension MenuListCard {
                 Text(menu.tenant?.name ?? "Unknown")
             }
             .font(AppFont.caption())
+            .foregroundStyle(AppColor.neutralBlack)
 
             Text(
                 menu.price,
