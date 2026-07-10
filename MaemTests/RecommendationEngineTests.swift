@@ -191,4 +191,50 @@ final class RecommendationEngineTests: XCTestCase {
         )
         XCTAssertEqual(minBudgetResult.items.map(\.menuItem.name), ["SpicyExpensive"], "minBudget must exclude items below the floor and is never relaxed")
     }
+
+    /// Covers SearchIntent.merged(withManual:) (Task 4) — the rule the spec's "Manual Filter →
+    /// SearchIntent Mapping" section documents: safety fields OR-combine, everything else lets
+    /// the manual side win on conflict.
+    func testSearchIntentMergePrefersManualButUnionsSafety() {
+        let textIntent = SearchIntent(
+            wantCarbs: [.noodle],
+            avoidAllergens: [.peanut],
+            maxBudget: 20000,
+            requireHalal: nil
+        )
+        let manualIntent = SearchIntent(
+            wantCarbs: [.rice],
+            avoidAllergens: [.shrimp],
+            maxBudget: 50000,
+            requireHalal: true
+        )
+
+        let merged = textIntent.merged(withManual: manualIntent)
+
+        XCTAssertEqual(merged.wantCarbs, [.rice], "non-safety field: manual wins on conflict")
+        XCTAssertEqual(merged.maxBudget, 50000, "non-safety field: manual wins on conflict")
+        XCTAssertEqual(Set(merged.avoidAllergens ?? []), [.peanut, .shrimp], "safety field: union, neither side dropped")
+        XCTAssertEqual(merged.requireHalal, true, "safety field: manual's true is never dropped even though text side was nil")
+    }
+
+    /// Covers SearchFilter.toSearchIntent() and FoodCategory.apply(to:) (Task 10) — the concrete
+    /// mapping table from the spec, including the strict kidsPortion→forKid semantics (decision 10)
+    /// and the .fish category's OR-match against both fish and shrimp (mirrors the old foodCategories rule).
+    func testSearchFilterToSearchIntentCategoryMapping() {
+        var filter = SearchFilter()
+        filter.tags = [.kidsPortion, .halal]
+        filter.category = .fish
+
+        let intent = filter.toSearchIntent()
+
+        XCTAssertEqual(intent.forKid, true, "kidsPortion tag maps to forKid (strict isKidFriendly), not a separate raw-portion filter")
+        XCTAssertEqual(intent.requireHalal, true)
+        XCTAssertEqual(intent.wantProteinHewani, [.fish, .shrimp], ".fish category must OR-match fish and shrimp")
+
+        var priceFilter = SearchFilter()
+        priceFilter.priceFilter = .between50And100
+        let priceIntent = priceFilter.toSearchIntent()
+        XCTAssertEqual(priceIntent.minBudget, 50000)
+        XCTAssertEqual(priceIntent.maxBudget, 100000)
+    }
 }
