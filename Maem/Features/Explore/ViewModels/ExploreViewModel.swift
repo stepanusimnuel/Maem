@@ -22,7 +22,12 @@ final class ExploreViewModel {
     var isManualSelection = false
 
     var menus: [Menu] = []
-    
+
+    /// Shuffled once per load (not computed on every access) so "Untuk Semua"
+    /// shows a different order each time the app opens / food court changes,
+    /// without re-shuffling on every SwiftUI body re-evaluation.
+    var forAllMenus: [Menu] = []
+
     var forKidsMenus: [Menu] {
 
         menus.filter { menu in
@@ -122,6 +127,8 @@ final class ExploreViewModel {
             menus = try repository.getMenus(
                 in: selectedFoodCourt.foodCourt
             )
+
+            forAllMenus = menus.shuffled()
 
         }
 
