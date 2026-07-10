@@ -24,6 +24,8 @@ struct MenuDetailView: View {
     
     @State var navigateToTenant: Bool = false
 
+    @State var navigateToSimilarMenus: Bool = false
+
     init(menu: Menu) {
 
         _viewModel = State(
@@ -157,21 +159,27 @@ private extension MenuDetailView {
                 }
             }
 
-            HorizontalMenuSection(
+            if !viewModel.similarMenus.isEmpty {
 
-                title: "Menu Serupa",
+                HorizontalMenuSection(
 
-                menus: viewModel.similarMenus
+                    title: "Menu Serupa",
 
-            ) {
+                    menus: viewModel.similarMenus
 
-            } onBookmarkTapped: { clickedMenu in
-                clickedMenu.isBookmarked.toggle()
-                if clickedMenu.isBookmarked {
-                    withAnimation(.spring()) {
-                        showAlert = true
+                ) {
+
+                    navigateToSimilarMenus = true
+
+                } onBookmarkTapped: { clickedMenu in
+                    clickedMenu.isBookmarked.toggle()
+                    if clickedMenu.isBookmarked {
+                        withAnimation(.spring()) {
+                            showAlert = true
+                        }
                     }
                 }
+
             }
 
         }
@@ -179,6 +187,11 @@ private extension MenuDetailView {
         .navigationDestination(isPresented: $navigateToTenant) {
             if let tenant = viewModel.menu.tenant {
                 TenantView(tenant: tenant)
+            }
+        }
+        .navigationDestination(isPresented: $navigateToSimilarMenus) {
+            if let foodCourt = viewModel.menu.tenant?.foodCourt {
+                ResultView(mode: .similar(viewModel.menu), foodCourt: foodCourt)
             }
         }
 

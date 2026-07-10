@@ -18,6 +18,8 @@ final class MenuDetailViewModel {
 
     var similarMenus: [Menu] = []
 
+    var similarMenusIsRelaxed = false
+
     init(menu: Menu) {
 
         self.menu = menu
@@ -39,9 +41,12 @@ final class MenuDetailViewModel {
                 excluding: menu
             )
 
-            similarMenus = try repository.getSimilarMenus(
+            let similarResult = try repository.getSimilarMenus(
                 to: menu
             )
+
+            similarMenus = Array(similarResult.items.prefix(7))
+            similarMenusIsRelaxed = similarResult.isRelaxed
 
         }
 
