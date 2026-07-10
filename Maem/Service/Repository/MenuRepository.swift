@@ -8,6 +8,11 @@
 import Foundation
 import SwiftData
 
+struct SimilarMenuResult {
+    let items: [Menu]
+    let isRelaxed: Bool
+}
+
 protocol MenuRepositoryProtocol {
 
     func getAll() throws -> [Menu]
@@ -94,72 +99,70 @@ final class MenuRepository: MenuRepositoryProtocol {
     
     func getSimilarMenus(
         to menu: Menu
-    ) throws -> [Menu] {
+    ) throws -> SimilarMenuResult {
 
-        let descriptor = FetchDescriptor<Menu>()
+        guard let foodCourt = menu.tenant?.foodCourt else {
+            return SimilarMenuResult(items: [], isRelaxed: false)
+        }
 
-        let allMenus = try context.fetch(
-            descriptor
-        )
+        let candidates = foodCourt.tenants
+            .flatMap(\.menus)
+            .filter { $0.id != menu.id }
 
-        return allMenus
-            .filter {
+        let scored = candidates.map { (menu: $0, score: similarityScore(between: $0, and: menu)) }
 
-                $0.id != menu.id
+        let strict = scored
+            .filter { $0.score >= 3 }
+            .sorted { $0.score > $1.score }
+            .map(\.menu)
 
-            }
-            .sorted {
+        if !strict.isEmpty {
+            return SimilarMenuResult(items: strict, isRelaxed: false)
+        }
 
-                similarity(
-                    between: $0,
-                    and: menu
-                ) >
+        let relaxed = scored
+            .filter { $0.score > 0 }
+            .sorted { $0.score > $1.score }
+            .map(\.menu)
 
-                similarity(
-                    between: $1,
-                    and: menu
-                )
-
-            }
+        return SimilarMenuResult(items: relaxed, isRelaxed: !relaxed.isEmpty)
 
     }
-    
-    private func similarity(
-        between lhs: Menu,
-        and rhs: Menu
+
+    private func similarityScore(
+        between candidate: Menu,
+        and reference: Menu
     ) -> Int {
 
         var score = 0
 
-        if lhs.tags.carbs == rhs.tags.carbs {
-
-            score += 2
-
+        if candidate.tags.isKidFriendly == reference.tags.isKidFriendly {
+            score += 10
         }
 
-        if lhs.tags.animalProtein == rhs.tags.animalProtein {
+        let carbOverlap = Set(candidate.tags.carbs ?? [])
+            .intersection(reference.tags.carbs ?? [])
+            .count
+        score += carbOverlap * 5
 
-            score += 3
+        let proteinOverlap = Set(candidate.tags.animalProtein ?? [])
+            .intersection(reference.tags.animalProtein ?? [])
+            .count
+            + Set(candidate.tags.plantProtein ?? [])
+            .intersection(reference.tags.plantProtein ?? [])
+            .count
+        score += proteinOverlap * 3
 
-        }
-
-        if lhs.tags.texture == rhs.tags.texture {
-
-            score += 2
-
-        }
-
-        if lhs.tags.spicy == rhs.tags.spicy {
-
-            score += 1
-
-        }
-
-        if lhs.tags.portion == rhs.tags.portion {
-
-            score += 2
-
-        }
+        let additionalOverlap = Set(candidate.tags.toppings ?? [])
+            .intersection(reference.tags.toppings ?? [])
+            .count
+            + Set(candidate.tags.texture ?? [])
+            .intersection(reference.tags.texture ?? [])
+            .count
+            + Set(candidate.tags.veggies ?? [])
+            .intersection(reference.tags.veggies ?? [])
+            .count
+        score += additionalOverlap * 1
 
         return score
 
