@@ -20,6 +20,9 @@ struct SearchSlicingView: View {
 
     @State
     private var viewModel = SearchSlicingViewModel()
+    
+    @State
+    private var selectedCategory: FoodCategory?
 
     var body: some View {
 
@@ -62,9 +65,9 @@ struct SearchSlicingView: View {
                 FoodCategorySection(
                     categories: viewModel.categories
                 ) { category in
-                    viewModel.searchText = category.title
-                    viewModel.saveSearchQuery(category.title, context: modelContext)
-                    viewModel.showResult = true
+
+                    selectedCategory = category
+
                 }
 
             }
@@ -84,6 +87,14 @@ struct SearchSlicingView: View {
                 foodCourt: selectedFoodCourt
 
             )
+        }
+        .navigationDestination(item: $selectedCategory) { category in
+
+            ResultView(
+                mode: .category(category),
+                foodCourt: selectedFoodCourt
+            )
+
         }
     }
     

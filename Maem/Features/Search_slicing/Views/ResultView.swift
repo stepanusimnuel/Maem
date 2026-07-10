@@ -22,6 +22,10 @@ struct ResultView: View {
     @State private var showAlert: Bool = false
     
     @State private var inlineTitle: String = ""
+    
+    private var isFilterActive: Bool {
+        viewModel.activeFilterCount > 0
+    }
 
     init(
         mode: MenuListMode,
@@ -76,7 +80,7 @@ struct ResultView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
 
-            if case .search = viewModel.mode {
+            if viewModel.shouldShowSearchHeader {
 
                 ToolbarItem(placement: .principal) {
 
@@ -84,14 +88,12 @@ struct ResultView: View {
                         searchText: $viewModel.searchText,
                         isEditable: false,
                         onTap: {
-
                             dismiss()
-
                         }
                     ) {
 
                     }
-                    .frame(width:314, height: 44)
+                    .frame(width: 314, height: 44)
 
                 }
 
@@ -143,12 +145,52 @@ private extension ResultView {
 
             HStack(spacing: 8) {
 
-                FilterChip(
-                    isSelected: false,
-                    systemImage: "slider.vertical.3"
-                ) {
+                Button {
+
                     viewModel.isShowingFilter = true
+
+                } label: {
+
+                    Group {
+
+                        if viewModel.activeFilterCount == 0 {
+
+                            Image(systemName: "slider.vertical.3")
+
+                        } else {
+
+                            Text("\(viewModel.activeFilterCount)")
+                                .font(AppFont.body(weight: .bold))
+
+                        }
+
+                    }
+                    .frame(width: 36, height: 36)
+                    .background(
+                        isFilterActive
+                        ? AppColor.red100
+                        : AppColor.neutralLightGrey
+                    )
+                    .clipShape(Capsule())
+                    .overlay {
+
+                        Capsule()
+                            .stroke(
+                                isFilterActive
+                                ? AppColor.red700
+                                : AppColor.neutralDarkGrey,
+                                lineWidth: 1
+                            )
+
+                    }
+                    .foregroundStyle(
+                        isFilterActive
+                        ? AppColor.red700
+                        : AppColor.neutralDarkGrey
+                    )
+
                 }
+                .buttonStyle(.plain)
 
                 if case .all = viewModel.mode {
 

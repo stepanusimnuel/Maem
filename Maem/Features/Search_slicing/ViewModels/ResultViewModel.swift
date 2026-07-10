@@ -14,6 +14,7 @@ enum MenuListMode {
     case kids
     case all
     case search(String)
+    case category(FoodCategory)
 }
 
 
@@ -52,9 +53,70 @@ final class ResultViewModel {
 
         case .all:
             return "Untuk Semua"
-
+            
+        case .category:
+            return nil
         }
 
+    }
+    
+    var shouldShowSearchHeader: Bool {
+
+        switch mode {
+
+        case .search,
+             .category:
+            return true
+
+        default:
+            return false
+        }
+
+    }
+    
+    var activeFilterCount: Int {
+
+        var count = 0
+
+        // Quick Filter
+        if isKidFriendly {
+            count += 1
+        }
+
+        if isBelow30K {
+            count += 1
+        }
+
+        if isHalalOnly {
+            count += 1
+        }
+
+        // Display Tags
+        count += filter.tags.count
+
+        // Alergen
+        count += filter.allergens.count
+
+        // Kategori
+        if filter.category != nil {
+            count += 1
+        }
+
+        // Preset harga
+        if filter.priceFilter != nil {
+            count += 1
+        }
+
+        // Custom harga
+        if !filter.minimumPrice.isEmpty {
+            count += 1
+        }
+
+        if !filter.maximumPrice.isEmpty {
+            count += 1
+        }
+
+        return count
     }
 
     init(
@@ -97,6 +159,14 @@ final class ResultViewModel {
             case .all:
 
                 break
+                
+            case .category(let category):
+
+                allMenus = allMenus.filter {
+
+                    $0.foodCategories.contains(category)
+
+                }
 
             case .kids:
 
