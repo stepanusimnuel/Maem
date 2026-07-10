@@ -11,8 +11,8 @@ struct KeywordIntentParser: IntentParser {
         let compositionText = Self.sanitizeAllergenMentions(from: normalized)
 
         intent.wantCarbs = matchEnum(Carb.self, in: compositionText)
-        intent.wantProteinHewani = matchEnum(ProteinHewani.self, in: compositionText)
-        intent.wantProteinNabati = matchEnum(ProteinNabati.self, in: compositionText)
+        intent.wantProteinHewani = matchEnum(AnimalProtein.self, in: compositionText)
+        intent.wantProteinNabati = matchEnum(PlantProtein.self, in: compositionText)
         intent.wantVeggies = matchEnum(Veggie.self, in: compositionText)
         intent.cookMethodPreference = matchCookMethod(in: compositionText)
 
@@ -29,11 +29,11 @@ struct KeywordIntentParser: IntentParser {
         }
 
         if containsAny(normalized, Self.heavyMealPhrases) {
-            intent.mealCategory = .makananBerat
+            intent.mealCategory = .heavyMeal
         } else if containsAny(normalized, Self.snackPhrases) {
-            intent.mealCategory = .cemilan
+            intent.mealCategory = .snack
         } else if containsAny(normalized, Self.drinkPhrases) {
-            intent.mealCategory = .minuman
+            intent.mealCategory = .drink
         }
 
         if containsAny(normalized, Self.healthyPhrases) {
@@ -57,47 +57,35 @@ private extension KeywordIntentParser {
     static let healthyPhrases = ["sehat", "gak berminyak", "fresh", "gak bikin begah"]
 
     static let allergenSynonyms: [String: Allergen] = [
-        "kacang": .kacang,
-        "udang": .udangKerang,
-        "kerang": .udangKerang,
-        "ikan": .ikan,
-        "telur": .telur,
-        "susu": .susu,
+        "kacang": .peanut,
+        "udang": .shrimp,
+        "kerang": .shellfish,
+        "ikan": .fish,
+        "telur": .egg,
+        "susu": .milk,
         "gluten": .gluten,
-        "kedelai": .kedelai,
-        "wijen": .wijen
+        "kedelai": .soy,
+        "wijen": .sesame
     ]
 
-    static let stopwords: Set<String> = [
-        "buat", "anak", "bocil", "dedek", "si", "kecil", "balita",
-        "gak", "ga", "nggak", "ngga", "tidak", "jangan", "pedas", "pedes", "sambal", "tanpa", "boleh",
-        "alergi", "halal",
-        "murah", "murmer", "hemat", "budget", "rb", "ribu", "k",
-        "ngenyangin", "berat", "mengenyangkan", "cemilan", "ngemil", "snack", "minuman", "haus", "seger",
-        "sehat", "berminyak", "fresh", "begah",
-        "dan", "di", "ke", "yang", "untuk", "ya", "dong", "aja", "apa", "mau", "banget", "nih", "itu", "ini",
-        "atau", "dengan", "biar", "kalau", "kalo", "mo", "pengen", "pengin", "enak",
-        "makan", "makanan", "menu", "cari", "carikan", "kasih", "rekomendasi", "kuliner", "jajan",
-        "resto", "warung", "kedai", "mo", "pengin", "ada", "adakah", "gimana", "gmn", "kek", "kayak",
-        "seperti", "tolong", "please", "min", "kak", "bang", "kenyang", "laper", "lapar"
-    ]
+    static let sentinelRawValues: Set<String> = ["other", "none", "tidak ada"]
 
     static let knownVocabulary: Set<String> = {
         var words = Set<String>()
-        for c in Carb.allCases where c.rawValue != "other" {
-            words.formUnion(deCamelCase(c.rawValue).split(separator: " ").map(String.init))
+        for c in Carb.allCases where !sentinelRawValues.contains(c.rawValue.lowercased()) {
+            words.formUnion(c.rawValue.lowercased().split(separator: " ").map(String.init))
         }
-        for p in ProteinHewani.allCases where p.rawValue != "other" {
-            words.formUnion(deCamelCase(p.rawValue).split(separator: " ").map(String.init))
+        for p in AnimalProtein.allCases where !sentinelRawValues.contains(p.rawValue.lowercased()) {
+            words.formUnion(p.rawValue.lowercased().split(separator: " ").map(String.init))
         }
-        for p in ProteinNabati.allCases where p.rawValue != "other" {
-            words.formUnion(deCamelCase(p.rawValue).split(separator: " ").map(String.init))
+        for p in PlantProtein.allCases where !sentinelRawValues.contains(p.rawValue.lowercased()) {
+            words.formUnion(p.rawValue.lowercased().split(separator: " ").map(String.init))
         }
-        for v in Veggie.allCases where v.rawValue != "other" {
-            words.formUnion(deCamelCase(v.rawValue).split(separator: " ").map(String.init))
+        for v in Veggie.allCases where !sentinelRawValues.contains(v.rawValue.lowercased()) {
+            words.formUnion(v.rawValue.lowercased().split(separator: " ").map(String.init))
         }
-        for c in CookMethod.allCases where c.rawValue != "other" {
-            words.formUnion(deCamelCase(c.rawValue).split(separator: " ").map(String.init))
+        for c in CookMethod.allCases where !sentinelRawValues.contains(c.rawValue.lowercased()) {
+            words.formUnion(c.rawValue.lowercased().split(separator: " ").map(String.init))
         }
         return words
     }()
@@ -107,25 +95,16 @@ private extension KeywordIntentParser {
     }
 
     func matchEnum<T: RawRepresentable & CaseIterable>(_ type: T.Type, in text: String) -> [T]? where T.RawValue == String {
-        let matched = T.allCases.filter { $0.rawValue != "other" && text.contains(Self.deCamelCase($0.rawValue)) }
+        let matched = T.allCases.filter {
+            !Self.sentinelRawValues.contains($0.rawValue.lowercased()) && text.contains($0.rawValue.lowercased())
+        }
         return matched.isEmpty ? nil : matched
     }
 
     func matchCookMethod(in text: String) -> CookMethod? {
-        CookMethod.allCases.first { $0.rawValue != "other" && text.contains(Self.deCamelCase($0.rawValue)) }
-    }
-
-    static func deCamelCase(_ value: String) -> String {
-        var result = ""
-        for character in value {
-            if character.isUppercase {
-                result.append(" ")
-                result.append(contentsOf: character.lowercased())
-            } else {
-                result.append(character)
-            }
+        CookMethod.allCases.first {
+            !Self.sentinelRawValues.contains($0.rawValue.lowercased()) && text.contains($0.rawValue.lowercased())
         }
-        return result
     }
 
     static func sanitizeAllergenMentions(from text: String) -> String {
@@ -192,4 +171,18 @@ private extension KeywordIntentParser {
         }
         return hints.isEmpty ? nil : hints
     }
+
+    static let stopwords: Set<String> = [
+        "buat", "anak", "bocil", "dedek", "si", "kecil", "balita",
+        "gak", "ga", "nggak", "ngga", "tidak", "jangan", "pedas", "pedes", "sambal", "tanpa", "boleh",
+        "alergi", "halal",
+        "murah", "murmer", "hemat", "budget", "rb", "ribu", "k",
+        "ngenyangin", "berat", "mengenyangkan", "cemilan", "ngemil", "snack", "minuman", "haus", "seger",
+        "sehat", "berminyak", "fresh", "begah",
+        "dan", "di", "ke", "yang", "untuk", "ya", "dong", "aja", "apa", "mau", "banget", "nih", "itu", "ini",
+        "atau", "dengan", "biar", "kalau", "kalo", "mo", "pengen", "pengin", "enak",
+        "makan", "makanan", "menu", "cari", "carikan", "kasih", "rekomendasi", "kuliner", "jajan",
+        "resto", "warung", "kedai", "mo", "pengin", "ada", "adakah", "gimana", "gmn", "kek", "kayak",
+        "seperti", "tolong", "please", "min", "kak", "bang", "kenyang", "laper", "lapar"
+    ]
 }
