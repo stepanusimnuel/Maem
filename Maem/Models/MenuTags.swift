@@ -21,12 +21,13 @@ struct MenuTags: Codable {
     var isInstant: Bool?
     var isContainPork: Bool?
     var isContainAlcohol: Bool?
-    
     var isDrink: Bool?
     var isDessert: Bool?
     var isSnack: Bool?
-    
-    var isKidFriendly: Bool = false
+    var cookMethod: CookMethod?
+    var mealCategory: MealCategory?
+
+    var isKidFriendly: Bool { portion == .kids && spicy == false }
 
     init(
         carbs: [Carb]? = nil,
@@ -43,7 +44,9 @@ struct MenuTags: Codable {
         isContainAlcohol: Bool? = nil,
         isDrink: Bool? = nil,
         isDessert: Bool? = nil,
-        isSnack: Bool? = nil
+        isSnack: Bool? = nil,
+        cookMethod: CookMethod? = nil,
+        mealCategory: MealCategory? = nil
     ) {
         self.carbs = carbs
         self.veggies = veggies
@@ -60,10 +63,8 @@ struct MenuTags: Codable {
         self.isDrink = isDrink
         self.isDessert = isDessert
         self.isSnack = isSnack
-    
-        if self.spicy == false && self.portion == .kids {
-            self.isKidFriendly = true
-        }
+        self.cookMethod = cookMethod
+        self.mealCategory = mealCategory
     }
 }
 

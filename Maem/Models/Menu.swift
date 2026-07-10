@@ -67,7 +67,7 @@ extension Menu {
 
         case .halal:
 
-            return tenant?.isHalal == true
+            return tenant?.halalStatus == .bersertifikat
 
         default:
 
@@ -85,4 +85,8 @@ extension Menu {
         tags.foodCategories
     }
 
+}
+
+extension Menu {
+    var isVegetarian: Bool { (tags.animalProtein ?? []).isEmpty }
 }
