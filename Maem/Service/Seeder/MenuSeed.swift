@@ -34,7 +34,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[0]
             ),
             Menu(
                 name: "Nasi Ayam Kecap (Porsi Anak)",
@@ -58,7 +59,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[0]
             ),
             Menu(
                 name: "Ayam Kremes + Nasi",
@@ -82,7 +84,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[0]
             ),
             Menu(
                 name: "Ayam Suwir Kecap (Porsi Anak)",
@@ -106,7 +109,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[0]
             ),
             Menu(
                 name: "Sup Ayam Wortel (Anak)",
@@ -130,7 +134,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[0]
             ),
             Menu(
                 name: "Ayam Bakar Madu + Nasi",
@@ -154,7 +159,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[0]
             )
         ]
         tenants[1].menus = [
@@ -180,7 +186,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[1]
             ),
             Menu(
                 name: "Soto Ayam",
@@ -204,7 +211,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[1]
             ),
             Menu(
                 name: "Soto Daging Sapi",
@@ -228,7 +236,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[1]
             ),
             Menu(
                 name: "Sate Usus Ayam",
@@ -252,7 +261,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .grilled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[1]
             ),
             Menu(
                 name: "Nasi Goreng Kampung",
@@ -276,7 +286,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[1]
             ),
             Menu(
                 name: "Kerupuk & Sambal Bawang",
@@ -300,7 +311,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[1]
             )
         ]
         tenants[2].menus = [
@@ -326,7 +338,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[2]
             ),
             Menu(
                 name: "Cumi Goreng Tepung + Nasi",
@@ -350,7 +363,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[2]
             ),
             Menu(
                 name: "Ikan Bakar + Nasi",
@@ -374,7 +388,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[2]
             ),
             Menu(
                 name: "Sup Ikan Tenggiri (Anak)",
@@ -398,7 +413,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[2]
             ),
             Menu(
                 name: "Udang Kukus Saus Mentega (Anak)",
@@ -422,7 +438,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .steamed,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[2]
             ),
             Menu(
                 name: "Bubur Ikan (Anak)",
@@ -446,7 +463,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[2]
             )
         ]
         tenants[3].menus = [
@@ -472,7 +490,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[3]
             ),
             Menu(
                 name: "Dimsum Ayam Kukus",
@@ -496,7 +515,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .steamed,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[3]
             ),
             Menu(
                 name: "Mie Instan Telur",
@@ -520,7 +540,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[3]
             ),
             Menu(
                 name: "Mie Goreng Ayam",
@@ -544,7 +565,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[3]
             ),
             Menu(
                 name: "Dimsum Goreng Renyah",
@@ -568,7 +590,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[3]
             ),
             Menu(
                 name: "Mie Pedas Setan",
@@ -592,7 +615,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[3]
             )
         ]
         tenants[4].menus = [
@@ -618,7 +642,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[4]
             ),
             Menu(
                 name: "Gado-Gado",
@@ -642,7 +667,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[4]
             ),
             Menu(
                 name: "Capcay Kuah",
@@ -666,7 +692,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[4]
             ),
             Menu(
                 name: "Sup Tahu Sayur (Anak)",
@@ -690,7 +717,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[4]
             ),
             Menu(
                 name: "Tempe Orek Pedas",
@@ -714,7 +742,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .stirFried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[4]
             ),
             Menu(
                 name: "Keripik Tempe",
@@ -738,7 +767,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[4]
             )
         ]
         tenants[5].menus = [
@@ -764,7 +794,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[5]
             ),
             Menu(
                 name: "Nasi Goreng B2",
@@ -788,7 +819,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[5]
             ),
             Menu(
                 name: "Bubur Babi Cincang (Anak)",
@@ -812,7 +844,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[5]
             ),
             Menu(
                 name: "Sup Sayur Babi (Anak)",
@@ -836,7 +869,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[5]
             ),
             Menu(
                 name: "Babi Panggang Madu + Nasi",
@@ -860,7 +894,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .roasted,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[5]
             ),
             Menu(
                 name: "Sate Babi Pedas",
@@ -884,7 +919,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .grilled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[5]
             )
         ]
         tenants[6].menus = [
@@ -910,7 +946,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .other,
                     mealCategory: .dessert
-                )
+                ),
+                tenant: tenants[6]
             ),
             Menu(
                 name: "Es Krim Vanilla Cup (Anak)",
@@ -934,7 +971,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .other,
                     mealCategory: .dessert
-                )
+                ),
+                tenant: tenants[6]
             ),
             Menu(
                 name: "Puding Karamel (Anak)",
@@ -958,7 +996,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .other,
                     mealCategory: .dessert
-                )
+                ),
+                tenant: tenants[6]
             ),
             Menu(
                 name: "Pisang Goreng Crispy",
@@ -982,7 +1021,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[6]
             ),
             Menu(
                 name: "Kue Cubit Gosong (Karamel)",
@@ -1006,7 +1046,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .roasted,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[6]
             ),
             Menu(
                 name: "Keripik Pisang Manis",
@@ -1030,7 +1071,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[6]
             )
         ]
         tenants[7].menus = [
@@ -1056,7 +1098,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Gulai Ayam + Nasi",
@@ -1080,7 +1123,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Ayam Pop + Nasi",
@@ -1104,7 +1148,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Dendeng Balado + Nasi",
@@ -1128,7 +1173,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Telur Balado + Nasi",
@@ -1152,7 +1198,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Sayur Nangka Lodeh",
@@ -1176,7 +1223,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Ayam Bakar Padang + Nasi",
@@ -1200,7 +1248,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Perkedel Kentang",
@@ -1224,7 +1273,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Nasi Campur Padang (Rendang + Sayur + Telur)",
@@ -1248,7 +1298,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Nasi Rendang Anak (Tidak Pedas)",
@@ -1272,7 +1323,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             ),
             Menu(
                 name: "Sup Ayam Padang (Anak, Tidak Pedas)",
@@ -1296,7 +1348,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[7]
             )
         ]
         tenants[8].menus = [
@@ -1322,7 +1375,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[8]
             ),
             Menu(
                 name: "Bakso Telur",
@@ -1346,7 +1400,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[8]
             ),
             Menu(
                 name: "Bakso Beranak (Sharing)",
@@ -1370,7 +1425,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[8]
             ),
             Menu(
                 name: "Mie Bakso",
@@ -1394,7 +1450,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[8]
             ),
             Menu(
                 name: "Bakso Goreng (Cemilan)",
@@ -1418,7 +1475,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[8]
             ),
             Menu(
                 name: "Bakso Anak (Porsi Kecil, Tidak Pedas)",
@@ -1442,7 +1500,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[8]
             ),
             Menu(
                 name: "Bakso Pedas Setan",
@@ -1466,7 +1525,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[8]
             ),
             Menu(
                 name: "Bakso Bakar Pedas",
@@ -1490,7 +1550,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .grilled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[8]
             )
         ]
         tenants[9].menus = [
@@ -1516,7 +1577,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Tahu Tempe Penyet",
@@ -1540,7 +1602,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Lele Penyet + Nasi",
@@ -1564,7 +1627,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Ayam Geprek Level 5",
@@ -1588,7 +1652,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Ayam Geprek (Tidak Pedas, Anak)",
@@ -1612,7 +1677,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Terong Penyet",
@@ -1636,7 +1702,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Bebek Geprek + Nasi",
@@ -1660,7 +1727,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Sup Tahu Ayam (Anak, Tidak Pedas)",
@@ -1684,7 +1752,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Lele Kukus Saus (Anak, Tidak Pedas)",
@@ -1708,7 +1777,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .steamed,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             ),
             Menu(
                 name: "Bebek Suwir Kecap (Anak, Tidak Pedas)",
@@ -1732,7 +1802,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[9]
             )
         ]
         tenants[10].menus = [
@@ -1758,7 +1829,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Nasi Uduk Ayam Goreng",
@@ -1782,7 +1854,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Semur Telur + Nasi",
@@ -1806,7 +1879,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Tahu Goreng (Gorengan)",
@@ -1830,7 +1904,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Bakwan Sayur (Gorengan)",
@@ -1854,7 +1929,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Sambal Goreng Kentang",
@@ -1878,7 +1954,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Nasi Uduk Ikan Asin",
@@ -1902,7 +1979,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Bubur Ayam Betawi (Anak)",
@@ -1926,7 +2004,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[10]
             ),
             Menu(
                 name: "Sup Ayam Uduk (Anak)",
@@ -1950,7 +2029,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[10]
             )
         ]
         tenants[11].menus = [
@@ -1976,7 +2056,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sate Kambing",
@@ -2000,7 +2081,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sate Padang",
@@ -2024,7 +2106,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sop Buntut",
@@ -2048,7 +2131,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sate Ayam (Porsi Anak, Tanpa Kacang)",
@@ -2072,7 +2156,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sate Usus",
@@ -2096,7 +2181,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .grilled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sate Telur Puyuh",
@@ -2120,7 +2206,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .grilled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Gulai Kambing + Nasi",
@@ -2144,7 +2231,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sate Campur (Ayam + Kambing + Sapi)",
@@ -2168,7 +2256,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Sup Sate Ayam (Anak, Kuah Kaldu)",
@@ -2192,7 +2281,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             ),
             Menu(
                 name: "Semur Daging Sapi (Anak, Tidak Pedas)",
@@ -2216,7 +2306,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[11]
             )
         ]
         tenants[12].menus = [
@@ -2242,7 +2333,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .roasted,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[12]
             ),
             Menu(
                 name: "Kwetiau Siram Seafood",
@@ -2266,7 +2358,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[12]
             ),
             Menu(
                 name: "Fuyunghai + Nasi",
@@ -2290,7 +2383,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[12]
             ),
             Menu(
                 name: "Cap Cai Babi",
@@ -2314,7 +2408,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[12]
             ),
             Menu(
                 name: "Bebek Panggang + Nasi",
@@ -2338,7 +2433,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .roasted,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[12]
             ),
             Menu(
                 name: "Ayam Saus Mentega",
@@ -2362,7 +2458,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[12]
             ),
             Menu(
                 name: "Kwetiau Goreng Babi",
@@ -2386,7 +2483,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[12]
             )
         ]
         tenants[13].menus = [
@@ -2412,7 +2510,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Pecel Ayam + Nasi",
@@ -2436,7 +2535,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Ikan Nila Goreng + Nasi",
@@ -2460,7 +2560,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Lele Goreng (Anak, Tidak Pedas)",
@@ -2484,7 +2585,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Tempe Tahu Goreng (Pelengkap)",
@@ -2508,7 +2610,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Sayur Asem",
@@ -2532,7 +2635,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Lalapan Komplit + Sambal",
@@ -2556,7 +2660,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .rawSalad,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Sup Ikan Lele (Anak, Tidak Pedas)",
@@ -2580,7 +2685,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[13]
             ),
             Menu(
                 name: "Tumis Bayam (Anak)",
@@ -2604,7 +2710,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .stirFried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[13]
             )
         ]
         tenants[14].menus = [
@@ -2630,7 +2737,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .roasted,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[14]
             ),
             Menu(
                 name: "Salad Buah & Sayur",
@@ -2654,7 +2762,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .rawSalad,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[14]
             ),
             Menu(
                 name: "Sup Krim Jagung",
@@ -2678,7 +2787,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[14]
             ),
             Menu(
                 name: "Dada Ayam Panggang + Sayur Kukus",
@@ -2702,7 +2812,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .roasted,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[14]
             ),
             Menu(
                 name: "Oatmeal Sayur & Telur",
@@ -2726,7 +2837,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[14]
             ),
             Menu(
                 name: "Tahu Panggang Saus Wijen",
@@ -2750,7 +2862,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .roasted,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[14]
             ),
             Menu(
                 name: "Sup Sayur Bening (Anak)",
@@ -2774,7 +2887,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[14]
             ),
             Menu(
                 name: "Keripik Kale Panggang",
@@ -2798,7 +2912,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .roasted,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[14]
             )
         ]
         tenants[15].menus = [
@@ -2824,7 +2939,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Nasi Kuning Anak (Tanpa Pedas)",
@@ -2848,7 +2964,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Ayam Betutu + Nasi",
@@ -2872,7 +2989,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .steamed,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Sate Lilit Ayam",
@@ -2896,7 +3014,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .grilled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Nasi Campur Bali (Ayam)",
@@ -2920,7 +3039,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .fried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Jukut Urab (Sayur Bali)",
@@ -2944,7 +3064,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .boiled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Ayam Sisit (Suwir Pedas) + Nasi",
@@ -2968,7 +3089,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Sup Ayam Bali (Anak, Tidak Pedas)",
@@ -2992,7 +3114,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Ayam Suwir Kuning (Anak, Tidak Pedas)",
@@ -3016,7 +3139,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .stirFried,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             ),
             Menu(
                 name: "Bubur Kuning Ayam (Anak)",
@@ -3040,7 +3164,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .heavyMeal
-                )
+                ),
+                tenant: tenants[15]
             )
         ]
         tenants[16].menus = [
@@ -3066,7 +3191,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Pastel Sayur",
@@ -3090,7 +3216,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Lumpia Semarang",
@@ -3114,7 +3241,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Martabak Telur Mini",
@@ -3138,7 +3266,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Klepon",
@@ -3162,7 +3291,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .boiled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Kroket Kentang",
@@ -3186,7 +3316,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Combro",
@@ -3210,7 +3341,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Cireng Bumbu Rujak",
@@ -3234,7 +3366,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Getuk Lindri (Anak)",
@@ -3258,7 +3391,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .boiled,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[16]
             ),
             Menu(
                 name: "Bubur Sumsum (Anak)",
@@ -3282,7 +3416,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .dessert
-                )
+                ),
+                tenant: tenants[16]
             )
         ]
         tenants[17].menus = [
@@ -3308,7 +3443,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .roasted,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Roti Bakar Kacang",
@@ -3332,7 +3468,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .roasted,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Kentang Goreng",
@@ -3356,7 +3493,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Pisang Goreng Keju",
@@ -3380,7 +3518,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Roti Bakar Anak (Coklat, Tanpa Kacang)",
@@ -3404,7 +3543,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .roasted,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Kentang Mustofa (Kentang Kering Pedas)",
@@ -3428,7 +3568,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Mie Instan Goreng Telur (Snack)",
@@ -3452,7 +3593,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Roti Bakar Keju Susu (Anak, Tanpa Coklat)",
@@ -3476,7 +3618,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .roasted,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Pisang Goreng Madu (Anak, Tidak Pedas)",
@@ -3500,7 +3643,8 @@ enum MenuSeed {
                     isSnack: true,
                     cookMethod: .fried,
                     mealCategory: .snack
-                )
+                ),
+                tenant: tenants[17]
             ),
             Menu(
                 name: "Bubur Kacang Hijau (Anak)",
@@ -3524,7 +3668,8 @@ enum MenuSeed {
                     isSnack: false,
                     cookMethod: .boiled,
                     mealCategory: .dessert
-                )
+                ),
+                tenant: tenants[17]
             )
         ]
 
