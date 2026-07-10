@@ -221,14 +221,28 @@ final class ResultViewModel {
 
     private func runSearch(manual: SearchIntent) async {
 
-        let parser: IntentParser = FoundationModelIntentParser.isAvailable
-            ? FoundationModelIntentParser()
-            : KeywordIntentParser()
-
-        let textIntent = (try? await parser.parse(searchText)) ?? SearchIntent()
+        let textIntent = await resolveTextIntent(for: searchText)
         let merged = textIntent.merged(withManual: manual)
 
         applyResult(RecommendationEngine().recommend(menus: allMenus, intent: merged))
+
+    }
+
+    /// Tries the on-device LLM parser first when available, but falls back to
+    /// the deterministic KeywordIntentParser - never to an empty SearchIntent()
+    /// - if it throws (guardrail violation, unsupported language, model
+    /// hiccup, etc). Falling back to an empty intent silently discards
+    /// everything the user typed and makes search look completely broken
+    /// (every query returns all menus, since no hard filters remain);
+    /// KeywordIntentParser is deterministic and never actually throws.
+    private func resolveTextIntent(for query: String) async -> SearchIntent {
+
+        if FoundationModelIntentParser.isAvailable,
+           let intent = try? await FoundationModelIntentParser().parse(query) {
+            return intent
+        }
+
+        return (try? await KeywordIntentParser().parse(query)) ?? SearchIntent()
 
     }
 
