@@ -16,6 +16,7 @@ enum MenuListMode {
     case search(String)
 }
 
+
 @Observable
 final class ResultViewModel {
     
@@ -36,6 +37,25 @@ final class ResultViewModel {
     var isHalalOnly = false
 
     var isBelow30K = false
+    
+    var isKidFriendly = false
+    
+    var navigationTitle: String? {
+
+        switch mode {
+
+        case .search:
+            return nil
+
+        case .kids:
+            return "Untuk Si Kecil"
+
+        case .all:
+            return "Untuk Semua"
+
+        }
+
+    }
 
     init(
         mode: MenuListMode,
@@ -119,45 +139,103 @@ final class ResultViewModel {
             }
 
         }
+        
+        if !filter.tags.isEmpty {
 
+            result = result.filter { menu in
+
+                filter.tags.allSatisfy {
+
+                    menu.contains($0)
+
+                }
+
+            }
+
+        }
+        
+        if isKidFriendly {
+
+            result = result.filter {
+
+                $0.tags.isKidFriendly
+
+            }
+
+        }
+        
+        if isBelow30K {
+
+            result = result.filter {
+
+                $0.price < 30_000
+
+            }
+
+        }
+        
         if isHalalOnly {
 
             result = result.filter {
 
                 $0.tenant?.isHalal == true
+
             }
 
         }
+        
+        if !filter.allergens.isEmpty {
 
-        // Harga
-        if isBelow30K {
+            result = result.filter { menu in
+
+                let allergens = menu.tags.allergens ?? []
+
+                return filter.allergens.isDisjoint(with: allergens)
+
+            }
+
+        }
+        
+        if let category = filter.category {
 
             result = result.filter {
 
-                $0.price < 30000
+                $0.foodCategories.contains(category)
+
+            }
+
+        }
+        
+        if let preset = filter.priceFilter {
+
+            result = result.filter {
+
+                preset.contains($0.price)
+
+            }
+
+        }
+        
+        if let min = Int(filter.minimumPrice) {
+
+            result = result.filter {
+
+                $0.price >= min
 
             }
 
         }
 
-        filteredMenus = result
+        if let max = Int(filter.maximumPrice) {
 
-    }
+            result = result.filter {
 
-    var navigationTitle: String? {
+                $0.price <= max
 
-        switch mode {
-
-        case .all:
-            return "Untuk Semua"
-
-        case .kids:
-            return "Untuk Si Kecil"
-
-        case .search:
-            return nil
+            }
 
         }
-
+        
+        filteredMenus = result
     }
 }

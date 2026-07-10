@@ -38,6 +38,30 @@ enum PriceFilter: String, CaseIterable {
 
 }
 
+extension PriceFilter {
+
+    func contains(_ price: Int) -> Bool {
+
+        switch self {
+
+        case .below50:
+
+            return price < 50000
+
+        case .between50And100:
+
+            return 50000...100000 ~= price
+
+        case .above100:
+
+            return price > 100000
+
+        }
+
+    }
+
+}
+
 @Observable
 final class FilterViewModel {
 

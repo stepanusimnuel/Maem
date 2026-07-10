@@ -48,7 +48,7 @@ struct FilterSheet: View {
                 toolbar
 
             }
-            .background(AppColor.red50)
+            .background(AppColor.neutralWhite)
 
         }
 
@@ -72,13 +72,11 @@ private extension FilterSheet {
             } label: {
 
                 Image(systemName: "xmark")
-                    .font(AppFont.caption(weight: .bold))
+                    .font(AppFont.headline(weight: .medium))
                     .foregroundStyle(AppColor.red700)
-                    .frame(width: 12, height: 12)
+                    .clipShape(Circle())
 
             }
-            .buttonStyle(.glass)
-            .clipShape(Circle())
 
         }
 
@@ -105,13 +103,11 @@ private extension FilterSheet {
             } label: {
 
                 Image(systemName: "checkmark")
-                    .font(AppFont.caption(weight: .bold))
+                    .font(AppFont.headline(weight: .medium))
                     .foregroundStyle(AppColor.red700)
-                    .frame(width: 12, height: 12)
+                    .clipShape(Circle())
 
             }
-            .buttonStyle(.glass)
-            .clipShape(Circle())
 
         }
 
@@ -126,8 +122,8 @@ private extension FilterSheet {
             Text("Tags")
                 .font(AppFont.body(weight: .bold))
 
-            FlowLayout(spacing: 12) {
-                ForEach([DisplayTag.isInstant, .spicy, .kidsPortion], id: \.self) { tag in
+            FlowLayout(spacing: 10) {
+                ForEach([DisplayTag.isInstant, .spicy, .kidsPortion, .halal], id: \.self) { tag in
                     let isSelected = filter.tags.contains(tag)
                     FilterChip(title: tag.title, isSelected: isSelected) {
                         if isSelected {
@@ -146,7 +142,7 @@ private extension FilterSheet {
 private extension FilterSheet {
 
     var allergenSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Alergen")
                 .font(AppFont.body(weight: .bold))
 

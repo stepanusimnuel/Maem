@@ -24,6 +24,8 @@ enum DisplayTag: CaseIterable, Hashable {
     case isInstant
     
     case soupy
+    
+    case halal
 
 }
 
@@ -56,6 +58,9 @@ extension DisplayTag {
             
         case .soupy:
             return "Berkuah"
+            
+        case .halal:
+            return "Halal"
         }
 
     }
@@ -87,6 +92,9 @@ extension DisplayTag {
             
         case .soupy:
             return "tag-soupy"
+            
+        case .halal:
+            return "tag-halal"
 
         }
 

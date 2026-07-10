@@ -11,6 +11,10 @@ struct SearchHeader: View {
 
     @Binding var searchText: String
 
+    var isEditable: Bool = true
+
+    let onTap: (() -> Void)?
+
     let onSearch: () -> Void
 
     var body: some View {
@@ -18,22 +22,60 @@ struct SearchHeader: View {
         HStack(spacing: 8) {
 
             Image(systemName: "magnifyingglass")
+                .font(AppFont.headline(weight: .medium))
 
-            TextField(
-                "makanan untuk anak radang",
-                text: $searchText
-            )
-            .font(AppFont.callout())
-            .onSubmit {
+            if isEditable {
 
-                onSearch()
+                TextField(
+                    "makanan untuk anak radang",
+                    text: $searchText
+                )
+                .font(AppFont.caption(weight: .medium))
+                .foregroundStyle(AppColor.neutralMedGrey)
+                .onSubmit {
+                    onSearch()
+                }
 
+            } else {
+
+                Text(searchText.isEmpty
+                     ? "makanan untuk anak radang"
+                     : searchText)
+                    .font(AppFont.caption(weight: .medium))
+                    .foregroundStyle(AppColor.neutralMedGrey)
+
+                Spacer()
             }
 
         }
-        .padding(.horizontal, 10)
-        .frame(height: 44)
-        .glassEffect(in: .capsule)
+        .padding()
+        .frame(height: 48)
+        .overlay(
+            Capsule()
+                .stroke(
+                    LinearGradient(
+                        colors: [AppColor.red700, AppColor.blue500],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 2
+                )
+        )
+        .glassEffect(.clear)
+        .shadow(
+            color: Color.blue500.opacity(0.12),
+            radius: 16,
+            x: 0,
+            y: 8
+        )
+        .contentShape(Rectangle())
+        .onTapGesture {
+
+            guard !isEditable else { return }
+
+            onTap?()
+
+        }
 
     }
 
@@ -41,6 +83,6 @@ struct SearchHeader: View {
 
 #Preview {
     NavigationStack {
-        SearchHeader(searchText: .constant("Hello"), onSearch: {})
+        SearchHeader(searchText: .constant("Hello"), onTap: {}, onSearch: {})
     }
 }

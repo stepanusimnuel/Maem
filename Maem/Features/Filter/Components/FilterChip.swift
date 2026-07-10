@@ -8,30 +8,41 @@
 import SwiftUI
 
 struct FilterChip: View {
-    let title: String
+    var title: String? = nil
     let isSelected: Bool
+    var systemImage: String? = nil
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
-            Text(title)
-                .font(AppFont.body(weight: .regular))
-                .lineLimit(1)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .foregroundStyle(isSelected ? AppColor.red700 : AppColor.neutralDarkGrey)
-                .background(isSelected ? AppColor.red100 : AppColor.neutralLightGrey)
-                .clipShape(Capsule())
-                .overlay(
-                    Capsule()
-                        .stroke(lineWidth: 1)
-                        .foregroundStyle(isSelected ? AppColor.red700 : AppColor.neutralDarkGrey)
-                )
+            
+            HStack {
+                if systemImage != nil {
+                    Image(systemName: systemImage ?? "")
+                }
+                
+                if title != nil {
+                    Text(title ?? "")
+                        .lineLimit(1)
+                }
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background(isSelected ? AppColor.red100 : AppColor.neutralLightGrey)
+            .clipShape(Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(lineWidth: 1)
+                    .foregroundStyle(isSelected ? AppColor.red700 : AppColor.neutralDarkGrey)
+            )
+            .foregroundStyle(isSelected ? AppColor.red700 : AppColor.neutralDarkGrey)
+            .font(AppFont.body(weight: .regular))
+            
         }
         .buttonStyle(.plain)
     }
 }
 
 #Preview {
-    FilterChip(title: "test", isSelected: true, action: {})
+    FilterChip(isSelected: true, systemImage: "bookmark", action: {})
 }

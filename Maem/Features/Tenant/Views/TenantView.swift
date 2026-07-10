@@ -78,12 +78,21 @@ struct TenantView: View {
     }
     
     private func setupSegmentedControlAppearance() {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14, weight: .regular)
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(AppColor.red700)
+        let selectedAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+            .foregroundColor: UIColor(AppColor.neutralWhite)
+            
         ]
-        UISegmentedControl.appearance().setTitleTextAttributes(attributes, for: .selected)
-        UISegmentedControl.appearance().setTitleTextAttributes(attributes, for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes(selectedAttributes, for: .selected)
+
+        let normalAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+            .foregroundColor: UIColor(AppColor.neutralDarkGrey)
+        ]
+        UISegmentedControl.appearance().setTitleTextAttributes(normalAttributes, for: .normal)
     }
+
 }
 
 #Preview {

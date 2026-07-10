@@ -53,7 +53,9 @@ struct MenuDetailView: View {
                 }
 
             }
-            .ignoresSafeArea(edges: .top)
+            .safeAreaInset(edge: .bottom) {
+                saveButton
+            }
             .navigationBarBackButtonHidden()
             .toolbar {
 
@@ -82,11 +84,14 @@ struct MenuDetailView: View {
                             }
                         }
                     }
+                    .padding(.top, 56)
             }
         }
+        .ignoresSafeArea(edges: [.top, .bottom]) 
         .navigationDestination(for: Menu.self) { selectedMenu in
             MenuDetailView(menu: selectedMenu)
         }
+        .toolbar(.hidden, for: .tabBar)
 
     }
 
@@ -131,8 +136,6 @@ private extension MenuDetailView {
             tagSection
 
             descriptionSection
-            
-            saveButton
 
             HorizontalMenuSection(
 
@@ -172,7 +175,7 @@ private extension MenuDetailView {
             }
 
         }
-        .padding(.horizontal, 36)
+        .padding(.horizontal)
         .navigationDestination(isPresented: $navigateToTenant) {
             if let tenant = viewModel.menu.tenant {
                 TenantView(tenant: tenant)
@@ -260,29 +263,51 @@ private extension MenuDetailView {
 private extension MenuDetailView {
     var saveButton: some View {
         Button {
-            viewModel.menu.isBookmarked.toggle()
-            withAnimation {
-                showAlert.toggle()
+            if !viewModel.menu.isBookmarked {
+                viewModel.menu.isBookmarked = true
+                withAnimation(.spring()) {
+                    showAlert = true
+                }
+            } else {
+                viewModel.menu.isBookmarked = false
+                withAnimation {
+                    showAlert = false
+                }
             }
         } label: {
-            HStack(spacing: 4) {
-                if viewModel.menu.isBookmarked {
-                    Image(systemName: "checkmark")
-                    Text("Tersimpan")
-                } else {
-                    Image(systemName: "bookmark")
-                    Text("Simpan menu")
-                }
+            VStack(spacing: 10) {
+                Text(viewModel.menu.tenant?.name ?? "")
+                    .font(AppFont.body(weight: .semibold))
+                    .foregroundStyle(AppColor.neutralBlack)
                 
+                HStack(spacing: 4) {
+                    if viewModel.menu.isBookmarked {
+                        Image(systemName: "checkmark")
+                        Text("Tersimpan")
+                    } else {
+                        Image(systemName: "bookmark")
+                        Text("Simpan menu")
+                    }
+                    
+                }
+                .font(AppFont.callout(weight: .bold))
+                .foregroundStyle(AppColor.neutralWhite)
+                .padding()
+                .frame(maxWidth:.infinity)
+                .background(viewModel.menu.isBookmarked ? AppColor.red300 : AppColor.red700)
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 20)
+                )
+                .shadow(color: AppColor.red50.opacity(0.25), radius: 10, x: 0, y: 1)
             }
-            .font(AppFont.callout(weight: .bold))
-            .foregroundStyle(AppColor.neutralWhite)
-            .padding()
             .frame(maxWidth:.infinity)
-            .background(viewModel.menu.isBookmarked ? AppColor.red300 : AppColor.red700)
-            .clipShape(
-                RoundedRectangle(cornerRadius: 20)
-            )
+            .padding(.horizontal, 20)
+            .padding(.top, 24)
+            .padding(.bottom, 30)
+            .background(AppColor.neutralWhite)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .shadow(color: Color.black.opacity(0.1), radius: 24, x: 0, y: -8)
+            
         }
     }
 }
@@ -298,7 +323,7 @@ private extension MenuDetailView {
 
             Text("Deskripsi")
                 .font(
-                    AppFont.title2(
+                    AppFont.body(
                         weight: .bold
                     )
                 )

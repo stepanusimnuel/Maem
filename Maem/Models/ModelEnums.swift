@@ -34,6 +34,7 @@ enum Carb: String, Codable {
     case noodle
     case bread
     case potato
+    case porridge
     case none
 
 }

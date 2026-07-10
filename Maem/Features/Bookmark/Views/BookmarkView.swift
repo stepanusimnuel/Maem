@@ -22,9 +22,9 @@ struct BookmarkView: View {
 
         NavigationStack {
             
-            ZStack {
+            ZStack(alignment: .top) {
                 
-                AppColor.red50.ignoresSafeArea()
+                AppColor.neutralWhite.ignoresSafeArea()
                 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Menu Tersimpan")
@@ -66,27 +66,28 @@ struct BookmarkView: View {
                         }
                     }
                     
-                    if showAlert {
-                        VStack {
-                            SaveSuccessAlert(isPresented: $showAlert)
-                                .padding(.top, 16)
-                            Spacer()
-                        }
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .zIndex(100)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                withAnimation {
-                                    showAlert = false
-                                }
+                    
+                }
+                
+                if showAlert {
+                    VStack {
+                        SaveSuccessAlert(isPresented: $showAlert)
+                            .padding(.top, 16)
+                        Spacer()
+                    }
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .zIndex(100)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            withAnimation {
+                                showAlert = false
                             }
                         }
                     }
                 }
-                .task {
-                    loadBookmarks()
-                }
-                
+            }
+            .task {
+                loadBookmarks()
             }
         }
 

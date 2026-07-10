@@ -27,6 +27,8 @@ final class Menu {
     var tenant: Tenant?
 
     var tags: MenuTags
+    
+    
 
     init(
         name: String,
@@ -53,6 +55,34 @@ final class Menu {
 
         self.isBookmarked = false
 
+    }
+
+}
+
+extension Menu {
+
+    func contains(_ tag: DisplayTag) -> Bool {
+
+        switch tag {
+
+        case .halal:
+
+            return tenant?.isHalal == true
+
+        default:
+
+            return tags.contains(tag)
+
+        }
+
+    }
+
+}
+
+extension Menu {
+
+    var foodCategories: [FoodCategory] {
+        tags.foodCategories
     }
 
 }

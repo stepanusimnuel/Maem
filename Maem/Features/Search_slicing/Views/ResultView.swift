@@ -20,6 +20,8 @@ struct ResultView: View {
     private var viewModel: ResultViewModel
     
     @State private var showAlert: Bool = false
+    
+    @State private var inlineTitle: String = ""
 
     init(
         mode: MenuListMode,
@@ -39,9 +41,28 @@ struct ResultView: View {
 
             VStack(
                 alignment: .leading,
-                spacing: 24
+                spacing: 15
             ) {
-
+                
+                if let t = viewModel.navigationTitle {
+                    Text(t)
+                        .font(AppFont.title2(weight: .bold))
+                        .background(
+                            GeometryReader { geo in
+                                Color.clear
+                                    .onChange(of: geo.frame(in: .global).minY) { _, minY in
+                                        if minY < -20 {
+                                            withAnimation {
+                                                inlineTitle = t
+                                            }
+                                        } else {
+                                            inlineTitle = ""
+                                        }
+                                    }
+                            }
+                        )
+                }
+                
                 quickFilterSection
 
                 resultSection
@@ -50,31 +71,41 @@ struct ResultView: View {
             .padding()
 
         }
+        .padding(.top, viewModel.navigationTitle == nil ? -28 : 0)
+        .navigationTitle(inlineTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack(spacing: 8) {
-                    Image(systemName: "magnifyingglass")
 
-                    TextField(
-                        "makanan untuk anak radang",
-                        text: $viewModel.searchText
-                    )
-                    .foregroundStyle(AppColor.neutralLightGrey)
-                    .onChange(of: viewModel.searchText) { _, _ in
+            if case .search = viewModel.mode {
 
-                        viewModel.applyFilter()
+                ToolbarItem(placement: .principal) {
+
+                    SearchHeader(
+                        searchText: $viewModel.searchText,
+                        isEditable: false,
+                        onTap: {
+
+                            dismiss()
+
+                        }
+                    ) {
 
                     }
+                    .frame(width:314, height: 44)
+
                 }
-                .padding(.horizontal, 12)
-                .frame(height: 36)
-                .glassEffect(in: .capsule)
-                
-                .padding(.trailing, 8)
+
             }
+
         }
+        .navigationBarTitleDisplayMode(.inline)
         .task {
+            
+            let inlineAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 18, weight: .bold),
+                .foregroundColor: UIColor(AppColor.neutralBlack)
+            ]
+            UINavigationBar.appearance().titleTextAttributes = inlineAttributes
 
             viewModel.load(
                 context: modelContext
@@ -108,56 +139,49 @@ private extension ResultView {
 
     var quickFilterSection: some View {
 
-        ScrollView(
-            .horizontal,
-            showsIndicators: false
-        ) {
+        ScrollView(.horizontal, showsIndicators: false) {
 
             HStack(spacing: 8) {
-                
+
                 FilterChip(
-
-                    title: "Filter",
-
-                    isSelected: false
-
+                    isSelected: false,
+                    systemImage: "slider.vertical.3"
                 ) {
-
                     viewModel.isShowingFilter = true
+                }
+
+                if case .all = viewModel.mode {
+
+                    FilterChip(
+                        title: "Untuk Anak",
+                        isSelected: viewModel.isKidFriendly
+                    ) {
+                        viewModel.isKidFriendly.toggle()
+                        viewModel.applyFilter()
+                    }
 
                 }
 
                 FilterChip(
-
-                    title: "Halal",
-
-                    isSelected: viewModel.isHalalOnly
-
-                ) {
-
-                    viewModel.isHalalOnly.toggle()
-
-                    viewModel.applyFilter()
-
-                }
-
-                FilterChip(
-
                     title: "Di bawah 30ribu",
-
                     isSelected: viewModel.isBelow30K
-
                 ) {
-
                     viewModel.isBelow30K.toggle()
-
                     viewModel.applyFilter()
+                }
 
+                FilterChip(
+                    title: "Halal",
+                    isSelected: viewModel.isHalalOnly
+                ) {
+                    viewModel.isHalalOnly.toggle()
+                    viewModel.applyFilter()
                 }
 
             }
 
         }
+        .padding(.top, 16)
 
     }
 

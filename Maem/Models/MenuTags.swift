@@ -22,6 +22,10 @@ struct MenuTags: Codable {
     var isContainPork: Bool?
     var isContainAlcohol: Bool?
     
+    var isDrink: Bool?
+    var isDessert: Bool?
+    var isSnack: Bool?
+    
     var isKidFriendly: Bool = false
 
     init(
@@ -36,7 +40,10 @@ struct MenuTags: Codable {
         portion: Portion? = nil,
         isInstant: Bool? = nil,
         isContainPork: Bool? = nil,
-        isContainAlcohol: Bool? = nil
+        isContainAlcohol: Bool? = nil,
+        isDrink: Bool? = nil,
+        isDessert: Bool? = nil,
+        isSnack: Bool? = nil
     ) {
         self.carbs = carbs
         self.veggies = veggies
@@ -50,6 +57,9 @@ struct MenuTags: Codable {
         self.isInstant = isInstant
         self.isContainPork = isContainPork
         self.isContainAlcohol = isContainAlcohol
+        self.isDrink = isDrink
+        self.isDessert = isDessert
+        self.isSnack = isSnack
     
         if self.spicy == false && self.portion == .kids {
             self.isKidFriendly = true
@@ -98,6 +108,117 @@ extension MenuTags {
 
         return tags
 
+    }
+
+}
+
+extension MenuTags {
+
+    func contains(_ tag: DisplayTag) -> Bool {
+
+        switch tag {
+
+        case .kidsPortion:
+
+            return portion == .kids
+
+        case .protein:
+
+            return !(animalProtein?.isEmpty ?? true)
+            || !(plantProtein?.isEmpty ?? true)
+
+        case .notSpicy:
+
+            return spicy == false
+
+        case .spicy:
+
+            return spicy == true
+
+        case .allergen:
+
+            return !(allergens?.isEmpty ?? true)
+
+        case .vegetable:
+
+            return !(veggies?.isEmpty ?? true)
+
+        case .isInstant:
+
+            return isInstant == true
+
+        case .soupy:
+
+            return texture?.contains(.soupy) == true
+
+        case .halal:
+
+            return false
+
+        }
+
+    }
+
+}
+
+extension MenuTags {
+
+    var foodCategories: [FoodCategory] {
+
+        var categories: [FoodCategory] = []
+
+        // Bubur
+        if carbs?.contains(.porridge) == true {
+            categories.append(.porridge)
+        }
+
+        // Berkuah
+        if texture?.contains(.soupy) == true {
+            categories.append(.soupy)
+        }
+
+        // Mie
+        if carbs?.contains(.noodle) == true {
+            categories.append(.noodle)
+        }
+
+        // Nasi
+        if carbs?.contains(.rice) == true {
+            categories.append(.rice)
+        }
+
+        // Ayam / Bebek
+        if animalProtein?.contains(.chicken) == true {
+            categories.append(.chicken)
+        }
+
+        // Ikan / Seafood
+        if let proteins = animalProtein,
+           proteins.contains(.fish) || proteins.contains(.shrimp) {
+            categories.append(.fish)
+        }
+
+        // Minuman
+        if isDrink == true {
+            categories.append(.drink)
+        }
+
+        // Snack
+        if isSnack == true {
+            categories.append(.snack)
+        }
+
+        // Dessert
+        if isDessert == true {
+            categories.append(.dessert)
+        }
+
+        // Default
+        if categories.isEmpty {
+            categories.append(.rice)
+        }
+
+        return categories
     }
 
 }

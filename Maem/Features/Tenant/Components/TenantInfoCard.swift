@@ -13,7 +13,6 @@ struct TenantInfoCard: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            // Bagian Profil Atas
             HStack(alignment: .center, spacing: 16) {
                 if let imageName = tenant.imageName {
                     Image(imageName)
@@ -44,7 +43,23 @@ struct TenantInfoCard: View {
                 Spacer()
             }
             
-            Divider()
+            
+            
+            if let tenantImages = tenant.tenantImages {
+                Divider()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(tenantImages, id: \.self) { imageName in
+                            Image(imageName)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 236, height: 177)
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                        }
+                    }
+                }
+                Divider()
+            }
             
             HStack(spacing: 16) {
                 Image(systemName: "mappin.and.ellipse")
@@ -52,7 +67,7 @@ struct TenantInfoCard: View {
                     .padding(12)
                     .background(AppColor.neutralLightGrey)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .foregroundColor(AppColor.red100)
+                    .foregroundColor(AppColor.neutralBlack)
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(tenant.foodCourt?.name ?? "Foodcourt")
@@ -76,5 +91,5 @@ struct TenantInfoCard: View {
 }
 
 #Preview {
-    TenantInfoCard(tenant: Tenant(name: "Test Tenant", imageName: "TenantLogo", tenantImages: ["tenant-image-1", "tenant-image-2"], openDay: 1, closeDay: 6, openTime: "08.00", closeTime: "21.00", detailLocation:"Testing detail"))
+    TenantInfoCard(tenant: Tenant(name: "Test Tenant", imageName: "ayam-bu-tini", tenantImages: ["tenant-image-1", "tenant-image-2"], openDay: 1, closeDay: 6, openTime: "08.00", closeTime: "21.00", detailLocation:"Testing detail"))
 }

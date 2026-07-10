@@ -33,6 +33,9 @@ struct MenuHeroImage: View {
             }
 
         }
+        .frame(height: 384)
+        .frame(width: 402)
+        .clipped()
         .clipShape(
             UnevenRoundedRectangle(
                 topLeadingRadius: 0,
@@ -41,8 +44,6 @@ struct MenuHeroImage: View {
                 topTrailingRadius: 0
             )
         )
-        .frame(maxWidth: .infinity)
-        .frame(height: 384)
 
     }
 

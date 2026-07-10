@@ -18,9 +18,11 @@ final class SearchSlicingViewModel {
     var recentSearches: [SearchHistory] = []
 
     let suggestions = [
-        "Makanan yang bukan junk food",
-        "Minuman hangat untuk anak",
-        "Makanan berprotein tinggi"
+        "ayam hainan",
+        "makanan untuk sakit radang",
+        "minuman di bawah 20ribu",
+        "gerd friendly",
+        "ayam goreng tidak pedas"
     ]
 
     let categories: [FoodCategory] = [

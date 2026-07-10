@@ -34,7 +34,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
         ]
@@ -60,7 +62,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false
                 )
             ),
 
@@ -81,7 +85,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false
                 )
             ),
 
@@ -102,7 +108,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
 
@@ -129,7 +137,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
 
@@ -150,7 +160,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
 
@@ -171,7 +183,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
 
@@ -198,7 +212,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
 
@@ -219,7 +235,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: true
                 )
             ),
 
@@ -240,7 +258,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: true
                 )
             )
         ]
@@ -266,7 +286,9 @@ enum MenuSeed {
                     portion: .kids,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: true, isSnack: false
                 )
             )
 
@@ -293,7 +315,9 @@ enum MenuSeed {
                     portion: .kids,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
 
@@ -314,7 +338,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: true,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
             
@@ -335,7 +361,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
 
@@ -362,7 +390,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
 
@@ -387,7 +417,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
 
@@ -412,7 +444,9 @@ enum MenuSeed {
                     portion: .kids,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
             
@@ -433,7 +467,9 @@ enum MenuSeed {
                     portion: .kids,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
 
@@ -447,7 +483,7 @@ enum MenuSeed {
                 price: 20000,
                 imageName: "bubur-ayam-polos",
                 tags: MenuTags(
-                    carbs: [.rice],
+                    carbs: [.porridge],
                     veggies: [.carrot, .tomato],
                     animalProtein: [.chicken],
                     plantProtein: [.bean],
@@ -458,7 +494,9 @@ enum MenuSeed {
                     portion: .kids,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             )
 
@@ -486,7 +524,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
 
@@ -507,7 +547,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: false
                 )
             ),
 
@@ -528,7 +570,9 @@ enum MenuSeed {
                     portion: .reguler,
                     isInstant: false,
                     isContainPork: false,
-                    isContainAlcohol: false
+                    isContainAlcohol:false,
+                    isDrink: false,
+                    isDessert: false, isSnack: true
                 )
             )
 
