@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FoundationModels
 
 enum HalalStatus: String, CaseIterable, Codable {
     case bersertifikat = "Bersertifikat"
@@ -13,6 +14,7 @@ enum HalalStatus: String, CaseIterable, Codable {
     case nonHalal = "Non-Halal"
 }
 
+@Generable
 enum Allergen: String, CaseIterable, Codable {
     case peanut = "Kacang"
     case milk = "Susu"
@@ -25,6 +27,7 @@ enum Allergen: String, CaseIterable, Codable {
     case soy = "Kedelai"
 }
 
+@Generable
 enum Carb: String, CaseIterable, Codable {
     case rice = "Nasi"
     case noodle = "Mie"
@@ -41,6 +44,7 @@ enum Carb: String, CaseIterable, Codable {
     case none = "Tidak Ada"
 }
 
+@Generable
 enum AnimalProtein: String, CaseIterable, Codable {
     case chicken = "Ayam"
     case beef = "Sapi"
@@ -53,6 +57,7 @@ enum AnimalProtein: String, CaseIterable, Codable {
     case sausage = "Sosis"
 }
 
+@Generable
 enum PlantProtein: String, CaseIterable, Codable {
     case tofu = "Tahu"
     case tempeh = "Tempe"
@@ -67,6 +72,7 @@ enum Portion: String, CaseIterable, Codable {
     case sharing = "Sharing"
 }
 
+@Generable
 enum Texture: String, CaseIterable, Codable {
     case soupy = "Berkuah"
     case soft = "Lembut"
@@ -75,6 +81,7 @@ enum Texture: String, CaseIterable, Codable {
     case sticky = "Lengket"
 }
 
+@Generable
 enum Veggie: String, CaseIterable, Codable {
     case soup = "Sop"
     case spinach = "Bayam"
@@ -102,6 +109,7 @@ enum Topping: String, CaseIterable, Codable {
     case friedShallot = "Bawang Goreng"
 }
 
+@Generable
 enum CookMethod: String, CaseIterable, Codable {
     case fried = "Goreng"
     case grilled = "Bakar"
@@ -112,6 +120,7 @@ enum CookMethod: String, CaseIterable, Codable {
     case rawSalad = "Mentah Salad"
 }
 
+@Generable
 enum MealCategory: String, CaseIterable, Codable {
     case heavyMeal = "Makanan Berat"
     case snack = "Cemilan"
