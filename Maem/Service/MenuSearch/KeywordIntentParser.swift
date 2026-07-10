@@ -68,7 +68,7 @@ private extension KeywordIntentParser {
         "wijen": .sesame
     ]
 
-    static let sentinelRawValues: Set<String> = ["other", "none", "tidak ada"]
+    static let sentinelRawValues: Set<String> = ["other", "none", "tidak ada", "lainnya"]
 
     static let knownVocabulary: Set<String> = {
         var words = Set<String>()

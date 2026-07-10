@@ -118,6 +118,7 @@ enum CookMethod: String, CaseIterable, Codable {
     case boiled = "Rebus"
     case stirFried = "Tumis"
     case rawSalad = "Mentah Salad"
+    case other = "Lainnya"
 }
 
 @Generable
