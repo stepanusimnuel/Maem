@@ -142,6 +142,9 @@ final class ResultViewModel {
 
     }
 
+    var relaxationNotes: [String] = []
+    var bindingConstraint: String? = nil
+
     func load(context: ModelContext) {
 
         let repository = MenuRepository(
@@ -154,38 +157,6 @@ final class ResultViewModel {
                 in: foodCourt
             )
 
-            switch mode {
-
-            case .all:
-
-                break
-                
-            case .category(let category):
-
-                allMenus = allMenus.filter {
-
-                    $0.foodCategories.contains(category)
-
-                }
-
-            case .kids:
-
-                allMenus = allMenus.filter {
-
-                    $0.tags.isKidFriendly
-
-                }
-
-            case .search(let query):
-
-                allMenus = allMenus.filter {
-
-                    $0.name.localizedCaseInsensitiveContains(query)
-
-                }
-
-            }
-
             applyFilter()
 
         }
@@ -195,117 +166,75 @@ final class ResultViewModel {
         }
 
     }
-    
+
+    /// Single entry point for all 3 modes and the FilterSheet. Everything funnels into one
+    /// merged SearchIntent so RecommendationEngine is the one place filtering/ranking/
+    /// relaxation logic lives (spec decision 7) — this replaces the 8 independent predicate
+    /// chains the teammate's original applyFilter() ran (search text, tags, kidsFriendly,
+    /// below30K, halalOnly, allergens, category, price preset/min/max).
     func applyFilter() {
 
-        var result = allMenus
+        let manual = manualIntent()
 
-        if !searchText.isEmpty {
-
-            result = result.filter {
-
-                $0.name.localizedCaseInsensitiveContains(searchText)
-
-            }
-
+        guard !searchText.isEmpty else {
+            applyResult(RecommendationEngine().recommend(menus: allMenus, intent: manual))
+            return
         }
-        
-        if !filter.tags.isEmpty {
 
-            result = result.filter { menu in
-
-                filter.tags.allSatisfy {
-
-                    menu.contains($0)
-
-                }
-
-            }
-
+        Task {
+            await runSearch(manual: manual)
         }
-        
+
+    }
+
+    /// Builds the SearchIntent from everything that ISN'T free text: FilterSheet's `filter`,
+    /// `mode` (`.kids` implies forKid; `.category` implies the same mapping as filter.category,
+    /// when the user hasn't separately picked one in the sheet), and the 3 quick toggles above
+    /// the list (isKidFriendly/isHalalOnly/isBelow30K — these duplicate FilterSheet controls in
+    /// the UI, so they're unioned in the same safety-preserving way, not treated as a separate
+    /// mechanism).
+    private func manualIntent() -> SearchIntent {
+
+        var intent = filter.toSearchIntent()
+
+        if case .kids = mode {
+            intent.forKid = true
+        }
+
+        if case .category(let category) = mode, filter.category == nil {
+            category.apply(to: &intent)
+        }
+
         if isKidFriendly {
-
-            result = result.filter {
-
-                $0.tags.isKidFriendly
-
-            }
-
+            intent.forKid = true
         }
-        
-        if isBelow30K {
-
-            result = result.filter {
-
-                $0.price < 30_000
-
-            }
-
-        }
-        
         if isHalalOnly {
-
-            result = result.filter {
-
-                $0.tenant?.isHalal == true
-
-            }
-
+            intent.requireHalal = true
         }
-        
-        if !filter.allergens.isEmpty {
-
-            result = result.filter { menu in
-
-                let allergens = menu.tags.allergens ?? []
-
-                return filter.allergens.isDisjoint(with: allergens)
-
-            }
-
-        }
-        
-        if let category = filter.category {
-
-            result = result.filter {
-
-                $0.foodCategories.contains(category)
-
-            }
-
-        }
-        
-        if let preset = filter.priceFilter {
-
-            result = result.filter {
-
-                preset.contains($0.price)
-
-            }
-
-        }
-        
-        if let min = Int(filter.minimumPrice) {
-
-            result = result.filter {
-
-                $0.price >= min
-
-            }
-
+        if isBelow30K {
+            intent.maxBudget = min(intent.maxBudget ?? 30_000, 30_000)
         }
 
-        if let max = Int(filter.maximumPrice) {
+        return intent
 
-            result = result.filter {
+    }
 
-                $0.price <= max
+    private func runSearch(manual: SearchIntent) async {
 
-            }
+        let parser: IntentParser = FoundationModelIntentParser.isAvailable
+            ? FoundationModelIntentParser()
+            : KeywordIntentParser()
 
-        }
-        
-        filteredMenus = result
+        let textIntent = (try? await parser.parse(searchText)) ?? SearchIntent()
+        let merged = textIntent.merged(withManual: manual)
+
+        applyResult(RecommendationEngine().recommend(menus: allMenus, intent: merged))
+
+    }
+
+    private func applyResult(_ result: RecommendationResult) {
+        filteredMenus = result.items.map(\.menuItem)
+        relaxationNotes = result.relaxationNotes
+        bindingConstraint = result.bindingConstraint
     }
 }
