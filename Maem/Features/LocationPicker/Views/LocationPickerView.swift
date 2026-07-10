@@ -9,200 +9,135 @@ import SwiftUI
 
 struct LocationPickerView: View {
 
-    enum DisplayMode: String, CaseIterable {
-        case list = "List"
-        case map = "Map"
-    }
-
     @Environment(\.dismiss)
     private var dismiss
 
-    @State
-    private var searchText = ""
 
-    @State
-    private var displayMode: DisplayMode = .list
+    @State private var searchText = ""
 
     let foodCourts: [FoodCourtDistance]
-
+    let selectedFoodCourt: FoodCourtDistance?
     let onSelect: (FoodCourtDistance) -> Void
 
     var body: some View {
 
-        VStack(spacing: 0) {
+        VStack(spacing: 20) {
 
-            Picker(
-                "Display Mode",
-                selection: $displayMode
-            ) {
+            header
 
-                ForEach(DisplayMode.allCases, id: \.self) { mode in
+            VStack (spacing: 24) {
+                searchField
 
-                    Text(mode.rawValue)
-                        .tag(mode)
+                ScrollView {
+
+                    LazyVStack(alignment:.leading, spacing: 16) {
+                        
+                        Text("Terdekat dari lokasimu")
+                            .font(AppFont.body(weight: .semibold))
+
+                        ForEach(filteredFoodCourts) { foodCourt in
+
+                            Button {
+
+                                onSelect(foodCourt)
+                                dismiss()
+
+                            } label: {
+
+                                FoodCourtCard(
+                                    foodCourt: foodCourt,
+                                    isSelected: selectedFoodCourt?.id == foodCourt.id
+                                )
+                                .shadow(color: Color.black.opacity(0.1), radius: 24, x: 0, y: 8)
+
+                            }
+                            .buttonStyle(.plain)
+
+                        }
+
+                    }
+                    .padding(.horizontal)
 
                 }
-
-            }
-            .pickerStyle(.segmented)
-            .padding()
-
-            switch displayMode {
-
-            case .list:
-
-                listView
-
-            case .map:
-
-                LocationMapView(
-                    foodCourts: filteredFoodCourts
-                ) { selected in
-
-                    onSelect(selected)
-                    dismiss()
-
-                }
-
             }
 
         }
-        .navigationTitle("Choose Food Court")
-        .navigationBarTitleDisplayMode(.inline)
-        .searchable(
-            text: $searchText,
-            prompt: "Search food court"
-        )
+        .padding(.top)
+        .background(AppColor.neutralWhite)
 
     }
 
 }
-
-// MARK: - List View
 
 private extension LocationPickerView {
 
-    var listView: some View {
+    var header: some View {
 
-        List {
-
-            if !filteredFoodCourts.isEmpty {
-
-                Section("Nearby") {
-
-                    ForEach(filteredFoodCourts.prefix(3)) { foodCourt in
-
-                        Button {
-
-                            onSelect(foodCourt)
-                            dismiss()
-
-                        } label: {
-
-                            FoodCourtRow(
-                                foodCourt: foodCourt
-                            )
-
-                        }
-                        .buttonStyle(.plain)
-
-                    }
-
+        ZStack {
+            Text("Pilih Lokasi")
+                .font(AppFont.body(weight: .bold))
+            
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(AppFont.title2(weight: .medium))
+                        .frame(width: 44, height: 44)
+                        .glassEffect()
+                        .foregroundStyle(AppColor.red700)
                 }
-
+                .clipShape(Circle())
+                
+                Spacer()
             }
-
-            Section("All Food Courts") {
-
-                ForEach(filteredFoodCourts) { foodCourt in
-
-                    Button {
-
-                        onSelect(foodCourt)
-                        dismiss()
-
-                    } label: {
-
-                        FoodCourtRow(
-                            foodCourt: foodCourt
-                        )
-
-                    }
-                    .buttonStyle(.plain)
-
-                }
-
-            }
-
         }
-        .listStyle(.insetGrouped)
+        .padding(.horizontal)
+
 
     }
 
 }
 
-// MARK: - Search
+private extension LocationPickerView {
+
+    var searchField: some View {
+
+        HStack(spacing: 8) {
+
+            Image(systemName: "magnifyingglass")
+                .font(AppFont.headline(weight: .medium))
+
+            TextField(
+                "cari food court",
+                text: $searchText
+            )
+
+        }
+        .font(AppFont.callout(weight: .medium))
+        .padding(.horizontal, 12)
+        .frame(height: 44)
+        .glassEffect(in: .capsule)
+        .padding(.horizontal)
+
+    }
+
+}
 
 private extension LocationPickerView {
 
     var filteredFoodCourts: [FoodCourtDistance] {
 
-        guard !searchText.isEmpty else {
+        if searchText.isEmpty {
             return foodCourts
         }
 
         return foodCourts.filter {
 
-            $0.foodCourt.name.localizedCaseInsensitiveContains(
-                searchText
-            )
+            $0.foodCourt.name.localizedCaseInsensitiveContains(searchText)
 
         }
 
     }
 
-}
-
-#Preview {
-
-    NavigationStack {
-
-        LocationPickerView(
-            foodCourts: [
-                FoodCourtDistance(
-                    foodCourt: FoodCourt(
-                        name: "AEON Mall BSD - Food Culture",
-                        address: "AEON Mall BSD",
-                        floor: "Ground",
-                        latitude: 0,
-                        longitude: 0
-                    ),
-                    distance: 182
-                ),
-                FoodCourtDistance(
-                    foodCourt: FoodCourt(
-                        name: "ITC BSD Food Court",
-                        address: "ITC BSD",
-                        floor: "2",
-                        latitude: 0,
-                        longitude: 0
-                    ),
-                    distance: 430
-                )
-            ]
-        ) { _ in
-
-        }
-
-    }
-
-}
-
-#Preview {
-
-    NavigationStack {
-
-        LocationPickerView(foodCourts: [], onSelect: {_ in })
-
-    }
 }

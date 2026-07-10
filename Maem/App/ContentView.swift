@@ -12,21 +12,24 @@ struct ContentView: View {
 
     @Environment(\.modelContext)
     private var modelContext
-
+    
     var body: some View {
-        NavigationStack {
-            ExploreView()
-        }
-        .task {
-            do {
-                try DummySeeder.seedIfNeeded(context: modelContext)
-            } catch {
-                print(error.localizedDescription)
+
+        MainTabView()
+            .task {
+                do {
+                    try DummySeeder.seedIfNeeded(context: modelContext)
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
-        }
+
     }
+
 }
 
 #Preview {
-    ContentView().modelContainer(for: FoodCourt.self)
+
+    ContentView().modelContainer(for: [FoodCourt.self, SearchHistory.self])
+
 }

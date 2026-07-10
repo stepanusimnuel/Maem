@@ -1,0 +1,88 @@
+//
+//  Menu.swift
+//  Maem
+//
+//  Created by Stepanus Imanuel on 05/07/26.
+//
+
+import Foundation
+import SwiftData
+
+@Model
+final class Menu {
+
+    @Attribute(.unique)
+    var id: UUID
+
+    var name: String
+
+    var menuDescription: String
+
+    var price: Int
+
+    var imageName: String?
+
+    var isBookmarked: Bool
+
+    var tenant: Tenant?
+
+    var tags: MenuTags
+    
+    
+
+    init(
+        name: String,
+        menuDescription: String,
+        price: Int,
+        imageName: String? = nil,
+        tags: MenuTags,
+        tenant: Tenant? = nil
+    ) {
+
+        self.id = UUID()
+
+        self.name = name
+
+        self.menuDescription = menuDescription
+
+        self.price = price
+
+        self.imageName = imageName
+
+        self.tags = tags
+
+        self.tenant = tenant
+
+        self.isBookmarked = false
+
+    }
+
+}
+
+extension Menu {
+
+    func contains(_ tag: DisplayTag) -> Bool {
+
+        switch tag {
+
+        case .halal:
+
+            return tenant?.isHalal == true
+
+        default:
+
+            return tags.contains(tag)
+
+        }
+
+    }
+
+}
+
+extension Menu {
+
+    var foodCategories: [FoodCategory] {
+        tags.foodCategories
+    }
+
+}

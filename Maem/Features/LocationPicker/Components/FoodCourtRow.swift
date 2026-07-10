@@ -28,10 +28,6 @@ struct FoodCourtRow: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                Text(foodCourt.foodCourt.floor)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-
             }
 
             Spacer()
@@ -53,8 +49,9 @@ struct FoodCourtRow: View {
         foodCourt: FoodCourtDistance(
             foodCourt: FoodCourt(
                 name: "AEON Mall BSD - Food Culture",
-                address: "AEON Mall BSD",
-                floor: "Ground",
+                fcDescription: "Testing Description",
+                place: "AEON Mall BSD",
+                address: "Jalan BSD Raya Utama, Padegangan",
                 latitude: 0,
                 longitude: 0
             ),
