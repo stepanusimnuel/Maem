@@ -3,7 +3,7 @@ import SwiftData
 
 struct ScoredMenuItem: Identifiable, Hashable {
     var id: PersistentIdentifier { menuItem.persistentModelID }
-    let menuItem: MenuItem
+    let menuItem: Menu
     let tenant: Tenant
     let score: Int
     let halalWarning: String?
@@ -32,11 +32,11 @@ struct RecommendationEngine {
     }
 
     private struct Candidate {
-        let menuItem: MenuItem
+        let menuItem: Menu
         let tenant: Tenant
     }
 
-    func recommend(menus: [MenuItem], intent: SearchIntent) -> RecommendationResult {
+    func recommend(menus: [Menu], intent: SearchIntent) -> RecommendationResult {
 
         let rungs: [Rung] = [
             Rung(
@@ -98,14 +98,15 @@ struct RecommendationEngine {
         return RecommendationResult(items: scored, relaxationNotes: notes, bindingConstraint: nil)
     }
 
-    private func candidates(from menus: [MenuItem], intent: SearchIntent, relaxation: Relaxation) -> [Candidate] {
+    private func candidates(from menus: [Menu], intent: SearchIntent, relaxation: Relaxation) -> [Candidate] {
 
         menus.compactMap { menu -> Candidate? in
 
             guard let tenant = menu.tenant else { return nil }
 
+            let allergens = menu.tags.allergens ?? []
             if let avoid = intent.avoidAllergens, !avoid.isEmpty,
-               !Set(menu.allergens).isDisjoint(with: avoid) {
+               !Set(allergens).isDisjoint(with: avoid) {
                 return nil
             }
 
@@ -114,7 +115,7 @@ struct RecommendationEngine {
                 case .bersertifikat:
                     break
                 case .belumSertifikasi:
-                    if menu.containsPork || menu.containsAlcohol { return nil }
+                    if (menu.tags.isContainPork ?? false) || (menu.tags.isContainAlcohol ?? false) { return nil }
                 case .nonHalal:
                     return nil
                 }
@@ -125,35 +126,48 @@ struct RecommendationEngine {
                 if Double(menu.price) > budgetLimit { return nil }
             }
 
+            if let minBudget = intent.minBudget, menu.price < minBudget {
+                return nil
+            }
+
             let nameHintMatchedThisItem = intent.nameHints?.contains {
                 menu.name.localizedCaseInsensitiveContains($0)
             } ?? false
 
-            if intent.mustNotSpicy == true, menu.isPedas {
+            let isPedas = menu.tags.spicy ?? false
+            if intent.mustNotSpicy == true, isPedas {
                 if intent.forKid == true || !nameHintMatchedThisItem {
                     return nil
                 }
             }
 
-            if intent.forKid == true, !relaxation.forKid, !menu.isKidFriendly {
+            if intent.requireSpicy == true, !isPedas {
+                return nil
+            }
+
+            if intent.requireInstant == true, !(menu.tags.isInstant ?? false) {
+                return nil
+            }
+
+            if intent.forKid == true, !relaxation.forKid, !menu.tags.isKidFriendly {
                 return nil
             }
 
             if !relaxation.composition {
                 if let wantCarbs = intent.wantCarbs, !wantCarbs.isEmpty,
-                   Set(menu.carbs).isDisjoint(with: wantCarbs) {
+                   Set(menu.tags.carbs ?? []).isDisjoint(with: wantCarbs) {
                     return nil
                 }
                 if let wantProteinHewani = intent.wantProteinHewani, !wantProteinHewani.isEmpty,
-                   Set(menu.proteinHewani).isDisjoint(with: wantProteinHewani) {
+                   Set(menu.tags.animalProtein ?? []).isDisjoint(with: wantProteinHewani) {
                     return nil
                 }
                 if let wantProteinNabati = intent.wantProteinNabati, !wantProteinNabati.isEmpty,
-                   Set(menu.proteinNabati).isDisjoint(with: wantProteinNabati) {
+                   Set(menu.tags.plantProtein ?? []).isDisjoint(with: wantProteinNabati) {
                     return nil
                 }
                 if let wantVeggies = intent.wantVeggies, !wantVeggies.isEmpty,
-                   Set(menu.veggies).isDisjoint(with: wantVeggies) {
+                   Set(menu.tags.veggies ?? []).isDisjoint(with: wantVeggies) {
                     return nil
                 }
                 if let hints = intent.nameHints, !hints.isEmpty, !nameHintMatchedThisItem {
@@ -162,10 +176,11 @@ struct RecommendationEngine {
             }
 
             if !relaxation.style {
-                if let mealCategory = intent.mealCategory, menu.mealCategory != mealCategory {
+                if let mealCategory = intent.mealCategory, menu.tags.mealCategory != mealCategory {
                     return nil
                 }
-                if let texturePreference = intent.texturePreference, menu.texture != texturePreference {
+                if let texturePreference = intent.texturePreference,
+                   !(menu.tags.texture ?? []).contains(texturePreference) {
                     return nil
                 }
             }
@@ -179,13 +194,15 @@ struct RecommendationEngine {
         let menu = candidate.menuItem
         var points = 0
 
-        if let wantCarbs = intent.wantCarbs, !Set(menu.carbs).isDisjoint(with: wantCarbs) {
+        if let wantCarbs = intent.wantCarbs, !Set(menu.tags.carbs ?? []).isDisjoint(with: wantCarbs) {
             points += 3
         }
-        if let wantProteinHewani = intent.wantProteinHewani, !Set(menu.proteinHewani).isDisjoint(with: wantProteinHewani) {
+        if let wantProteinHewani = intent.wantProteinHewani,
+           !Set(menu.tags.animalProtein ?? []).isDisjoint(with: wantProteinHewani) {
             points += 3
         }
-        if let wantProteinNabati = intent.wantProteinNabati, !Set(menu.proteinNabati).isDisjoint(with: wantProteinNabati) {
+        if let wantProteinNabati = intent.wantProteinNabati,
+           !Set(menu.tags.plantProtein ?? []).isDisjoint(with: wantProteinNabati) {
             points += 3
         }
 
@@ -196,24 +213,25 @@ struct RecommendationEngine {
             points += 3
         }
 
-        if intent.forKid == true, menu.isKidFriendly {
+        if intent.forKid == true, menu.tags.isKidFriendly {
             points += 2
         }
 
         if let wantVeggies = intent.wantVeggies {
-            points += Set(menu.veggies).intersection(wantVeggies).count
+            points += Set(menu.tags.veggies ?? []).intersection(wantVeggies).count
         }
 
         if !relaxation.style, let cookMethodPreference = intent.cookMethodPreference,
-           menu.cookMethod == cookMethodPreference {
+           menu.tags.cookMethod == cookMethodPreference {
             points += 1
         }
 
         if intent.preferHealthy == true {
-            if !menu.isInstant {
+            if !(menu.tags.isInstant ?? false) {
                 points += 1
             }
-            if [.kukus, .rebus, .panggang, .mentahSalad].contains(menu.cookMethod) {
+            if let cookMethod = menu.tags.cookMethod,
+               [.steamed, .boiled, .roasted, .rawSalad].contains(cookMethod) {
                 points += 1
             }
         }
@@ -223,8 +241,9 @@ struct RecommendationEngine {
             ? "Belum tersertifikasi halal, cek mandiri."
             : nil
 
+        let isPedas = menu.tags.spicy ?? false
         let spicyWarning: String? =
-            (intent.mustNotSpicy == true && menu.isPedas && nameHintMatchedThisItem && intent.forKid != true)
+            (intent.mustNotSpicy == true && isPedas && nameHintMatchedThisItem && intent.forKid != true)
             ? "Menu ini pedas."
             : nil
 
@@ -234,7 +253,7 @@ struct RecommendationEngine {
             score: points,
             halalWarning: halalWarning,
             spicyWarning: spicyWarning,
-            isKidFriendlyMatch: menu.isKidFriendly
+            isKidFriendlyMatch: menu.tags.isKidFriendly
         )
     }
 
