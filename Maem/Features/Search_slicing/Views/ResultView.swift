@@ -67,7 +67,9 @@ struct ResultView: View {
                         )
                 }
                 
-                quickFilterSection
+                if viewModel.shouldShowQuickFilterSection {
+                    quickFilterSection
+                }
 
                 resultSection
 

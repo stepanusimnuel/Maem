@@ -10,11 +10,12 @@ import Observation
 import SwiftData
 
 enum MenuListMode {
-    
+
     case kids
     case all
     case search(String)
     case category(FoodCategory)
+    case similar(Menu)
 }
 
 
@@ -56,10 +57,13 @@ final class ResultViewModel {
             
         case .category:
             return nil
+
+        case .similar:
+            return "Menu Serupa"
         }
 
     }
-    
+
     var shouldShowSearchHeader: Bool {
 
         switch mode {
@@ -71,6 +75,19 @@ final class ResultViewModel {
         default:
             return false
         }
+
+    }
+
+    /// `.similar` has no free-text search and no manual-filter UI (spec decision
+    /// 7 - not requested, and "similar to this menu" isn't expressible as a
+    /// SearchIntent for FilterSheet/quick-filter chips to refine anyway).
+    var shouldShowQuickFilterSection: Bool {
+
+        if case .similar = mode {
+            return false
+        }
+
+        return true
 
     }
     
@@ -152,6 +169,20 @@ final class ResultViewModel {
         )
 
         do {
+
+            if case .similar(let referenceMenu) = mode {
+
+                let result = try repository.getSimilarMenus(to: referenceMenu)
+
+                filteredMenus = result.items
+                relaxationNotes = result.isRelaxed
+                    ? ["Tidak ada menu yang sangat mirip - berikut yang paling mendekati."]
+                    : []
+                bindingConstraint = nil
+
+                return
+
+            }
 
             allMenus = try repository.getMenus(
                 in: foodCourt
