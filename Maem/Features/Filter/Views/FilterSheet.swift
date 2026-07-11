@@ -14,7 +14,11 @@ struct FilterSheet: View {
 
     @Binding
     var filter: SearchFilter
-    
+
+    var inferredTags: Set<DisplayTag> = []
+
+    var inferredCookMethod: CookMethod? = nil
+
     let onApply: () -> Void
 
     var body: some View {
@@ -29,6 +33,8 @@ struct FilterSheet: View {
                 ) {
 
                     tagSection
+
+                    cookMethodSection
 
                     allergenSection
 
@@ -123,17 +129,78 @@ private extension FilterSheet {
                 .font(AppFont.body(weight: .bold))
 
             FlowLayout(spacing: 10) {
-                ForEach([DisplayTag.isInstant, .spicy, .notSpicy, .kidsPortion, .halal], id: \.self) { tag in
-                    let isSelected = filter.tags.contains(tag)
+                ForEach([DisplayTag.isInstant, .spicy, .notSpicy, .kidsPortion, .halal, .healthy], id: \.self) { tag in
+                    let isSelected = isEffectivelyOn(tag)
                     FilterChip(title: tag.title, isSelected: isSelected) {
+                        toggle(tag)
+                    }
+                }
+            }
+        }
+    }
+
+    /// A chip is on if the user explicitly selected it, or if the text parser
+    /// implied it and the user hasn't explicitly excluded it. `excludedTags`
+    /// always wins, even over an inferred tag, per the design spec's tri-state
+    /// model (Section 2).
+    func isEffectivelyOn(_ tag: DisplayTag) -> Bool {
+        if filter.excludedTags.contains(tag) { return false }
+        return filter.selectedTags.contains(tag) || inferredTags.contains(tag)
+    }
+
+    /// Tapping always flips explicit intent: on (however it got there) -> move
+    /// to excludedTags; off -> move to selectedTags. Applies uniformly to every
+    /// tag including safety ones (requireHalal/forKid/mustNotSpicy) — per the
+    /// design spec's Section 3, the user chose "keep tappable anyway" over
+    /// disabling the tap; the resulting excludedTags membership is a real UI
+    /// state, it's SearchIntent.merged(withManual:) that makes it a no-op for
+    /// those specific fields, not this function.
+    func toggle(_ tag: DisplayTag) {
+        if isEffectivelyOn(tag) {
+            filter.selectedTags.remove(tag)
+            filter.excludedTags.insert(tag)
+        } else {
+            filter.excludedTags.remove(tag)
+            filter.selectedTags.insert(tag)
+        }
+    }
+
+}
+
+private extension FilterSheet {
+
+    var cookMethodSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Cara Masak")
+                .font(AppFont.body(weight: .bold))
+
+            FlowLayout(spacing: 10) {
+                ForEach(CookMethod.allCases.filter { $0 != .other }, id: \.self) { method in
+                    let isSelected = effectiveCookMethod == method
+                    FilterChip(title: method.rawValue, isSelected: isSelected) {
                         if isSelected {
-                            filter.tags.remove(tag)
+                            filter.cookMethod = .cleared
                         } else {
-                            filter.tags.insert(tag)
+                            filter.cookMethod = .value(method)
                         }
                     }
                 }
             }
+        }
+    }
+
+    /// Resolves the same way toSearchIntent(inferred:) resolves cookMethod,
+    /// so the chip the user sees matches what the next search will actually
+    /// filter on: .unset defers to whatever the last submitted query implied,
+    /// .cleared shows nothing selected, .value shows that exact choice.
+    var effectiveCookMethod: CookMethod? {
+        switch filter.cookMethod {
+        case .unset:
+            return inferredCookMethod
+        case .cleared:
+            return nil
+        case .value(let method):
+            return method
         }
     }
 
@@ -284,6 +351,23 @@ private extension FilterSheet {
     FilterSheet(
 
         filter: $filter
+
+    ) {
+
+    }
+
+}
+
+#Preview("With Inferred Tags") {
+
+    @Previewable
+    @State var filter = SearchFilter()
+
+    FilterSheet(
+
+        filter: $filter,
+        inferredTags: [.halal, .notSpicy],
+        inferredCookMethod: .fried
 
     ) {
 

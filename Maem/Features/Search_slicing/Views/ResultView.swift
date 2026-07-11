@@ -122,7 +122,9 @@ struct ResultView: View {
 
             FilterSheet(
 
-                filter: $viewModel.filter
+                filter: $viewModel.filter,
+                inferredTags: viewModel.lastTextIntent?.impliedTags() ?? [],
+                inferredCookMethod: viewModel.lastTextIntent?.cookMethodPreference
 
             ) {
 
