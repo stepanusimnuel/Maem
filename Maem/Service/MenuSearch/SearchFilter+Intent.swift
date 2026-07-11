@@ -32,28 +32,42 @@ extension FoodCategory {
 
 extension SearchFilter {
 
-    /// Converts the FilterSheet's manual selections into a SearchIntent. `.kidsPortion`
+    /// Converts the FilterSheet's manual selections into a SearchIntent, folding in
+    /// `inferred` (tags the text parser implied — see SearchIntent.impliedTags(),
+    /// read from ResultViewModel.lastTextIntent) so a manual "off" tap can produce
+    /// an explicit `false` that overrides a text-inferred `true`. `.kidsPortion`
     /// uses the strict isKidFriendly definition (forKid), not a separate raw-portion
-    /// concept — spec decision 10. Only the tags FilterSheet's tagSection actually offers
-    /// are wired here — the rest of DisplayTag has no UI control yet.
-    func toSearchIntent() -> SearchIntent {
+    /// concept — spec decision 10. Booleans resolve via `resolve(_:inferred:)`:
+    /// excluded beats everything, then selected-or-inferred, else nil (no opinion).
+    /// Safety fields (forKid, mustNotSpicy, requireHalal, avoidAllergens) can still
+    /// resolve to explicit `false` here, same as any other field — but
+    /// SearchIntent.merged(withManual:) OR-combines those specific fields and
+    /// ignores manual `false`, so the override has no actual filtering effect for
+    /// them. That's intentional (see design spec, "Safety-field lock").
+    func toSearchIntent(inferred: Set<DisplayTag> = []) -> SearchIntent {
 
         var intent = SearchIntent()
 
-        if tags.contains(.kidsPortion) {
-            intent.forKid = true
+        func resolve(_ tag: DisplayTag) -> Bool? {
+            if excludedTags.contains(tag) { return false }
+            if selectedTags.contains(tag) || inferred.contains(tag) { return true }
+            return nil
         }
-        if tags.contains(.spicy) {
-            intent.requireSpicy = true
-        }
-        if tags.contains(.notSpicy) {
-            intent.mustNotSpicy = true
-        }
-        if tags.contains(.isInstant) {
-            intent.requireInstant = true
-        }
-        if tags.contains(.halal) {
-            intent.requireHalal = true
+
+        intent.forKid = resolve(.kidsPortion)
+        intent.requireSpicy = resolve(.spicy)
+        intent.mustNotSpicy = resolve(.notSpicy)
+        intent.requireInstant = resolve(.isInstant)
+        intent.requireHalal = resolve(.halal)
+        intent.preferHealthy = resolve(.healthy)
+
+        switch cookMethod {
+        case .unset:
+            break // leave nil; merged(withManual:) will fall back to whatever text inferred
+        case .cleared:
+            intent.cookMethodPreference = nil
+        case .value(let method):
+            intent.cookMethodPreference = method
         }
 
         if !allergens.isEmpty {
