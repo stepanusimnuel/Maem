@@ -47,7 +47,7 @@ extension SearchIntent {
         result.requireSpicy = manual.requireSpicy ?? result.requireSpicy
         result.nameHints = result.nameHints ?? manual.nameHints
         result.nameRelevanceWords = result.nameRelevanceWords ?? manual.nameRelevanceWords
-        result.preferHealthy = result.preferHealthy ?? manual.preferHealthy
+        result.preferHealthy = manual.preferHealthy ?? result.preferHealthy
 
         let combinedAllergens = Set(result.avoidAllergens ?? []).union(manual.avoidAllergens ?? [])
         result.avoidAllergens = combinedAllergens.isEmpty ? nil : Array(combinedAllergens)
@@ -56,6 +56,25 @@ extension SearchIntent {
         result.mustNotSpicy = (result.mustNotSpicy == true || manual.mustNotSpicy == true) ? true : nil
 
         return result
+    }
+
+}
+
+extension SearchIntent {
+
+    /// Maps the fields FilterSheet has a chip for onto the tags that chip
+    /// should show as "implied by text" — read by FilterSheet (via
+    /// ResultViewModel.lastTextIntent) to light up chips the parser inferred,
+    /// without requiring the user to have tapped them manually.
+    func impliedTags() -> Set<DisplayTag> {
+        var tags: Set<DisplayTag> = []
+        if forKid == true { tags.insert(.kidsPortion) }
+        if requireSpicy == true { tags.insert(.spicy) }
+        if mustNotSpicy == true { tags.insert(.notSpicy) }
+        if requireInstant == true { tags.insert(.isInstant) }
+        if requireHalal == true { tags.insert(.halal) }
+        if preferHealthy == true { tags.insert(.healthy) }
+        return tags
     }
 
 }
