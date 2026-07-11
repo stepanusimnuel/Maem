@@ -20,6 +20,7 @@ struct SearchIntent {
     var texturePreference: Texture? = nil
     var preferHealthy: Bool? = nil
     var nameHints: [String]? = nil
+    var nameRelevanceWords: [String]? = nil
 }
 
 extension SearchIntent {
@@ -45,6 +46,7 @@ extension SearchIntent {
         result.requireInstant = manual.requireInstant ?? result.requireInstant
         result.requireSpicy = manual.requireSpicy ?? result.requireSpicy
         result.nameHints = result.nameHints ?? manual.nameHints
+        result.nameRelevanceWords = result.nameRelevanceWords ?? manual.nameRelevanceWords
         result.preferHealthy = result.preferHealthy ?? manual.preferHealthy
 
         let combinedAllergens = Set(result.avoidAllergens ?? []).union(manual.avoidAllergens ?? [])
