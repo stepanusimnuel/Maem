@@ -70,13 +70,21 @@ struct TenantInfoCard: View {
                     .foregroundColor(AppColor.neutralBlack)
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(tenant.foodCourt?.name ?? "Foodcourt")
-                        .font(AppFont.body(weight: .semibold))
-                    Text(tenant.foodCourt?.fcDescription ?? "Foodcourt Description")
-                        .font(AppFont.body())
-                    Text(tenant.detailLocation ?? "Tenant detail Location")
-                        .foregroundStyle(AppColor.neutralDarkGrey)
-                        .font(AppFont.caption())
+                    if tenant.foodCourt?.name != nil {
+                        Text(tenant.foodCourt?.name ?? "Foodcourt")
+                            .font(AppFont.body(weight: .semibold))
+                    }
+                    
+                    if tenant.foodCourt?.fcDescription != nil {
+                        Text(tenant.foodCourt?.fcDescription ?? "Foodcourt Description")
+                            .font(AppFont.body())
+                    }
+                    
+                    if tenant.detailLocation != nil {
+                        Text(tenant.detailLocation ?? "Tenant detail Location")
+                            .foregroundStyle(AppColor.neutralDarkGrey)
+                            .font(AppFont.caption())
+                    }
                 }
                 
                 Spacer()

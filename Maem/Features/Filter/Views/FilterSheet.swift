@@ -14,7 +14,13 @@ struct FilterSheet: View {
 
     @Binding
     var filter: SearchFilter
-    
+
+    var inferredTags: Set<DisplayTag> = []
+
+    var inferredCookMethod: CookMethod? = nil
+
+    var inferredAllergens: Set<Allergen> = []
+
     let onApply: () -> Void
 
     var body: some View {
@@ -29,6 +35,8 @@ struct FilterSheet: View {
                 ) {
 
                     tagSection
+
+                    cookMethodSection
 
                     allergenSection
 
@@ -123,17 +131,52 @@ private extension FilterSheet {
                 .font(AppFont.body(weight: .bold))
 
             FlowLayout(spacing: 10) {
-                ForEach([DisplayTag.isInstant, .spicy, .kidsPortion, .halal], id: \.self) { tag in
-                    let isSelected = filter.tags.contains(tag)
+                ForEach([DisplayTag.isInstant, .spicy, .notSpicy, .kidsPortion, .halal, .healthy], id: \.self) { tag in
+                    let isSelected = filter.isEffectivelyOn(tag, inferred: inferredTags)
                     FilterChip(title: tag.title, isSelected: isSelected) {
+                        filter.toggle(tag, inferred: inferredTags)
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+private extension FilterSheet {
+
+    var cookMethodSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Cara Masak")
+                .font(AppFont.body(weight: .bold))
+
+            FlowLayout(spacing: 10) {
+                ForEach(CookMethod.allCases.filter { $0 != .other }, id: \.self) { method in
+                    let isSelected = effectiveCookMethod == method
+                    FilterChip(title: method.rawValue, isSelected: isSelected) {
                         if isSelected {
-                            filter.tags.remove(tag)
+                            filter.cookMethod = .cleared
                         } else {
-                            filter.tags.insert(tag)
+                            filter.cookMethod = .value(method)
                         }
                     }
                 }
             }
+        }
+    }
+
+    /// Resolves the same way toSearchIntent(inferred:) resolves cookMethod,
+    /// so the chip the user sees matches what the next search will actually
+    /// filter on: .unset defers to whatever the last submitted query implied,
+    /// .cleared shows nothing selected, .value shows that exact choice.
+    var effectiveCookMethod: CookMethod? {
+        switch filter.cookMethod {
+        case .unset:
+            return inferredCookMethod
+        case .cleared:
+            return nil
+        case .value(let method):
+            return method
         }
     }
 
@@ -148,7 +191,7 @@ private extension FilterSheet {
 
             FlowLayout(spacing: 12) {
                 ForEach(Allergen.allCases, id: \.self) { allergen in
-                    let isSelected = filter.allergens.contains(allergen)
+                    let isSelected = filter.allergens.contains(allergen) || inferredAllergens.contains(allergen)
                     FilterChip(title: allergen.rawValue.capitalized, isSelected: isSelected) {
                         if isSelected {
                             filter.allergens.remove(allergen)
@@ -284,6 +327,23 @@ private extension FilterSheet {
     FilterSheet(
 
         filter: $filter
+
+    ) {
+
+    }
+
+}
+
+#Preview("With Inferred Tags") {
+
+    @Previewable
+    @State var filter = SearchFilter()
+
+    FilterSheet(
+
+        filter: $filter,
+        inferredTags: [.halal, .notSpicy],
+        inferredCookMethod: .fried
 
     ) {
 

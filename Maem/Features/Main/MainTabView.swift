@@ -42,6 +42,7 @@ struct MainTabView: View {
             }
 
         }
+        .tint(AppColor.red700)
 
     }
 

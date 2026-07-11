@@ -134,7 +134,7 @@ struct ExploreView: View {
                         } label: {
                             ForAllSection(
 
-                                menus: viewModel.menus
+                                menus: viewModel.forAllMenus
 
                             ) { menu in
                                 if menu.isBookmarked {

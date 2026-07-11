@@ -67,7 +67,9 @@ struct ResultView: View {
                         )
                 }
                 
-                quickFilterSection
+                if viewModel.shouldShowQuickFilterSection {
+                    quickFilterSection
+                }
 
                 resultSection
 
@@ -139,7 +141,10 @@ struct ResultView: View {
 
             FilterSheet(
 
-                filter: $viewModel.filter
+                filter: $viewModel.filter,
+                inferredTags: viewModel.lastTextIntent?.impliedTags() ?? [],
+                inferredCookMethod: viewModel.lastTextIntent?.cookMethodPreference,
+                inferredAllergens: Set(viewModel.lastTextIntent?.avoidAllergens ?? [])
 
             ) {
 
@@ -158,7 +163,10 @@ struct ResultView: View {
 
 private extension ResultView {
 
+    @ViewBuilder
     var quickFilterSection: some View {
+
+        let inferredTags = viewModel.lastTextIntent?.impliedTags() ?? []
 
         ScrollView(.horizontal, showsIndicators: false) {
 
@@ -215,9 +223,9 @@ private extension ResultView {
 
                     FilterChip(
                         title: "Untuk Anak",
-                        isSelected: viewModel.isKidFriendly
+                        isSelected: viewModel.filter.isEffectivelyOn(.kidsPortion, inferred: inferredTags)
                     ) {
-                        viewModel.isKidFriendly.toggle()
+                        viewModel.filter.toggle(.kidsPortion, inferred: inferredTags)
                         viewModel.applyFilter()
                     }
 
@@ -233,9 +241,9 @@ private extension ResultView {
 
                 FilterChip(
                     title: "Halal",
-                    isSelected: viewModel.isHalalOnly
+                    isSelected: viewModel.filter.isEffectivelyOn(.halal, inferred: inferredTags)
                 ) {
-                    viewModel.isHalalOnly.toggle()
+                    viewModel.filter.toggle(.halal, inferred: inferredTags)
                     viewModel.applyFilter()
                 }
 
@@ -253,16 +261,22 @@ private extension ResultView {
     @ViewBuilder
     var resultSection: some View {
 
-        if viewModel.filteredMenus.isEmpty {
+        if !viewModel.relaxationNotes.isEmpty || viewModel.filteredMenus.isEmpty {
 
-            HStack {
-                Spacer()
-                NotFound(
-                    title: "Pencarian \(viewModel.searchText) tidak ditemukan", subtitle: "Coba lagi dengan kata kunci dan filter lain"
-                )
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            NotFound(
+                title: "Yah, menu ngga ketemu.",
+                subtitle: "Coba menu lainnya, yuk!",
+                reasons: viewModel.bindingConstraint.map { [$0] } ?? viewModel.relaxationNotes,
+                suggestions: viewModel.filteredMenus,
+                onBookmarkToggled: { menu in
+                    if menu.isBookmarked {
+                        withAnimation(.spring()) {
+                            showAlert = true
+                        }
+                    }
+                }
+            )
+            .frame(maxWidth: .infinity)
 
         } else {
 
@@ -301,4 +315,8 @@ private extension ResultView {
 
     }
 
+}
+
+#Preview {
+    ResultView(mode: .kids, foodCourt: FoodCourt(name: "Test", fcDescription: "Test", place: "Test", address: "Test", latitude: 6.3, longitude: 4.4))
 }

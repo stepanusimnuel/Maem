@@ -60,7 +60,6 @@ struct TagChip: View {
     }
 }
 
-
 #Preview("All Tags") {
 
     ScrollView(.horizontal) {

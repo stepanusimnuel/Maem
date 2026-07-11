@@ -30,7 +30,7 @@ final class Tenant {
     
     var detailLocation: String?
     
-    var isHalal: Bool
+    var halalStatus: HalalStatus
 
     var menus: [Menu]
 
@@ -44,8 +44,8 @@ final class Tenant {
         openTime: String? = nil,
         closeTime: String? = nil,
         detailLocation: String? = nil,
-        
-        isHalal: Bool = false
+
+        halalStatus: HalalStatus = .nonHalal
     ) {
 
         self.id = UUID()
@@ -66,7 +66,7 @@ final class Tenant {
         
         self.closeDay = closeDay
         
-        self.isHalal = isHalal
+        self.halalStatus = halalStatus
         
         self.detailLocation = detailLocation
 

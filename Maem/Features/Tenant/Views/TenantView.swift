@@ -96,5 +96,5 @@ struct TenantView: View {
 }
 
 #Preview {
-    TenantView(tenant: Tenant(name: "Test", imageName: "category-rice", tenantImages: ["tenant-image-1", "tenant-image-2"], openDay: 1, closeDay: 6, openTime: "12.00", closeTime: "00.00", detailLocation: "Testing detial location", isHalal: true))
+    TenantView(tenant: Tenant(name: "Test", imageName: "category-rice", tenantImages: ["tenant-image-1", "tenant-image-2"], openDay: 1, closeDay: 6, openTime: "12.00", closeTime: "00.00", detailLocation: "Testing detial location", halalStatus: .bersertifikat))
 }

@@ -10,11 +10,12 @@ import Observation
 import SwiftData
 
 enum MenuListMode {
-    
+
     case kids
     case all
     case search(String)
     case category(FoodCategory)
+    case similar(Menu)
 }
 
 
@@ -35,12 +36,8 @@ final class ResultViewModel {
 
     var isShowingFilter = false
 
-    var isHalalOnly = false
-
     var isBelow30K = false
-    
-    var isKidFriendly = false
-    
+
     var navigationTitle: String? {
 
         switch mode {
@@ -56,10 +53,13 @@ final class ResultViewModel {
             
         case .category:
             return nil
+
+        case .similar:
+            return "Menu Serupa"
         }
 
     }
-    
+
     var shouldShowSearchHeader: Bool {
 
         switch mode {
@@ -73,26 +73,31 @@ final class ResultViewModel {
         }
 
     }
+
+    /// `.similar` has no free-text search and no manual-filter UI (spec decision
+    /// 7 - not requested, and "similar to this menu" isn't expressible as a
+    /// SearchIntent for FilterSheet/quick-filter chips to refine anyway).
+    var shouldShowQuickFilterSection: Bool {
+
+        if case .similar = mode {
+            return false
+        }
+
+        return true
+
+    }
     
     var activeFilterCount: Int {
 
         var count = 0
 
         // Quick Filter
-        if isKidFriendly {
-            count += 1
-        }
-
         if isBelow30K {
             count += 1
         }
 
-        if isHalalOnly {
-            count += 1
-        }
-
-        // Display Tags
-        count += filter.tags.count
+        // Display Tags (includes kidsPortion/halal, shared with the quick-filter row)
+        count += filter.selectedTags.count
 
         // Alergen
         count += filter.allergens.count
@@ -142,6 +147,16 @@ final class ResultViewModel {
 
     }
 
+    var relaxationNotes: [String] = []
+    var bindingConstraint: String? = nil
+
+    /// The most recently resolved free-text SearchIntent, kept so FilterSheet
+    /// can show which chips the parser inferred from the last submitted search.
+    /// nil before any search has run, or when searchText is empty (the
+    /// early-return branch of applyFilter() never calls runSearch, so there's
+    /// no text intent to report).
+    private(set) var lastTextIntent: SearchIntent?
+
     func load(context: ModelContext) {
 
         let repository = MenuRepository(
@@ -150,41 +165,23 @@ final class ResultViewModel {
 
         do {
 
+            if case .similar(let referenceMenu) = mode {
+
+                let result = try repository.getSimilarMenus(to: referenceMenu)
+
+                filteredMenus = result.items
+                relaxationNotes = result.isRelaxed
+                    ? ["Tidak ada menu yang sangat mirip - berikut yang paling mendekati."]
+                    : []
+                bindingConstraint = nil
+
+                return
+
+            }
+
             allMenus = try repository.getMenus(
                 in: foodCourt
             )
-
-            switch mode {
-
-            case .all:
-
-                break
-                
-            case .category(let category):
-
-                allMenus = allMenus.filter {
-
-                    $0.foodCategories.contains(category)
-
-                }
-
-            case .kids:
-
-                allMenus = allMenus.filter {
-
-                    $0.tags.isKidFriendly
-
-                }
-
-            case .search(let query):
-
-                allMenus = allMenus.filter {
-
-                    $0.name.localizedCaseInsensitiveContains(query)
-
-                }
-
-            }
 
             applyFilter()
 
@@ -195,117 +192,102 @@ final class ResultViewModel {
         }
 
     }
-    
+
+    /// Single entry point for all 3 modes and the FilterSheet. Everything funnels into one
+    /// merged SearchIntent so RecommendationEngine is the one place filtering/ranking/
+    /// relaxation logic lives (spec decision 7) — this replaces the 8 independent predicate
+    /// chains the teammate's original applyFilter() ran (search text, tags, kidsFriendly,
+    /// below30K, halalOnly, allergens, category, price preset/min/max).
     func applyFilter() {
 
-        var result = allMenus
-
-        if !searchText.isEmpty {
-
-            result = result.filter {
-
-                $0.name.localizedCaseInsensitiveContains(searchText)
-
-            }
-
+        guard !searchText.isEmpty else {
+            lastTextIntent = nil
+            applyResult(RecommendationEngine().recommend(menus: allMenus, intent: manualIntent()))
+            return
         }
-        
-        if !filter.tags.isEmpty {
 
-            result = result.filter { menu in
-
-                filter.tags.allSatisfy {
-
-                    menu.contains($0)
-
-                }
-
-            }
-
+        Task {
+            await runSearch(manual: manualIntent())
         }
-        
-        if isKidFriendly {
 
-            result = result.filter {
+    }
 
-                $0.tags.isKidFriendly
+    /// Builds the SearchIntent from everything that ISN'T free text: FilterSheet's `filter`
+    /// (kidsPortion/halal chips are shared 1:1 with ResultView's quick-filter row through
+    /// `filter` itself now — see SearchFilter.isEffectivelyOn/toggle — so no separate
+    /// isKidFriendly/isHalalOnly flags exist to union here anymore), `mode` (`.kids` implies
+    /// forKid; `.category` implies the same mapping as filter.category, when the user hasn't
+    /// separately picked one in the sheet), and the remaining quick toggle above the list
+    /// (isBelow30K — a budget preset with no chip-based equivalent to share).
+    private func manualIntent() -> SearchIntent {
 
-            }
+        var intent = filter.toSearchIntent(inferred: lastTextIntent?.impliedTags() ?? [])
 
+        if case .kids = mode {
+            intent.forKid = true
         }
-        
+
+        if case .category(let category) = mode, filter.category == nil {
+            category.apply(to: &intent)
+        }
+
         if isBelow30K {
-
-            result = result.filter {
-
-                $0.price < 30_000
-
-            }
-
-        }
-        
-        if isHalalOnly {
-
-            result = result.filter {
-
-                $0.tenant?.isHalal == true
-
-            }
-
-        }
-        
-        if !filter.allergens.isEmpty {
-
-            result = result.filter { menu in
-
-                let allergens = menu.tags.allergens ?? []
-
-                return filter.allergens.isDisjoint(with: allergens)
-
-            }
-
-        }
-        
-        if let category = filter.category {
-
-            result = result.filter {
-
-                $0.foodCategories.contains(category)
-
-            }
-
-        }
-        
-        if let preset = filter.priceFilter {
-
-            result = result.filter {
-
-                preset.contains($0.price)
-
-            }
-
-        }
-        
-        if let min = Int(filter.minimumPrice) {
-
-            result = result.filter {
-
-                $0.price >= min
-
-            }
-
+            intent.maxBudget = min(intent.maxBudget ?? 30_000, 30_000)
         }
 
-        if let max = Int(filter.maximumPrice) {
+        return intent
 
-            result = result.filter {
+    }
 
-                $0.price <= max
+    private func runSearch(manual: SearchIntent) async {
 
-            }
+        let textIntent = await resolveTextIntent(for: searchText)
+        lastTextIntent = textIntent
+        let merged = textIntent.merged(withManual: manual)
 
+        applyResult(RecommendationEngine().recommend(menus: allMenus, intent: merged))
+
+    }
+
+    /// Tries the on-device LLM parser first when available, but falls back to
+    /// the deterministic KeywordIntentParser - never to an empty SearchIntent()
+    /// - if it throws (guardrail violation, unsupported language, model
+    /// hiccup, etc). Falling back to an empty intent silently discards
+    /// everything the user typed and makes search look completely broken
+    /// (every query returns all menus, since no hard filters remain);
+    /// KeywordIntentParser is deterministic and never actually throws.
+    ///
+    /// Regardless of which parser wins above, avoidAllergens is additionally
+    /// backstopped with the deterministic regex extractor and unioned in.
+    /// Allergen exclusion is safety-critical and must never depend solely on
+    /// the on-device LLM's judgment (CLAUDE.md: price/allergen/halal are
+    /// code-enforced, never model-trusted) - this closes a real gap where
+    /// FoundationModelIntentParser could under-extract an allergen mention the
+    /// deterministic parser catches reliably every time.
+    private func resolveTextIntent(for query: String) async -> SearchIntent {
+
+        var intent: SearchIntent
+
+        if FoundationModelIntentParser.isAvailable,
+           let fmIntent = try? await FoundationModelIntentParser().parse(query) {
+            intent = fmIntent
+        } else {
+            intent = (try? await KeywordIntentParser().parse(query)) ?? SearchIntent()
         }
-        
-        filteredMenus = result
+
+        if let deterministicAllergens = KeywordIntentParser.extractAllergensOnly(from: query),
+           !deterministicAllergens.isEmpty {
+            let combined = Set(intent.avoidAllergens ?? []).union(deterministicAllergens)
+            intent.avoidAllergens = Array(combined)
+        }
+
+        return intent
+
+    }
+
+    private func applyResult(_ result: RecommendationResult) {
+        filteredMenus = result.items.map(\.menuItem)
+        relaxationNotes = result.relaxationNotes
+        bindingConstraint = result.bindingConstraint
     }
 }
