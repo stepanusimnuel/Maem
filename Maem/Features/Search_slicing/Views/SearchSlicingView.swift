@@ -39,7 +39,7 @@ struct SearchSlicingView: View {
                 ) {
                     viewModel.saveSearchQuery(
                         viewModel.searchText,
-                        context: modelContext
+                        repository: searchHistoryRepository
                     )
 
                     viewModel.showResult = true
@@ -50,7 +50,7 @@ struct SearchSlicingView: View {
                     suggestions: viewModel.suggestions
                 ) { suggestion in
                     viewModel.searchText = suggestion
-                    viewModel.saveSearchQuery(suggestion, context: contextWorkaround(modelContext))
+                    viewModel.saveSearchQuery(suggestion, repository: searchHistoryRepository)
                     viewModel.showResult = true
                 }
 
@@ -58,7 +58,7 @@ struct SearchSlicingView: View {
                     histories: viewModel.recentSearches
                 ) { historyText in
                     viewModel.searchText = historyText
-                    viewModel.saveSearchQuery(historyText, context: modelContext)
+                    viewModel.saveSearchQuery(historyText, repository: searchHistoryRepository)
                     viewModel.showResult = true
                 }
 
@@ -75,7 +75,7 @@ struct SearchSlicingView: View {
 
         }
         .onAppear {
-            viewModel.fetchRecentSearches(context: modelContext)
+            viewModel.fetchRecentSearches(repository: searchHistoryRepository)
         }
         .navigationDestination(
             isPresented: $viewModel.showResult
@@ -97,8 +97,10 @@ struct SearchSlicingView: View {
 
         }
     }
-    
-    private func contextWorkaround(_ context: ModelContext) -> ModelContext { context }
+
+    private var searchHistoryRepository: SearchHistoryRepositoryProtocol {
+        SearchHistoryRepository(context: modelContext)
+    }
 }
 
 #Preview {
