@@ -36,12 +36,8 @@ final class ResultViewModel {
 
     var isShowingFilter = false
 
-    var isHalalOnly = false
-
     var isBelow30K = false
-    
-    var isKidFriendly = false
-    
+
     var navigationTitle: String? {
 
         switch mode {
@@ -96,19 +92,11 @@ final class ResultViewModel {
         var count = 0
 
         // Quick Filter
-        if isKidFriendly {
-            count += 1
-        }
-
         if isBelow30K {
             count += 1
         }
 
-        if isHalalOnly {
-            count += 1
-        }
-
-        // Display Tags
+        // Display Tags (includes kidsPortion/halal, shared with the quick-filter row)
         count += filter.selectedTags.count
 
         // Alergen
@@ -224,12 +212,13 @@ final class ResultViewModel {
 
     }
 
-    /// Builds the SearchIntent from everything that ISN'T free text: FilterSheet's `filter`,
-    /// `mode` (`.kids` implies forKid; `.category` implies the same mapping as filter.category,
-    /// when the user hasn't separately picked one in the sheet), and the 3 quick toggles above
-    /// the list (isKidFriendly/isHalalOnly/isBelow30K — these duplicate FilterSheet controls in
-    /// the UI, so they're unioned in the same safety-preserving way, not treated as a separate
-    /// mechanism).
+    /// Builds the SearchIntent from everything that ISN'T free text: FilterSheet's `filter`
+    /// (kidsPortion/halal chips are shared 1:1 with ResultView's quick-filter row through
+    /// `filter` itself now — see SearchFilter.isEffectivelyOn/toggle — so no separate
+    /// isKidFriendly/isHalalOnly flags exist to union here anymore), `mode` (`.kids` implies
+    /// forKid; `.category` implies the same mapping as filter.category, when the user hasn't
+    /// separately picked one in the sheet), and the remaining quick toggle above the list
+    /// (isBelow30K — a budget preset with no chip-based equivalent to share).
     private func manualIntent() -> SearchIntent {
 
         var intent = filter.toSearchIntent(inferred: lastTextIntent?.impliedTags() ?? [])
@@ -242,12 +231,6 @@ final class ResultViewModel {
             category.apply(to: &intent)
         }
 
-        if isKidFriendly {
-            intent.forKid = true
-        }
-        if isHalalOnly {
-            intent.requireHalal = true
-        }
         if isBelow30K {
             intent.maxBudget = min(intent.maxBudget ?? 30_000, 30_000)
         }

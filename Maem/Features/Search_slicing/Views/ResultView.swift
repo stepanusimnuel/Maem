@@ -204,9 +204,9 @@ private extension ResultView {
 
                     FilterChip(
                         title: "Untuk Anak",
-                        isSelected: viewModel.isKidFriendly || inferredTags.contains(.kidsPortion)
+                        isSelected: viewModel.filter.isEffectivelyOn(.kidsPortion, inferred: inferredTags)
                     ) {
-                        viewModel.isKidFriendly.toggle()
+                        viewModel.filter.toggle(.kidsPortion, inferred: inferredTags)
                         viewModel.applyFilter()
                     }
 
@@ -222,9 +222,9 @@ private extension ResultView {
 
                 FilterChip(
                     title: "Halal",
-                    isSelected: viewModel.isHalalOnly || inferredTags.contains(.halal)
+                    isSelected: viewModel.filter.isEffectivelyOn(.halal, inferred: inferredTags)
                 ) {
-                    viewModel.isHalalOnly.toggle()
+                    viewModel.filter.toggle(.halal, inferred: inferredTags)
                     viewModel.applyFilter()
                 }
 

@@ -132,38 +132,12 @@ private extension FilterSheet {
 
             FlowLayout(spacing: 10) {
                 ForEach([DisplayTag.isInstant, .spicy, .notSpicy, .kidsPortion, .halal, .healthy], id: \.self) { tag in
-                    let isSelected = isEffectivelyOn(tag)
+                    let isSelected = filter.isEffectivelyOn(tag, inferred: inferredTags)
                     FilterChip(title: tag.title, isSelected: isSelected) {
-                        toggle(tag)
+                        filter.toggle(tag, inferred: inferredTags)
                     }
                 }
             }
-        }
-    }
-
-    /// A chip is on if the user explicitly selected it, or if the text parser
-    /// implied it and the user hasn't explicitly excluded it. `excludedTags`
-    /// always wins, even over an inferred tag, per the design spec's tri-state
-    /// model (Section 2).
-    func isEffectivelyOn(_ tag: DisplayTag) -> Bool {
-        if filter.excludedTags.contains(tag) { return false }
-        return filter.selectedTags.contains(tag) || inferredTags.contains(tag)
-    }
-
-    /// Tapping always flips explicit intent: on (however it got there) -> move
-    /// to excludedTags; off -> move to selectedTags. Applies uniformly to every
-    /// tag including safety ones (requireHalal/forKid/mustNotSpicy) — per the
-    /// design spec's Section 3, the user chose "keep tappable anyway" over
-    /// disabling the tap; the resulting excludedTags membership is a real UI
-    /// state, it's SearchIntent.merged(withManual:) that makes it a no-op for
-    /// those specific fields, not this function.
-    func toggle(_ tag: DisplayTag) {
-        if isEffectivelyOn(tag) {
-            filter.selectedTags.remove(tag)
-            filter.excludedTags.insert(tag)
-        } else {
-            filter.excludedTags.remove(tag)
-            filter.selectedTags.insert(tag)
         }
     }
 
