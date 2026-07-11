@@ -34,9 +34,8 @@ extension SearchFilter {
 
     /// Converts the FilterSheet's manual selections into a SearchIntent. `.kidsPortion`
     /// uses the strict isKidFriendly definition (forKid), not a separate raw-portion
-    /// concept — spec decision 10. Only 4 of DisplayTag's 9 cases are wired here because
-    /// FilterSheet's tagSection only ever offers [.isInstant, .spicy, .kidsPortion, .halal]
-    /// (confirmed in FilterSheet.swift) — the rest of DisplayTag has no UI control yet.
+    /// concept — spec decision 10. Only the tags FilterSheet's tagSection actually offers
+    /// are wired here — the rest of DisplayTag has no UI control yet.
     func toSearchIntent() -> SearchIntent {
 
         var intent = SearchIntent()
@@ -46,6 +45,9 @@ extension SearchFilter {
         }
         if tags.contains(.spicy) {
             intent.requireSpicy = true
+        }
+        if tags.contains(.notSpicy) {
+            intent.mustNotSpicy = true
         }
         if tags.contains(.isInstant) {
             intent.requireInstant = true

@@ -123,7 +123,7 @@ private extension FilterSheet {
                 .font(AppFont.body(weight: .bold))
 
             FlowLayout(spacing: 10) {
-                ForEach([DisplayTag.isInstant, .spicy, .kidsPortion, .halal], id: \.self) { tag in
+                ForEach([DisplayTag.isInstant, .spicy, .notSpicy, .kidsPortion, .halal], id: \.self) { tag in
                     let isSelected = filter.tags.contains(tag)
                     FilterChip(title: tag.title, isSelected: isSelected) {
                         if isSelected {
