@@ -42,6 +42,7 @@ struct KeywordIntentParser: IntentParser {
 
         intent.maxBudget = Self.extractBudget(from: normalized)
         intent.nameHints = Self.extractNameHints(from: compositionText)
+        intent.nameRelevanceWords = Self.extractNameRelevanceWords(from: compositionText)
 
         return intent
     }
@@ -170,6 +171,26 @@ private extension KeywordIntentParser {
             }
         }
         return hints.isEmpty ? nil : hints
+    }
+
+    /// Same tokenizer/stopword filtering as extractNameHints, but - unlike
+    /// extractNameHints - does NOT exclude knownVocabulary words. This is the
+    /// entire point: a query word recognized as structured vocab (e.g. "nasi"
+    /// -> Carb.rice) still gets checked against the literal menu name for
+    /// ranking, even though it's excluded from nameHints (which only exists
+    /// as a hard-filter fallback for words the structured parser couldn't
+    /// place anywhere).
+    static func extractNameRelevanceWords(from text: String) -> [String]? {
+        var seen = Set<String>()
+        var words: [String] = []
+        for word in text.split(whereSeparator: { !$0.isLetter }) {
+            let lower = word.lowercased()
+            guard lower.count >= 3, !stopwords.contains(lower) else { continue }
+            if seen.insert(lower).inserted {
+                words.append(lower)
+            }
+        }
+        return words.isEmpty ? nil : words
     }
 
     static let stopwords: Set<String> = [
