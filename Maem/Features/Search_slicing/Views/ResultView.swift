@@ -41,6 +41,8 @@ struct ResultView: View {
 
     var body: some View {
 
+        ZStack {
+
         ScrollView {
 
             VStack(
@@ -135,6 +137,25 @@ struct ResultView: View {
             .presentationDetents([
                 .fraction(0.95)
             ])
+
+        }
+
+        if showAlert {
+            VStack {
+                SaveSuccessAlert(isPresented: $showAlert)
+                Spacer()
+            }
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .zIndex(100)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        withAnimation {
+                            showAlert = false
+                        }
+                    }
+                }
+                .padding(.top, 56)
+        }
 
         }
 
