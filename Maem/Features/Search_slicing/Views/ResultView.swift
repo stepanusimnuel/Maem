@@ -278,6 +278,7 @@ private extension ResultView {
                 reasons: viewModel.bindingConstraint.map { [$0] } ?? viewModel.relaxationNotes,
                 suggestions: viewModel.filteredMenus,
                 onBookmarkToggled: { menu in
+                    menu.isBookmarked.toggle()
                     if menu.isBookmarked {
                         withAnimation(.spring()) {
                             showAlert = true
@@ -305,8 +306,9 @@ private extension ResultView {
 
                         MenuListCard(
                             menu: menu
-                        ) {
-                            if menu.isBookmarked {
+                        ) { tappedMenu in
+                            tappedMenu.isBookmarked.toggle()
+                            if tappedMenu.isBookmarked {
                                 withAnimation(.spring()) {
                                     showAlert = true
                                 }

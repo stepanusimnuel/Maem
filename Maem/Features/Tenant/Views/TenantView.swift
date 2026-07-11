@@ -47,8 +47,8 @@ struct TenantView: View {
                                 NavigationLink {
                                     MenuDetailView(menu: menu)
                                 } label: {
-                                    MenuListCard(menu: menu) {
-                                        viewModel.handleMenuBookmark(for: menu)
+                                    MenuListCard(menu: menu) { tappedMenu in
+                                        viewModel.handleMenuBookmark(for: tappedMenu)
                                     }
                                 }
                                 .buttonStyle(.plain)

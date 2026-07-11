@@ -137,6 +137,7 @@ struct ExploreView: View {
                                 menus: viewModel.forAllMenus
 
                             ) { menu in
+                                menu.isBookmarked.toggle()
                                 if menu.isBookmarked {
                                     withAnimation(.spring()) {
                                         showAlert = true

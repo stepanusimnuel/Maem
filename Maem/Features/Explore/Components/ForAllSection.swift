@@ -50,8 +50,8 @@ struct ForAllSection: View {
 
                         MenuListCard(
                             menu: menu
-                        ) {
-                            onBookmarkToggled(menu)
+                        ) { tappedMenu in
+                            onBookmarkToggled(tappedMenu)
                         }
 
                     }

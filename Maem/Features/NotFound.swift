@@ -41,8 +41,8 @@ struct NotFound: View {
                         NavigationLink {
                             MenuDetailView(menu: menu)
                         } label: {
-                            MenuListCard(menu: menu) {
-                                onBookmarkToggled(menu)
+                            MenuListCard(menu: menu) { tappedMenu in
+                                onBookmarkToggled(tappedMenu)
                             }
                         }
                         .buttonStyle(.plain)

@@ -47,8 +47,9 @@ struct BookmarkView: View {
                                     NavigationLink {
                                         MenuDetailView(menu: menu)
                                     } label: {
-                                        MenuListCard(menu: menu) {
-                                            if menu.isBookmarked {
+                                        MenuListCard(menu: menu) { tappedMenu in
+                                            tappedMenu.isBookmarked.toggle()
+                                            if tappedMenu.isBookmarked {
                                                 withAnimation(.spring()) {
                                                     showAlert = true
                                                 }

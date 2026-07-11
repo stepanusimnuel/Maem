@@ -29,6 +29,7 @@ final class TenantViewModel {
     }
 
     func handleMenuBookmark(for menu: Menu) {
+        menu.isBookmarked.toggle()
         guard menu.isBookmarked else { return }
 
         withAnimation(.spring()) {
