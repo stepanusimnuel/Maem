@@ -145,14 +145,19 @@ struct RecommendationEngine {
                 !hints.isEmpty && hints.allSatisfy { menu.name.localizedCaseInsensitiveContains($0) }
             } ?? false
 
-            let isPedas = menu.tags.spicy ?? false
-            if intent.mustNotSpicy == true, isPedas {
+            // Conservative on both sides, deliberately not one shared boolean:
+            // an untagged item (spicy == nil) must not silently read as "safe"
+            // for mustNotSpicy (spicy != false covers nil and true), nor as
+            // "confirmed spicy" for requireSpicy (spicy != true covers nil and
+            // false) — "when in doubt, don't guarantee" applies here the same
+            // way it does for halal (see CLAUDE.md).
+            if intent.mustNotSpicy == true, menu.tags.spicy != false {
                 if intent.forKid == true || !nameFullyMatchedThisItem {
                     return nil
                 }
             }
 
-            if intent.requireSpicy == true, !isPedas {
+            if intent.requireSpicy == true, menu.tags.spicy != true {
                 return nil
             }
 
