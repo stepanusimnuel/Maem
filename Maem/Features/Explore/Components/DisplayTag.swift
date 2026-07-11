@@ -27,6 +27,8 @@ enum DisplayTag: CaseIterable, Hashable {
     
     case halal
 
+    case healthy
+
 }
 
 extension DisplayTag {
@@ -61,6 +63,9 @@ extension DisplayTag {
             
         case .halal:
             return "Halal"
+
+        case .healthy:
+            return "Sehat"
         }
 
     }
@@ -95,6 +100,9 @@ extension DisplayTag {
             
         case .halal:
             return "tag-halal"
+
+        case .healthy:
+            return "tag-healthy"
 
         }
 

@@ -158,6 +158,10 @@ extension MenuTags {
 
             return false
 
+        case .healthy:
+
+            return false
+
         }
 
     }
