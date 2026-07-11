@@ -243,7 +243,19 @@ final class ResultViewModel {
 
         let textIntent = await resolveTextIntent(for: searchText)
         lastTextIntent = textIntent
-        let merged = textIntent.merged(withManual: manual)
+        var merged = textIntent.merged(withManual: manual)
+
+        // SearchIntent.merged(withManual:) can't tell "the user never touched
+        // the cook-method chip" apart from "the user explicitly tapped it
+        // clear" — both resolve to manual.cookMethodPreference == nil, so a
+        // real clear silently loses to a text-inferred value (manual.field ??
+        // result.field falls back to the text side whenever manual is nil).
+        // filter.cookMethod is the one place that still has the real 3-state
+        // answer at this point, so the override happens here rather than by
+        // widening SearchIntent's own (Foundation-Models-facing) schema.
+        if case .cleared = filter.cookMethod {
+            merged.cookMethodPreference = nil
+        }
 
         applyResult(RecommendationEngine().recommend(menus: allMenus, intent: merged))
 
