@@ -16,6 +16,7 @@ enum MenuSeed {
                 name: "Ayam Geprek + Nasi",
                 menuDescription: "Ayam Geprek + Nasi",
                 price: 22000,
+                imageName: "menu-ayam-geprek",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -41,6 +42,7 @@ enum MenuSeed {
                 name: "Nasi Ayam Kecap (Porsi Anak)",
                 menuDescription: "Nasi Ayam Kecap (Porsi Anak)",
                 price: 18000,
+                imageName: "menu-nasi-ayam-kecap",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -66,6 +68,7 @@ enum MenuSeed {
                 name: "Ayam Kremes + Nasi",
                 menuDescription: "Ayam Kremes + Nasi",
                 price: 25000,
+                imageName: "menu-ayam-kremes",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -91,6 +94,7 @@ enum MenuSeed {
                 name: "Ayam Suwir Kecap (Porsi Anak)",
                 menuDescription: "Ayam Suwir Kecap (Porsi Anak)",
                 price: 17000,
+                imageName: "menu-nasi-ayam-kecap",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -116,6 +120,7 @@ enum MenuSeed {
                 name: "Sup Ayam Wortel (Anak)",
                 menuDescription: "Sup Ayam Wortel (Anak)",
                 price: 16000,
+                imageName: "menu-sup-ayam-wortel",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.carrot],
@@ -141,6 +146,7 @@ enum MenuSeed {
                 name: "Ayam Bakar Madu + Nasi",
                 menuDescription: "Ayam Bakar Madu + Nasi",
                 price: 24000,
+                imageName: "menu-ayam-bakar-madu",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -168,6 +174,7 @@ enum MenuSeed {
                 name: "Bubur Ayam Polos",
                 menuDescription: "Bubur Ayam Polos",
                 price: 15000,
+                imageName: "menu-bubur-ayam-polos",
                 tags: MenuTags(
                     carbs: [.porridge],
                     veggies: nil,
@@ -193,6 +200,7 @@ enum MenuSeed {
                 name: "Soto Ayam",
                 menuDescription: "Soto Ayam",
                 price: 20000,
+                imageName: "menu-soto-ayam",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.beanSprout],
@@ -218,6 +226,7 @@ enum MenuSeed {
                 name: "Soto Daging Sapi",
                 menuDescription: "Soto Daging Sapi",
                 price: 24000,
+                imageName: "menu-soto-daging-sapi",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.beanSprout],
@@ -243,6 +252,7 @@ enum MenuSeed {
                 name: "Sate Usus Ayam",
                 menuDescription: "Sate Usus Ayam",
                 price: 15000,
+                imageName: "menu-sate-usus-ayam",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -268,6 +278,7 @@ enum MenuSeed {
                 name: "Nasi Goreng Kampung",
                 menuDescription: "Nasi Goreng Kampung",
                 price: 18000,
+                imageName: "menu-nasi-goreng-kampung",
                 tags: MenuTags(
                     carbs: [.friedRice],
                     veggies: nil,
@@ -293,6 +304,7 @@ enum MenuSeed {
                 name: "Kerupuk & Sambal Bawang",
                 menuDescription: "Kerupuk & Sambal Bawang",
                 price: 8000,
+                imageName: "menu-kerupuk-sambal-bawang",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -320,6 +332,7 @@ enum MenuSeed {
                 name: "Nasi Udang Saus Padang",
                 menuDescription: "Nasi Udang Saus Padang",
                 price: 35000,
+                imageName: "menu-nasi-udang-saus-padang",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -345,6 +358,7 @@ enum MenuSeed {
                 name: "Cumi Goreng Tepung + Nasi",
                 menuDescription: "Cumi Goreng Tepung + Nasi",
                 price: 32000,
+                imageName: "menu-cumi-goreng-tepung",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -370,6 +384,7 @@ enum MenuSeed {
                 name: "Ikan Bakar + Nasi",
                 menuDescription: "Ikan Bakar + Nasi",
                 price: 30000,
+                imageName: "menu-ikan-bakar",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -395,6 +410,7 @@ enum MenuSeed {
                 name: "Sup Ikan Tenggiri (Anak)",
                 menuDescription: "Sup Ikan Tenggiri (Anak)",
                 price: 20000,
+                imageName: "menu-sup-ikan-tenggiri",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -420,6 +436,7 @@ enum MenuSeed {
                 name: "Udang Kukus Saus Mentega (Anak)",
                 menuDescription: "Udang Kukus Saus Mentega (Anak)",
                 price: 22000,
+                imageName: "menu-udang-kukus-saus-mentega",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -445,6 +462,7 @@ enum MenuSeed {
                 name: "Bubur Ikan (Anak)",
                 menuDescription: "Bubur Ikan (Anak)",
                 price: 17000,
+                imageName: "menu-bubur-ikan",
                 tags: MenuTags(
                     carbs: [.porridge],
                     veggies: nil,
@@ -472,6 +490,7 @@ enum MenuSeed {
                 name: "Mie Ayam Bakso",
                 menuDescription: "Mie Ayam Bakso",
                 price: 18000,
+                imageName: "menu-mie-ayam-bakso",
                 tags: MenuTags(
                     carbs: [.noodle],
                     veggies: [.mustardGreens],
@@ -497,6 +516,7 @@ enum MenuSeed {
                 name: "Dimsum Ayam Kukus",
                 menuDescription: "Dimsum Ayam Kukus",
                 price: 20000,
+                imageName: "menu-dimsum-ayam-kukus",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -522,6 +542,7 @@ enum MenuSeed {
                 name: "Mie Instan Telur",
                 menuDescription: "Mie Instan Telur",
                 price: 12000,
+                imageName: "menu-mie-instan-telur",
                 tags: MenuTags(
                     carbs: [.noodle],
                     veggies: nil,
@@ -547,6 +568,7 @@ enum MenuSeed {
                 name: "Mie Goreng Ayam",
                 menuDescription: "Mie Goreng Ayam",
                 price: 19000,
+                imageName: "menu-mie-goreng-ayam",
                 tags: MenuTags(
                     carbs: [.noodle],
                     veggies: [.mustardGreens],
@@ -572,6 +594,7 @@ enum MenuSeed {
                 name: "Dimsum Goreng Renyah",
                 menuDescription: "Dimsum Goreng Renyah",
                 price: 21000,
+                imageName: "menu-dimsum-goreng-renyah",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -597,6 +620,7 @@ enum MenuSeed {
                 name: "Mie Pedas Setan",
                 menuDescription: "Mie Pedas Setan",
                 price: 20000,
+                imageName: "menu-mie-pedas-setan",
                 tags: MenuTags(
                     carbs: [.noodle],
                     veggies: nil,
@@ -624,6 +648,7 @@ enum MenuSeed {
                 name: "Nasi Tahu Tempe Goreng",
                 menuDescription: "Nasi Tahu Tempe Goreng",
                 price: 15000,
+                imageName: "menu-nasi-tahu-tempe-goreng",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -649,6 +674,7 @@ enum MenuSeed {
                 name: "Gado-Gado",
                 menuDescription: "Gado-Gado",
                 price: 17000,
+                imageName: "menu-gado-gado",
                 tags: MenuTags(
                     carbs: [.glutinousRiceCake],
                     veggies: [.spinach, .beanSprout, .waterSpinach],
@@ -674,6 +700,7 @@ enum MenuSeed {
                 name: "Capcay Kuah",
                 menuDescription: "Capcay Kuah",
                 price: 17000,
+                imageName: "menu-capcay-kuah",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.soup, .carrot, .broccoli],
@@ -699,6 +726,7 @@ enum MenuSeed {
                 name: "Sup Tahu Sayur (Anak)",
                 menuDescription: "Sup Tahu Sayur (Anak)",
                 price: 14000,
+                imageName: "menu-sup-tahu-sayur",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.carrot, .spinach],
@@ -724,6 +752,7 @@ enum MenuSeed {
                 name: "Tempe Orek Pedas",
                 menuDescription: "Tempe Orek Pedas",
                 price: 13000,
+                imageName: "menu-tempe-orek-pedas",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -749,6 +778,7 @@ enum MenuSeed {
                 name: "Keripik Tempe",
                 menuDescription: "Keripik Tempe",
                 price: 9000,
+                imageName: "menu-keripik-tempe",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -776,6 +806,7 @@ enum MenuSeed {
                 name: "Nasi Babi Kecap",
                 menuDescription: "Nasi Babi Kecap",
                 price: 28000,
+                imageName: "menu-nasi-babi-kecap",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -801,6 +832,7 @@ enum MenuSeed {
                 name: "Nasi Goreng B2",
                 menuDescription: "Nasi Goreng B2",
                 price: 26000,
+                imageName: "menu-nasi-goreng-b2",
                 tags: MenuTags(
                     carbs: [.friedRice],
                     veggies: nil,
@@ -826,6 +858,7 @@ enum MenuSeed {
                 name: "Bubur Babi Cincang (Anak)",
                 menuDescription: "Bubur Babi Cincang (Anak)",
                 price: 18000,
+                imageName: "menu-bubur-babi-cincang",
                 tags: MenuTags(
                     carbs: [.porridge],
                     veggies: nil,
@@ -851,6 +884,7 @@ enum MenuSeed {
                 name: "Sup Sayur Babi (Anak)",
                 menuDescription: "Sup Sayur Babi (Anak)",
                 price: 20000,
+                imageName: "menu-sup-sayur-babi",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.carrot, .soup],
@@ -876,6 +910,7 @@ enum MenuSeed {
                 name: "Babi Panggang Madu + Nasi",
                 menuDescription: "Babi Panggang Madu + Nasi",
                 price: 30000,
+                imageName: "menu-babi-panggang-madu",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -901,6 +936,7 @@ enum MenuSeed {
                 name: "Sate Babi Pedas",
                 menuDescription: "Sate Babi Pedas",
                 price: 27000,
+                imageName: "menu-sate-babi-pedas",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -928,6 +964,7 @@ enum MenuSeed {
                 name: "Pudding Coklat",
                 menuDescription: "Pudding Coklat",
                 price: 10000,
+                imageName: "menu-pudding-coklat",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -953,6 +990,7 @@ enum MenuSeed {
                 name: "Es Krim Vanilla Cup (Anak)",
                 menuDescription: "Es Krim Vanilla Cup (Anak)",
                 price: 12000,
+                imageName: "menu-es-krim-vanilla-cup",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -978,6 +1016,7 @@ enum MenuSeed {
                 name: "Puding Karamel (Anak)",
                 menuDescription: "Puding Karamel (Anak)",
                 price: 11000,
+                imageName: "menu-puding-karamel",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1003,6 +1042,7 @@ enum MenuSeed {
                 name: "Pisang Goreng Crispy",
                 menuDescription: "Pisang Goreng Crispy",
                 price: 9000,
+                imageName: "menu-pisang-goreng-crispy",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1028,6 +1068,7 @@ enum MenuSeed {
                 name: "Kue Cubit Gosong (Karamel)",
                 menuDescription: "Kue Cubit Gosong (Karamel)",
                 price: 8000,
+                imageName: "menu-kue-cubit-gosong",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1053,6 +1094,7 @@ enum MenuSeed {
                 name: "Keripik Pisang Manis",
                 menuDescription: "Keripik Pisang Manis",
                 price: 8000,
+                imageName: "menu-keripik-pisang-manis",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1080,6 +1122,7 @@ enum MenuSeed {
                 name: "Rendang Sapi + Nasi",
                 menuDescription: "Rendang Sapi + Nasi",
                 price: 32000,
+                imageName: "menu-rendang-sapi",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1105,6 +1148,7 @@ enum MenuSeed {
                 name: "Gulai Ayam + Nasi",
                 menuDescription: "Gulai Ayam + Nasi",
                 price: 27000,
+                imageName: "menu-gulai-ayam",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1130,6 +1174,7 @@ enum MenuSeed {
                 name: "Ayam Pop + Nasi",
                 menuDescription: "Ayam Pop + Nasi",
                 price: 25000,
+                imageName: "menu-ayam-pop",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1155,6 +1200,7 @@ enum MenuSeed {
                 name: "Dendeng Balado + Nasi",
                 menuDescription: "Dendeng Balado + Nasi",
                 price: 30000,
+                imageName: "menu-dendeng-balado",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1180,6 +1226,7 @@ enum MenuSeed {
                 name: "Telur Balado + Nasi",
                 menuDescription: "Telur Balado + Nasi",
                 price: 18000,
+                imageName: "menu-telur-balado",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1205,6 +1252,7 @@ enum MenuSeed {
                 name: "Sayur Nangka Lodeh",
                 menuDescription: "Sayur Nangka Lodeh",
                 price: 15000,
+                imageName: "menu-sayur-nangka-lodeh",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1230,6 +1278,7 @@ enum MenuSeed {
                 name: "Ayam Bakar Padang + Nasi",
                 menuDescription: "Ayam Bakar Padang + Nasi",
                 price: 26000,
+                imageName: "menu-ayam-bakar-padang",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -1255,6 +1304,7 @@ enum MenuSeed {
                 name: "Perkedel Kentang",
                 menuDescription: "Perkedel Kentang",
                 price: 8000,
+                imageName: "menu-perkedel-kentang",
                 tags: MenuTags(
                     carbs: [.potato],
                     veggies: nil,
@@ -1280,6 +1330,7 @@ enum MenuSeed {
                 name: "Nasi Campur Padang (Rendang + Sayur + Telur)",
                 menuDescription: "Nasi Campur Padang (Rendang + Sayur + Telur)",
                 price: 35000,
+                imageName: "menu-nasi-campur-padang",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.greenBeans],
@@ -1305,6 +1356,7 @@ enum MenuSeed {
                 name: "Nasi Rendang Anak (Tidak Pedas)",
                 menuDescription: "Nasi Rendang Anak (Tidak Pedas)",
                 price: 20000,
+                imageName: "menu-rendang-sapi",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1330,6 +1382,7 @@ enum MenuSeed {
                 name: "Sup Ayam Padang (Anak, Tidak Pedas)",
                 menuDescription: "Sup Ayam Padang (Anak, Tidak Pedas)",
                 price: 18000,
+                imageName: "menu-sup-ayam-padang",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.carrot],
@@ -1357,6 +1410,7 @@ enum MenuSeed {
                 name: "Bakso Urat",
                 menuDescription: "Bakso Urat",
                 price: 18000,
+                imageName: "menu-bakso-urat",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.beanSprout, .mustardGreens],
@@ -1382,6 +1436,7 @@ enum MenuSeed {
                 name: "Bakso Telur",
                 menuDescription: "Bakso Telur",
                 price: 20000,
+                imageName: "menu-bakso-urat",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.beanSprout],
@@ -1407,6 +1462,7 @@ enum MenuSeed {
                 name: "Bakso Beranak (Sharing)",
                 menuDescription: "Bakso Beranak (Sharing)",
                 price: 45000,
+                imageName: "menu-bakso-urat",
                 tags: MenuTags(
                     carbs: [.noodle],
                     veggies: [.beanSprout, .mustardGreens],
@@ -1432,6 +1488,7 @@ enum MenuSeed {
                 name: "Mie Bakso",
                 menuDescription: "Mie Bakso",
                 price: 20000,
+                imageName: "menu-bakso-urat",
                 tags: MenuTags(
                     carbs: [.noodle],
                     veggies: [.mustardGreens],
@@ -1457,6 +1514,7 @@ enum MenuSeed {
                 name: "Bakso Goreng (Cemilan)",
                 menuDescription: "Bakso Goreng (Cemilan)",
                 price: 12000,
+                imageName: "menu-bakso-goreng",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1482,6 +1540,7 @@ enum MenuSeed {
                 name: "Bakso Anak (Porsi Kecil, Tidak Pedas)",
                 menuDescription: "Bakso Anak (Porsi Kecil, Tidak Pedas)",
                 price: 15000,
+                imageName: "menu-bakso-urat",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1507,6 +1566,7 @@ enum MenuSeed {
                 name: "Bakso Pedas Setan",
                 menuDescription: "Bakso Pedas Setan",
                 price: 22000,
+                imageName: "menu-bakso-pedas-setan",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.beanSprout],
@@ -1532,6 +1592,7 @@ enum MenuSeed {
                 name: "Bakso Bakar Pedas",
                 menuDescription: "Bakso Bakar Pedas",
                 price: 16000,
+                imageName: "menu-bakso-bakar-pedas",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1559,6 +1620,7 @@ enum MenuSeed {
                 name: "Ayam Penyet + Nasi",
                 menuDescription: "Ayam Penyet + Nasi",
                 price: 22000,
+                imageName: "menu-ayam-penyet",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -1584,6 +1646,7 @@ enum MenuSeed {
                 name: "Tahu Tempe Penyet",
                 menuDescription: "Tahu Tempe Penyet",
                 price: 14000,
+                imageName: "menu-tahu-tempe-penyet",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -1609,6 +1672,7 @@ enum MenuSeed {
                 name: "Lele Penyet + Nasi",
                 menuDescription: "Lele Penyet + Nasi",
                 price: 20000,
+                imageName: "menu-lele-penyet",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -1634,6 +1698,7 @@ enum MenuSeed {
                 name: "Ayam Geprek Level 5",
                 menuDescription: "Ayam Geprek Level 5",
                 price: 24000,
+                imageName: "menu-ayam-penyet",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -1659,6 +1724,7 @@ enum MenuSeed {
                 name: "Ayam Geprek (Tidak Pedas, Anak)",
                 menuDescription: "Ayam Geprek (Tidak Pedas, Anak)",
                 price: 20000,
+                imageName: "menu-ayam-penyet",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1684,6 +1750,7 @@ enum MenuSeed {
                 name: "Terong Penyet",
                 menuDescription: "Terong Penyet",
                 price: 12000,
+                imageName: "menu-terong-penyet",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.eggplant, .rawVeggiePlate],
@@ -1709,6 +1776,7 @@ enum MenuSeed {
                 name: "Bebek Geprek + Nasi",
                 menuDescription: "Bebek Geprek + Nasi",
                 price: 28000,
+                imageName: "menu-bebek-geprek",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -1734,6 +1802,7 @@ enum MenuSeed {
                 name: "Sup Tahu Ayam (Anak, Tidak Pedas)",
                 menuDescription: "Sup Tahu Ayam (Anak, Tidak Pedas)",
                 price: 16000,
+                imageName: "menu-sup-tahu-ayam",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1759,6 +1828,7 @@ enum MenuSeed {
                 name: "Lele Kukus Saus (Anak, Tidak Pedas)",
                 menuDescription: "Lele Kukus Saus (Anak, Tidak Pedas)",
                 price: 19000,
+                imageName: "menu-lele-kukus-saus",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1784,6 +1854,7 @@ enum MenuSeed {
                 name: "Bebek Suwir Kecap (Anak, Tidak Pedas)",
                 menuDescription: "Bebek Suwir Kecap (Anak, Tidak Pedas)",
                 price: 22000,
+                imageName: "menu-bebek-suwir-kecap",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1811,6 +1882,7 @@ enum MenuSeed {
                 name: "Nasi Uduk Komplit",
                 menuDescription: "Nasi Uduk Komplit",
                 price: 24000,
+                imageName: "menu-nasi-uduk-komplit",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1836,6 +1908,7 @@ enum MenuSeed {
                 name: "Nasi Uduk Ayam Goreng",
                 menuDescription: "Nasi Uduk Ayam Goreng",
                 price: 22000,
+                imageName: "menu-nasi-uduk-ayam-goreng",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1861,6 +1934,7 @@ enum MenuSeed {
                 name: "Semur Telur + Nasi",
                 menuDescription: "Semur Telur + Nasi",
                 price: 18000,
+                imageName: "menu-semur-telur",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1886,6 +1960,7 @@ enum MenuSeed {
                 name: "Tahu Goreng (Gorengan)",
                 menuDescription: "Tahu Goreng (Gorengan)",
                 price: 8000,
+                imageName: "menu-tahu-goreng",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -1911,6 +1986,7 @@ enum MenuSeed {
                 name: "Bakwan Sayur (Gorengan)",
                 menuDescription: "Bakwan Sayur (Gorengan)",
                 price: 7000,
+                imageName: "menu-bakwan-sayur",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.carrot, .beanSprout],
@@ -1936,6 +2012,7 @@ enum MenuSeed {
                 name: "Sambal Goreng Kentang",
                 menuDescription: "Sambal Goreng Kentang",
                 price: 15000,
+                imageName: "menu-sambal-goreng-kentang",
                 tags: MenuTags(
                     carbs: [.potato],
                     veggies: nil,
@@ -1961,6 +2038,7 @@ enum MenuSeed {
                 name: "Nasi Uduk Ikan Asin",
                 menuDescription: "Nasi Uduk Ikan Asin",
                 price: 20000,
+                imageName: "menu-nasi-uduk-ikan-asin",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -1986,6 +2064,7 @@ enum MenuSeed {
                 name: "Bubur Ayam Betawi (Anak)",
                 menuDescription: "Bubur Ayam Betawi (Anak)",
                 price: 17000,
+                imageName: "menu-bubur-ayam-betawi",
                 tags: MenuTags(
                     carbs: [.porridge],
                     veggies: nil,
@@ -2011,6 +2090,7 @@ enum MenuSeed {
                 name: "Sup Ayam Uduk (Anak)",
                 menuDescription: "Sup Ayam Uduk (Anak)",
                 price: 18000,
+                imageName: "menu-sup-ayam-uduk",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.carrot],
@@ -2038,6 +2118,7 @@ enum MenuSeed {
                 name: "Sate Ayam Bumbu Kacang",
                 menuDescription: "Sate Ayam Bumbu Kacang",
                 price: 25000,
+                imageName: "menu-sate-ayam-bumbu-kacang",
                 tags: MenuTags(
                     carbs: [.glutinousRiceCake],
                     veggies: nil,
@@ -2063,6 +2144,7 @@ enum MenuSeed {
                 name: "Sate Kambing",
                 menuDescription: "Sate Kambing",
                 price: 32000,
+                imageName: "menu-sate-kambing",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -2088,6 +2170,7 @@ enum MenuSeed {
                 name: "Sate Padang",
                 menuDescription: "Sate Padang",
                 price: 28000,
+                imageName: "menu-sate-padang",
                 tags: MenuTags(
                     carbs: [.glutinousRiceCake],
                     veggies: nil,
@@ -2113,6 +2196,7 @@ enum MenuSeed {
                 name: "Sop Buntut",
                 menuDescription: "Sop Buntut",
                 price: 40000,
+                imageName: "menu-sop-buntut",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.carrot],
@@ -2138,6 +2222,7 @@ enum MenuSeed {
                 name: "Sate Ayam (Porsi Anak, Tanpa Kacang)",
                 menuDescription: "Sate Ayam (Porsi Anak, Tanpa Kacang)",
                 price: 18000,
+                imageName: "menu-sate-ayam-bumbu-kacang",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -2163,6 +2248,7 @@ enum MenuSeed {
                 name: "Sate Usus",
                 menuDescription: "Sate Usus",
                 price: 15000,
+                imageName: "menu-sate-usus",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -2188,6 +2274,7 @@ enum MenuSeed {
                 name: "Sate Telur Puyuh",
                 menuDescription: "Sate Telur Puyuh",
                 price: 12000,
+                imageName: "menu-sate-telur-puyuh",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -2213,6 +2300,7 @@ enum MenuSeed {
                 name: "Gulai Kambing + Nasi",
                 menuDescription: "Gulai Kambing + Nasi",
                 price: 35000,
+                imageName: "menu-gulai-kambing",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2238,6 +2326,7 @@ enum MenuSeed {
                 name: "Sate Campur (Ayam + Kambing + Sapi)",
                 menuDescription: "Sate Campur (Ayam + Kambing + Sapi)",
                 price: 38000,
+                imageName: "menu-sate-campur",
                 tags: MenuTags(
                     carbs: [.glutinousRiceCake],
                     veggies: nil,
@@ -2263,6 +2352,7 @@ enum MenuSeed {
                 name: "Sup Sate Ayam (Anak, Kuah Kaldu)",
                 menuDescription: "Sup Sate Ayam (Anak, Kuah Kaldu)",
                 price: 20000,
+                imageName: "menu-sup-sate-ayam",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2288,6 +2378,7 @@ enum MenuSeed {
                 name: "Semur Daging Sapi (Anak, Tidak Pedas)",
                 menuDescription: "Semur Daging Sapi (Anak, Tidak Pedas)",
                 price: 22000,
+                imageName: "menu-semur-daging-sapi",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2315,6 +2406,7 @@ enum MenuSeed {
                 name: "Nasi Campur Babi Panggang",
                 menuDescription: "Nasi Campur Babi Panggang",
                 price: 30000,
+                imageName: "menu-nasi-campur-babi-panggang",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2340,6 +2432,7 @@ enum MenuSeed {
                 name: "Kwetiau Siram Seafood",
                 menuDescription: "Kwetiau Siram Seafood",
                 price: 28000,
+                imageName: "menu-kwetiau-siram-seafood",
                 tags: MenuTags(
                     carbs: [.flatNoodle],
                     veggies: [.soup],
@@ -2365,6 +2458,7 @@ enum MenuSeed {
                 name: "Fuyunghai + Nasi",
                 menuDescription: "Fuyunghai + Nasi",
                 price: 22000,
+                imageName: "menu-fuyunghai",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.carrot],
@@ -2390,6 +2484,7 @@ enum MenuSeed {
                 name: "Cap Cai Babi",
                 menuDescription: "Cap Cai Babi",
                 price: 25000,
+                imageName: "menu-cap-cai-babi",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.soup, .carrot, .broccoli],
@@ -2415,6 +2510,7 @@ enum MenuSeed {
                 name: "Bebek Panggang + Nasi",
                 menuDescription: "Bebek Panggang + Nasi",
                 price: 32000,
+                imageName: "menu-bebek-panggang",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2440,6 +2536,7 @@ enum MenuSeed {
                 name: "Ayam Saus Mentega",
                 menuDescription: "Ayam Saus Mentega",
                 price: 24000,
+                imageName: "menu-ayam-saus-mentega",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2465,6 +2562,7 @@ enum MenuSeed {
                 name: "Kwetiau Goreng Babi",
                 menuDescription: "Kwetiau Goreng Babi",
                 price: 26000,
+                imageName: "menu-kwetiau-goreng-babi",
                 tags: MenuTags(
                     carbs: [.flatNoodle],
                     veggies: [.beanSprout],
@@ -2492,6 +2590,7 @@ enum MenuSeed {
                 name: "Pecel Lele + Nasi",
                 menuDescription: "Pecel Lele + Nasi",
                 price: 20000,
+                imageName: "menu-pecel-lele",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -2517,6 +2616,7 @@ enum MenuSeed {
                 name: "Pecel Ayam + Nasi",
                 menuDescription: "Pecel Ayam + Nasi",
                 price: 22000,
+                imageName: "menu-pecel-ayam",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -2542,6 +2642,7 @@ enum MenuSeed {
                 name: "Ikan Nila Goreng + Nasi",
                 menuDescription: "Ikan Nila Goreng + Nasi",
                 price: 25000,
+                imageName: "menu-ikan-nila-goreng",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.rawVeggiePlate],
@@ -2567,6 +2668,7 @@ enum MenuSeed {
                 name: "Lele Goreng (Anak, Tidak Pedas)",
                 menuDescription: "Lele Goreng (Anak, Tidak Pedas)",
                 price: 18000,
+                imageName: "menu-pecel-lele",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2592,6 +2694,7 @@ enum MenuSeed {
                 name: "Tempe Tahu Goreng (Pelengkap)",
                 menuDescription: "Tempe Tahu Goreng (Pelengkap)",
                 price: 8000,
+                imageName: "menu-tempe-tahu-goreng",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -2617,6 +2720,7 @@ enum MenuSeed {
                 name: "Sayur Asem",
                 menuDescription: "Sayur Asem",
                 price: 12000,
+                imageName: "menu-sayur-asem",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.greenBeans],
@@ -2642,6 +2746,7 @@ enum MenuSeed {
                 name: "Lalapan Komplit + Sambal",
                 menuDescription: "Lalapan Komplit + Sambal",
                 price: 10000,
+                imageName: "menu-lalapan-komplit-sambal",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.rawVeggiePlate],
@@ -2667,6 +2772,7 @@ enum MenuSeed {
                 name: "Sup Ikan Lele (Anak, Tidak Pedas)",
                 menuDescription: "Sup Ikan Lele (Anak, Tidak Pedas)",
                 price: 19000,
+                imageName: "menu-sup-ikan-lele",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2692,6 +2798,7 @@ enum MenuSeed {
                 name: "Tumis Bayam (Anak)",
                 menuDescription: "Tumis Bayam (Anak)",
                 price: 10000,
+                imageName: "menu-tumis-bayam",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.spinach],
@@ -2719,6 +2826,7 @@ enum MenuSeed {
                 name: "Salad Ayam Panggang",
                 menuDescription: "Salad Ayam Panggang",
                 price: 28000,
+                imageName: "menu-salad-ayam-panggang",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.spinach, .carrot],
@@ -2744,6 +2852,7 @@ enum MenuSeed {
                 name: "Salad Buah & Sayur",
                 menuDescription: "Salad Buah & Sayur",
                 price: 18000,
+                imageName: "menu-salad-buah-sayur",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.spinach, .carrot, .broccoli],
@@ -2769,6 +2878,7 @@ enum MenuSeed {
                 name: "Sup Krim Jagung",
                 menuDescription: "Sup Krim Jagung",
                 price: 16000,
+                imageName: "menu-sup-krim-jagung",
                 tags: MenuTags(
                     carbs: [.corn],
                     veggies: nil,
@@ -2794,6 +2904,7 @@ enum MenuSeed {
                 name: "Dada Ayam Panggang + Sayur Kukus",
                 menuDescription: "Dada Ayam Panggang + Sayur Kukus",
                 price: 30000,
+                imageName: "menu-dada-ayam-panggang-sayur-kukus",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.broccoli, .carrot],
@@ -2819,6 +2930,7 @@ enum MenuSeed {
                 name: "Oatmeal Sayur & Telur",
                 menuDescription: "Oatmeal Sayur & Telur",
                 price: 20000,
+                imageName: "menu-oatmeal-sayur-telur",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.spinach],
@@ -2844,6 +2956,7 @@ enum MenuSeed {
                 name: "Tahu Panggang Saus Wijen",
                 menuDescription: "Tahu Panggang Saus Wijen",
                 price: 20000,
+                imageName: "menu-tahu-panggang-saus-wijen",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.broccoli],
@@ -2869,6 +2982,7 @@ enum MenuSeed {
                 name: "Sup Sayur Bening (Anak)",
                 menuDescription: "Sup Sayur Bening (Anak)",
                 price: 12000,
+                imageName: "menu-sup-sayur-bening",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.spinach, .carrot],
@@ -2894,6 +3008,7 @@ enum MenuSeed {
                 name: "Keripik Kale Panggang",
                 menuDescription: "Keripik Kale Panggang",
                 price: 15000,
+                imageName: "menu-keripik-kale-panggang",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.broccoli],
@@ -2921,6 +3036,7 @@ enum MenuSeed {
                 name: "Nasi Kuning Komplit",
                 menuDescription: "Nasi Kuning Komplit",
                 price: 22000,
+                imageName: "menu-nasi-kuning-komplit",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2946,6 +3062,7 @@ enum MenuSeed {
                 name: "Nasi Kuning Anak (Tanpa Pedas)",
                 menuDescription: "Nasi Kuning Anak (Tanpa Pedas)",
                 price: 18000,
+                imageName: "menu-nasi-kuning-komplit",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2971,6 +3088,7 @@ enum MenuSeed {
                 name: "Ayam Betutu + Nasi",
                 menuDescription: "Ayam Betutu + Nasi",
                 price: 30000,
+                imageName: "menu-ayam-betutu",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -2996,6 +3114,7 @@ enum MenuSeed {
                 name: "Sate Lilit Ayam",
                 menuDescription: "Sate Lilit Ayam",
                 price: 24000,
+                imageName: "menu-sate-lilit-ayam",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -3021,6 +3140,7 @@ enum MenuSeed {
                 name: "Nasi Campur Bali (Ayam)",
                 menuDescription: "Nasi Campur Bali (Ayam)",
                 price: 27000,
+                imageName: "menu-nasi-campur-bali",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: [.beanSprout],
@@ -3046,6 +3166,7 @@ enum MenuSeed {
                 name: "Jukut Urab (Sayur Bali)",
                 menuDescription: "Jukut Urab (Sayur Bali)",
                 price: 12000,
+                imageName: "menu-jukut-urab",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.waterSpinach, .beanSprout],
@@ -3071,6 +3192,7 @@ enum MenuSeed {
                 name: "Ayam Sisit (Suwir Pedas) + Nasi",
                 menuDescription: "Ayam Sisit (Suwir Pedas) + Nasi",
                 price: 25000,
+                imageName: "menu-nasi-campur-bali",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -3096,6 +3218,7 @@ enum MenuSeed {
                 name: "Sup Ayam Bali (Anak, Tidak Pedas)",
                 menuDescription: "Sup Ayam Bali (Anak, Tidak Pedas)",
                 price: 19000,
+                imageName: "menu-sup-ayam-bali",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -3121,6 +3244,7 @@ enum MenuSeed {
                 name: "Ayam Suwir Kuning (Anak, Tidak Pedas)",
                 menuDescription: "Ayam Suwir Kuning (Anak, Tidak Pedas)",
                 price: 18000,
+                imageName: "menu-sup-ayam-bali",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -3146,6 +3270,7 @@ enum MenuSeed {
                 name: "Bubur Kuning Ayam (Anak)",
                 menuDescription: "Bubur Kuning Ayam (Anak)",
                 price: 16000,
+                imageName: "menu-bubur-kuning-ayam",
                 tags: MenuTags(
                     carbs: [.porridge],
                     veggies: nil,
@@ -3173,6 +3298,7 @@ enum MenuSeed {
                 name: "Risoles Mayo",
                 menuDescription: "Risoles Mayo",
                 price: 6000,
+                imageName: "menu-risoles-mayo",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: [.carrot],
@@ -3198,6 +3324,7 @@ enum MenuSeed {
                 name: "Pastel Sayur",
                 menuDescription: "Pastel Sayur",
                 price: 5000,
+                imageName: "menu-pastel-sayur",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: [.carrot],
@@ -3223,6 +3350,7 @@ enum MenuSeed {
                 name: "Lumpia Semarang",
                 menuDescription: "Lumpia Semarang",
                 price: 8000,
+                imageName: "menu-lumpia-semarang",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: [.beanSprout],
@@ -3248,6 +3376,7 @@ enum MenuSeed {
                 name: "Martabak Telur Mini",
                 menuDescription: "Martabak Telur Mini",
                 price: 15000,
+                imageName: "menu-martabak-telur-mini",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -3273,6 +3402,7 @@ enum MenuSeed {
                 name: "Klepon",
                 menuDescription: "Klepon",
                 price: 6000,
+                imageName: "menu-klepon",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -3298,6 +3428,7 @@ enum MenuSeed {
                 name: "Kroket Kentang",
                 menuDescription: "Kroket Kentang",
                 price: 7000,
+                imageName: "menu-kroket-kentang",
                 tags: MenuTags(
                     carbs: [.potato],
                     veggies: [.carrot],
@@ -3323,6 +3454,7 @@ enum MenuSeed {
                 name: "Combro",
                 menuDescription: "Combro",
                 price: 5000,
+                imageName: "menu-combro",
                 tags: MenuTags(
                     carbs: [.cassava],
                     veggies: nil,
@@ -3348,6 +3480,7 @@ enum MenuSeed {
                 name: "Cireng Bumbu Rujak",
                 menuDescription: "Cireng Bumbu Rujak",
                 price: 6000,
+                imageName: "menu-cireng-bumbu-rujak",
                 tags: MenuTags(
                     carbs: [.cassava],
                     veggies: nil,
@@ -3373,6 +3506,7 @@ enum MenuSeed {
                 name: "Getuk Lindri (Anak)",
                 menuDescription: "Getuk Lindri (Anak)",
                 price: 5000,
+                imageName: "menu-getuk-lindri",
                 tags: MenuTags(
                     carbs: [.cassava],
                     veggies: nil,
@@ -3398,6 +3532,7 @@ enum MenuSeed {
                 name: "Bubur Sumsum (Anak)",
                 menuDescription: "Bubur Sumsum (Anak)",
                 price: 7000,
+                imageName: "menu-bubur-sumsum",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -3425,6 +3560,7 @@ enum MenuSeed {
                 name: "Roti Bakar Coklat Keju",
                 menuDescription: "Roti Bakar Coklat Keju",
                 price: 15000,
+                imageName: "menu-roti-bakar-coklat-keju",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: nil,
@@ -3450,6 +3586,7 @@ enum MenuSeed {
                 name: "Roti Bakar Kacang",
                 menuDescription: "Roti Bakar Kacang",
                 price: 13000,
+                imageName: "menu-roti-bakar-kacang",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: nil,
@@ -3475,6 +3612,7 @@ enum MenuSeed {
                 name: "Kentang Goreng",
                 menuDescription: "Kentang Goreng",
                 price: 12000,
+                imageName: "menu-kentang-goreng",
                 tags: MenuTags(
                     carbs: [.potato],
                     veggies: nil,
@@ -3500,6 +3638,7 @@ enum MenuSeed {
                 name: "Pisang Goreng Keju",
                 menuDescription: "Pisang Goreng Keju",
                 price: 12000,
+                imageName: "menu-pisang-goreng-keju",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -3525,6 +3664,7 @@ enum MenuSeed {
                 name: "Roti Bakar Anak (Coklat, Tanpa Kacang)",
                 menuDescription: "Roti Bakar Anak (Coklat, Tanpa Kacang)",
                 price: 12000,
+                imageName: "menu-roti-bakar-coklat-keju",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: nil,
@@ -3550,6 +3690,7 @@ enum MenuSeed {
                 name: "Kentang Mustofa (Kentang Kering Pedas)",
                 menuDescription: "Kentang Mustofa (Kentang Kering Pedas)",
                 price: 14000,
+                imageName: "menu-kentang-mustofa",
                 tags: MenuTags(
                     carbs: [.potato],
                     veggies: nil,
@@ -3575,6 +3716,7 @@ enum MenuSeed {
                 name: "Mie Instan Goreng Telur (Snack)",
                 menuDescription: "Mie Instan Goreng Telur (Snack)",
                 price: 13000,
+                imageName: "menu-mie-instan-goreng-telur",
                 tags: MenuTags(
                     carbs: [.noodle],
                     veggies: nil,
@@ -3600,6 +3742,7 @@ enum MenuSeed {
                 name: "Roti Bakar Keju Susu (Anak, Tanpa Coklat)",
                 menuDescription: "Roti Bakar Keju Susu (Anak, Tanpa Coklat)",
                 price: 13000,
+                imageName: "menu-roti-bakar-coklat-keju",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: nil,
@@ -3625,6 +3768,7 @@ enum MenuSeed {
                 name: "Pisang Goreng Madu (Anak, Tidak Pedas)",
                 menuDescription: "Pisang Goreng Madu (Anak, Tidak Pedas)",
                 price: 11000,
+                imageName: "menu-pisang-goreng-keju",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
@@ -3650,6 +3794,7 @@ enum MenuSeed {
                 name: "Bubur Kacang Hijau (Anak)",
                 menuDescription: "Bubur Kacang Hijau (Anak)",
                 price: 9000,
+                imageName: "menu-bubur-kacang-hijau",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,
