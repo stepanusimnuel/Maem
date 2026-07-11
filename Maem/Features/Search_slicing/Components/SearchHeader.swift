@@ -26,14 +26,28 @@ struct SearchHeader: View {
 
             if isEditable {
 
-                TextField(
-                    "makanan untuk anak radang",
-                    text: $searchText
-                )
-                .font(AppFont.caption(weight: .medium))
-                .foregroundStyle(AppColor.neutralMedGrey)
-                .onSubmit {
-                    onSearch()
+                // TextField's .foregroundStyle colors the placeholder AND the
+                // typed text the same - overlaying a separately-styled
+                // placeholder is the only way to keep the placeholder muted
+                // while typed input stays clearly legible.
+                ZStack(alignment: .leading) {
+
+                    if searchText.isEmpty {
+                        Text("makanan untuk anak radang")
+                            .font(AppFont.caption(weight: .medium))
+                            .foregroundStyle(AppColor.neutralMedGrey)
+                    }
+
+                    TextField(
+                        "",
+                        text: $searchText
+                    )
+                    .font(AppFont.caption(weight: .medium))
+                    .foregroundStyle(AppColor.neutralBlack)
+                    .onSubmit {
+                        onSearch()
+                    }
+
                 }
 
             } else {
@@ -42,7 +56,7 @@ struct SearchHeader: View {
                      ? "makanan untuk anak radang"
                      : searchText)
                     .font(AppFont.caption(weight: .medium))
-                    .foregroundStyle(AppColor.neutralMedGrey)
+                    .foregroundStyle(searchText.isEmpty ? AppColor.neutralMedGrey : AppColor.neutralBlack)
 
                 Spacer()
             }
