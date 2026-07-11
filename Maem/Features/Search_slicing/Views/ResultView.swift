@@ -80,7 +80,6 @@ struct ResultView: View {
 
         }
         .padding(.top, viewModel.navigationTitle == nil ? -28 : 0)
-        .navigationTitle(inlineTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
 
@@ -101,17 +100,25 @@ struct ResultView: View {
 
                 }
 
+            } else if !inlineTitle.isEmpty {
+
+                // Styles just this toolbar's title text directly, instead of the
+                // previous UINavigationBar.appearance() proxy — that mutated a
+                // GLOBAL style shared by every navigation bar in the app, so
+                // visiting this screen once permanently changed every other
+                // screen's title styling for the rest of the session.
+                ToolbarItem(placement: .principal) {
+
+                    Text(inlineTitle)
+                        .font(AppFont.body(weight: .bold))
+                        .foregroundStyle(AppColor.neutralBlack)
+
+                }
+
             }
 
         }
-        .navigationBarTitleDisplayMode(.inline)
         .task {
-            
-            let inlineAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 18, weight: .bold),
-                .foregroundColor: UIColor(AppColor.neutralBlack)
-            ]
-            UINavigationBar.appearance().titleTextAttributes = inlineAttributes
 
             viewModel.load(
                 context: modelContext
