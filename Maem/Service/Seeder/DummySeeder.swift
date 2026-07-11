@@ -15,7 +15,7 @@ enum DummySeeder {
     /// instead of being stuck behind the `count() == 0` guard forever (this
     /// is exactly what made the Menu.tenant fix invisible on devices that
     /// had already seeded the broken data before the fix landed).
-    private static let seedVersion = 2
+    private static let seedVersion = 3
     private static let seedVersionKey = "com.maem.dummySeedVersion"
 
     static func seedIfNeeded(

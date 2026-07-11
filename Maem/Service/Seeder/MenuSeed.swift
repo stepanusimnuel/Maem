@@ -3577,7 +3577,7 @@ enum MenuSeed {
                     isDrink: false,
                     isDessert: false,
                     isSnack: true,
-                    cookMethod: .roasted,
+                    cookMethod: .grilled,
                     mealCategory: .snack
                 ),
                 tenant: tenants[17]
@@ -3603,7 +3603,7 @@ enum MenuSeed {
                     isDrink: false,
                     isDessert: false,
                     isSnack: true,
-                    cookMethod: .roasted,
+                    cookMethod: .grilled,
                     mealCategory: .snack
                 ),
                 tenant: tenants[17]
@@ -3681,7 +3681,7 @@ enum MenuSeed {
                     isDrink: false,
                     isDessert: false,
                     isSnack: true,
-                    cookMethod: .roasted,
+                    cookMethod: .grilled,
                     mealCategory: .snack
                 ),
                 tenant: tenants[17]
@@ -3759,7 +3759,7 @@ enum MenuSeed {
                     isDrink: false,
                     isDessert: false,
                     isSnack: true,
-                    cookMethod: .roasted,
+                    cookMethod: .grilled,
                     mealCategory: .snack
                 ),
                 tenant: tenants[17]
