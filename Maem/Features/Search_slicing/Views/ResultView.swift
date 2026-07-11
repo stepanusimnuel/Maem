@@ -143,7 +143,10 @@ struct ResultView: View {
 
 private extension ResultView {
 
+    @ViewBuilder
     var quickFilterSection: some View {
+
+        let inferredTags = viewModel.lastTextIntent?.impliedTags() ?? []
 
         ScrollView(.horizontal, showsIndicators: false) {
 
@@ -200,7 +203,7 @@ private extension ResultView {
 
                     FilterChip(
                         title: "Untuk Anak",
-                        isSelected: viewModel.isKidFriendly
+                        isSelected: viewModel.isKidFriendly || inferredTags.contains(.kidsPortion)
                     ) {
                         viewModel.isKidFriendly.toggle()
                         viewModel.applyFilter()
@@ -218,7 +221,7 @@ private extension ResultView {
 
                 FilterChip(
                     title: "Halal",
-                    isSelected: viewModel.isHalalOnly
+                    isSelected: viewModel.isHalalOnly || inferredTags.contains(.halal)
                 ) {
                     viewModel.isHalalOnly.toggle()
                     viewModel.applyFilter()
