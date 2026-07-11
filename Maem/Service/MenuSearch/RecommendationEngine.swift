@@ -134,9 +134,20 @@ struct RecommendationEngine {
                 menu.name.localizedCaseInsensitiveContains($0)
             } ?? false
 
+            // Stricter than nameHintMatchedThisItem on purpose: the mustNotSpicy
+            // bypass below only exists so a user who names a specific spicy dish
+            // by its full name still sees it (with a warning, not hard-excluded).
+            // Requiring every leftover word to match — not just one — avoids
+            // treating an incidental single-word overlap (e.g. "sop" in a query
+            // for "sop iga yang gak pedes" matching an unrelated spicy "Sop X")
+            // as if the user deliberately asked for that exact spicy dish.
+            let nameFullyMatchedThisItem = intent.nameHints.map { hints in
+                !hints.isEmpty && hints.allSatisfy { menu.name.localizedCaseInsensitiveContains($0) }
+            } ?? false
+
             let isPedas = menu.tags.spicy ?? false
             if intent.mustNotSpicy == true, isPedas {
-                if intent.forKid == true || !nameHintMatchedThisItem {
+                if intent.forKid == true || !nameFullyMatchedThisItem {
                     return nil
                 }
             }
@@ -220,6 +231,14 @@ struct RecommendationEngine {
             points += 3
         }
 
+        // Matches the stricter check in candidates() — see comment there. The
+        // warning should only fire when the mustNotSpicy hard filter actually
+        // let this item through via the full-name-match bypass, not on any
+        // incidental single-word overlap.
+        let nameFullyMatchedThisItem = intent.nameHints.map { hints in
+            !hints.isEmpty && hints.allSatisfy { menu.name.localizedCaseInsensitiveContains($0) }
+        } ?? false
+
         if intent.forKid == true, menu.tags.isKidFriendly {
             points += 2
         }
@@ -255,7 +274,7 @@ struct RecommendationEngine {
 
         let isPedas = menu.tags.spicy ?? false
         let spicyWarning: String? =
-            (intent.mustNotSpicy == true && isPedas && nameHintMatchedThisItem && intent.forKid != true)
+            (intent.mustNotSpicy == true && isPedas && nameFullyMatchedThisItem && intent.forKid != true)
             ? "Menu ini pedas."
             : nil
 
