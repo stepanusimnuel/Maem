@@ -242,16 +242,22 @@ private extension ResultView {
     @ViewBuilder
     var resultSection: some View {
 
-        if viewModel.filteredMenus.isEmpty {
+        if !viewModel.relaxationNotes.isEmpty || viewModel.filteredMenus.isEmpty {
 
-            HStack {
-                Spacer()
-                NotFound(
-                    title: "Pencarian \(viewModel.searchText) tidak ditemukan", subtitle: "Coba lagi dengan kata kunci dan filter lain"
-                )
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            NotFound(
+                title: "Yah, menu ngga ketemu.",
+                subtitle: "Coba menu lainnya, yuk!",
+                reasons: viewModel.bindingConstraint.map { [$0] } ?? viewModel.relaxationNotes,
+                suggestions: viewModel.filteredMenus,
+                onBookmarkToggled: { menu in
+                    if menu.isBookmarked {
+                        withAnimation(.spring()) {
+                            showAlert = true
+                        }
+                    }
+                }
+            )
+            .frame(maxWidth: .infinity)
 
         } else {
 
