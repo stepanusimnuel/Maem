@@ -109,7 +109,7 @@ final class ResultViewModel {
         }
 
         // Display Tags
-        count += filter.tags.count
+        count += filter.selectedTags.count
 
         // Alergen
         count += filter.allergens.count
@@ -162,6 +162,13 @@ final class ResultViewModel {
     var relaxationNotes: [String] = []
     var bindingConstraint: String? = nil
 
+    /// The most recently resolved free-text SearchIntent, kept so FilterSheet
+    /// can show which chips the parser inferred from the last submitted search.
+    /// nil before any search has run, or when searchText is empty (the
+    /// early-return branch of applyFilter() never calls runSearch, so there's
+    /// no text intent to report).
+    private(set) var lastTextIntent: SearchIntent?
+
     func load(context: ModelContext) {
 
         let repository = MenuRepository(
@@ -205,15 +212,14 @@ final class ResultViewModel {
     /// below30K, halalOnly, allergens, category, price preset/min/max).
     func applyFilter() {
 
-        let manual = manualIntent()
-
         guard !searchText.isEmpty else {
-            applyResult(RecommendationEngine().recommend(menus: allMenus, intent: manual))
+            lastTextIntent = nil
+            applyResult(RecommendationEngine().recommend(menus: allMenus, intent: manualIntent()))
             return
         }
 
         Task {
-            await runSearch(manual: manual)
+            await runSearch(manual: manualIntent())
         }
 
     }
@@ -226,7 +232,7 @@ final class ResultViewModel {
     /// mechanism).
     private func manualIntent() -> SearchIntent {
 
-        var intent = filter.toSearchIntent()
+        var intent = filter.toSearchIntent(inferred: lastTextIntent?.impliedTags() ?? [])
 
         if case .kids = mode {
             intent.forKid = true
@@ -253,6 +259,7 @@ final class ResultViewModel {
     private func runSearch(manual: SearchIntent) async {
 
         let textIntent = await resolveTextIntent(for: searchText)
+        lastTextIntent = textIntent
         let merged = textIntent.merged(withManual: manual)
 
         applyResult(RecommendationEngine().recommend(menus: allMenus, intent: merged))
