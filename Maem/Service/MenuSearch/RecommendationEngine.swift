@@ -183,6 +183,13 @@ struct RecommendationEngine {
                    !(menu.tags.texture ?? []).contains(texturePreference) {
                     return nil
                 }
+                if let cookMethodPreference = intent.cookMethodPreference,
+                   menu.tags.cookMethod != cookMethodPreference {
+                    return nil
+                }
+                if intent.preferHealthy == true, menu.tags.cookMethod == .fried {
+                    return nil
+                }
             }
 
             return Candidate(menuItem: menu, tenant: tenant)
@@ -219,6 +226,11 @@ struct RecommendationEngine {
 
         if let wantVeggies = intent.wantVeggies {
             points += Set(menu.tags.veggies ?? []).intersection(wantVeggies).count
+        }
+
+        if let words = intent.nameRelevanceWords {
+            let matchedCount = words.filter { menu.name.localizedCaseInsensitiveContains($0) }.count
+            points += matchedCount * 2
         }
 
         if !relaxation.style, let cookMethodPreference = intent.cookMethodPreference,
