@@ -29,7 +29,8 @@ enum TenantSeed {
             closeDay: 5,
             openTime: "06.00",
             closeTime: "20.00",
-            detailLocation: "Sebelah kanan eskalator utama."
+            detailLocation: "Sebelah kanan eskalator utama.",
+            halalStatus: .bersertifikat
         )
 
         let solaria = Tenant(
@@ -40,7 +41,8 @@ enum TenantSeed {
             closeDay: 6,
             openTime: "08.00",
             closeTime: "16.00",
-            detailLocation: "30m dari wastafel barat"
+            detailLocation: "30m dari wastafel barat",
+            halalStatus: .bersertifikat
         )
 
         foodCourts[0].tenants.append(hokben)
@@ -59,7 +61,8 @@ enum TenantSeed {
             closeDay: 4,
             openTime: "09.00",
             closeTime: "15.00",
-            detailLocation: "Seberang toilet"
+            detailLocation: "Seberang toilet",
+            halalStatus: .bersertifikat
         )
 
         let bakmiGM = Tenant(
@@ -69,7 +72,8 @@ enum TenantSeed {
             closeDay: 5,
             openTime: "06.00",
             closeTime: "18.00",
-            detailLocation: "Tepat di pintu masuk foodcourt"
+            detailLocation: "Tepat di pintu masuk foodcourt",
+            halalStatus: .bersertifikat
         )
 
         foodCourts[1].tenants.append(yoshinoya)
@@ -87,7 +91,8 @@ enum TenantSeed {
             closeDay: 5,
             openTime: "09.30",
             closeTime: "19.30",
-            detailLocation: "Di ujung kanan dari pintu masuk foodcourt"
+            detailLocation: "Di ujung kanan dari pintu masuk foodcourt",
+            halalStatus: .belumSertifikasi
         )
 
         let RMPadangJaya = Tenant(
@@ -97,7 +102,8 @@ enum TenantSeed {
             closeDay: 4,
             openTime: "11.00",
             closeTime: "21.00",
-            detailLocation: "Di sebelah saltNSweet persis"
+            detailLocation: "Di sebelah saltNSweet persis",
+            halalStatus: .belumSertifikasi
         )
         
         let ayamBuTini = Tenant(
@@ -107,7 +113,8 @@ enum TenantSeed {
             closeDay: 4,
             openTime: "08.00",
             closeTime: "17.00",
-            detailLocation: "Di sebelah kanan eskalator utama"
+            detailLocation: "Di sebelah kanan eskalator utama",
+            halalStatus: .belumSertifikasi
         )
         
         let serbaJawaTimur = Tenant(
@@ -117,7 +124,8 @@ enum TenantSeed {
             closeDay: 4,
             openTime: "08.00",
             closeTime: "17.00",
-            detailLocation: "Berada di dekat tangga Ramayana"
+            detailLocation: "Berada di dekat tangga Ramayana",
+            halalStatus: .belumSertifikasi
         )
         
         let sotoBalapan = Tenant(
@@ -127,7 +135,8 @@ enum TenantSeed {
             closeDay: 6,
             openTime: "08.00",
             closeTime: "17.00",
-            detailLocation: "Soto yang paling ramai di Foodcourt ITC BSD"
+            detailLocation: "Soto yang paling ramai di Foodcourt ITC BSD",
+            halalStatus: .belumSertifikasi
         )
         
         let buburPakAgus = Tenant(
@@ -137,7 +146,8 @@ enum TenantSeed {
             closeDay: 6,
             openTime: "08.00",
             closeTime: "12.00",
-            detailLocation: "Dekat lift foodcourt"
+            detailLocation: "Dekat lift foodcourt",
+            halalStatus: .belumSertifikasi
         )
 
         foodCourts[2].tenants.append(saltNSweet)
