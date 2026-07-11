@@ -273,14 +273,32 @@ final class ResultViewModel {
     /// everything the user typed and makes search look completely broken
     /// (every query returns all menus, since no hard filters remain);
     /// KeywordIntentParser is deterministic and never actually throws.
+    ///
+    /// Regardless of which parser wins above, avoidAllergens is additionally
+    /// backstopped with the deterministic regex extractor and unioned in.
+    /// Allergen exclusion is safety-critical and must never depend solely on
+    /// the on-device LLM's judgment (CLAUDE.md: price/allergen/halal are
+    /// code-enforced, never model-trusted) - this closes a real gap where
+    /// FoundationModelIntentParser could under-extract an allergen mention the
+    /// deterministic parser catches reliably every time.
     private func resolveTextIntent(for query: String) async -> SearchIntent {
 
+        var intent: SearchIntent
+
         if FoundationModelIntentParser.isAvailable,
-           let intent = try? await FoundationModelIntentParser().parse(query) {
-            return intent
+           let fmIntent = try? await FoundationModelIntentParser().parse(query) {
+            intent = fmIntent
+        } else {
+            intent = (try? await KeywordIntentParser().parse(query)) ?? SearchIntent()
         }
 
-        return (try? await KeywordIntentParser().parse(query)) ?? SearchIntent()
+        if let deterministicAllergens = KeywordIntentParser.extractAllergensOnly(from: query),
+           !deterministicAllergens.isEmpty {
+            let combined = Set(intent.avoidAllergens ?? []).union(deterministicAllergens)
+            intent.avoidAllergens = Array(combined)
+        }
+
+        return intent
 
     }
 

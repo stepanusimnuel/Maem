@@ -124,7 +124,8 @@ struct ResultView: View {
 
                 filter: $viewModel.filter,
                 inferredTags: viewModel.lastTextIntent?.impliedTags() ?? [],
-                inferredCookMethod: viewModel.lastTextIntent?.cookMethodPreference
+                inferredCookMethod: viewModel.lastTextIntent?.cookMethodPreference,
+                inferredAllergens: Set(viewModel.lastTextIntent?.avoidAllergens ?? [])
 
             ) {
 

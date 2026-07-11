@@ -19,6 +19,8 @@ struct FilterSheet: View {
 
     var inferredCookMethod: CookMethod? = nil
 
+    var inferredAllergens: Set<Allergen> = []
+
     let onApply: () -> Void
 
     var body: some View {
@@ -215,7 +217,7 @@ private extension FilterSheet {
 
             FlowLayout(spacing: 12) {
                 ForEach(Allergen.allCases, id: \.self) { allergen in
-                    let isSelected = filter.allergens.contains(allergen)
+                    let isSelected = filter.allergens.contains(allergen) || inferredAllergens.contains(allergen)
                     FilterChip(title: allergen.rawValue.capitalized, isSelected: isSelected) {
                         if isSelected {
                             filter.allergens.remove(allergen)

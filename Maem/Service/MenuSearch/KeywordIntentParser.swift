@@ -46,6 +46,16 @@ struct KeywordIntentParser: IntentParser {
 
         return intent
     }
+
+    /// Exposes allergen extraction alone (not full parsing) so callers can run
+    /// it as a deterministic safety backstop regardless of which parser
+    /// (FoundationModelIntentParser or this one) produced the primary intent —
+    /// avoidAllergens is safety-critical and must not depend solely on the
+    /// on-device LLM's judgment. See CLAUDE.md: price/allergen/halal are
+    /// code-enforced, never model-trusted.
+    static func extractAllergensOnly(from text: String) -> [Allergen]? {
+        Self.extractAllergens(from: text.lowercased())
+    }
 }
 
 private extension KeywordIntentParser {
