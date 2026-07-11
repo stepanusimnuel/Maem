@@ -15,9 +15,7 @@ struct TagChip: View {
 
         HStack(spacing: 4) {
 
-            Image(tag.iconName)
-                .resizable()
-                .scaledToFit()
+            icon
                 .frame(width: 14, height: 14)
 
             Text(tag.title)
@@ -31,6 +29,32 @@ struct TagChip: View {
         .padding(.vertical, 8)
         .background(AppColor.blue100)
         .clipShape(Capsule())
+
+    }
+
+}
+
+private extension TagChip {
+
+    /// `.spicy` uses an SF Symbol (there's no literal chili-pepper symbol in
+    /// SF Symbols, so `flame.fill` is the closest heat/spice association) -
+    /// every other tag keeps using its custom asset icon.
+    @ViewBuilder
+    var icon: some View {
+
+        if tag == .spicy {
+
+            Image(systemName: "flame.fill")
+                .resizable()
+                .scaledToFit()
+
+        } else {
+
+            Image(tag.iconName)
+                .resizable()
+                .scaledToFit()
+
+        }
 
     }
 

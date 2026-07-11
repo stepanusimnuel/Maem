@@ -80,6 +80,8 @@ extension MenuTags {
 
         if spicy == false {
             tags.append(.notSpicy)
+        } else if spicy == true {
+            tags.append(.spicy)
         }
         
         if portion == .kids {
