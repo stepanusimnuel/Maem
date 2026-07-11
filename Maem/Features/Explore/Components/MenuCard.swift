@@ -93,6 +93,7 @@ private extension MenuCard {
                 Text(menu.tenant?.name ?? "Unknown")
             }
             .font(AppFont.caption2())
+            .foregroundStyle(AppColor.neutralBlack)
 
             Text(
                 menu.price,
@@ -117,7 +118,7 @@ private extension MenuCard {
 
             ForEach(Array(menu.tags.displayTags.prefix(1)), id: \.self) {
 
-                TagChip(tag: $0)
+                TagChip(tag: $0, style: .compact)
 
             }
 

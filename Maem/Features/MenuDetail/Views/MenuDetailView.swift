@@ -248,7 +248,8 @@ private extension MenuDetailView {
             ) { tag in
 
                 TagChip(
-                    tag: tag
+                    tag: tag,
+                    style: .regular
                 )
 
             }
@@ -262,24 +263,24 @@ private extension MenuDetailView {
 
 private extension MenuDetailView {
     var saveButton: some View {
-        Button {
-            if !viewModel.menu.isBookmarked {
-                viewModel.menu.isBookmarked = true
-                withAnimation(.spring()) {
-                    showAlert = true
+        VStack(spacing: 10) {
+            Text(viewModel.menu.tenant?.name ?? "")
+                .font(AppFont.body(weight: .semibold))
+                .foregroundStyle(AppColor.neutralBlack)
+            
+            Button {
+                if !viewModel.menu.isBookmarked {
+                    viewModel.menu.isBookmarked = true
+                    withAnimation(.spring()) {
+                        showAlert = true
+                    }
+                } else {
+                    viewModel.menu.isBookmarked = false
+                    withAnimation {
+                        showAlert = false
+                    }
                 }
-            } else {
-                viewModel.menu.isBookmarked = false
-                withAnimation {
-                    showAlert = false
-                }
-            }
-        } label: {
-            VStack(spacing: 10) {
-                Text(viewModel.menu.tenant?.name ?? "")
-                    .font(AppFont.body(weight: .semibold))
-                    .foregroundStyle(AppColor.neutralBlack)
-                
+            } label: {
                 HStack(spacing: 4) {
                     if viewModel.menu.isBookmarked {
                         Image(systemName: "checkmark")
@@ -288,27 +289,24 @@ private extension MenuDetailView {
                         Image(systemName: "bookmark")
                         Text("Simpan menu")
                     }
-                    
                 }
                 .font(AppFont.callout(weight: .bold))
                 .foregroundStyle(AppColor.neutralWhite)
                 .padding()
-                .frame(maxWidth:.infinity)
+                .frame(maxWidth: .infinity)
                 .background(viewModel.menu.isBookmarked ? AppColor.red300 : AppColor.red700)
-                .clipShape(
-                    RoundedRectangle(cornerRadius: 20)
-                )
+                .clipShape(RoundedRectangle(cornerRadius: 20))
                 .shadow(color: AppColor.red50.opacity(0.25), radius: 10, x: 0, y: 1)
             }
-            .frame(maxWidth:.infinity)
-            .padding(.horizontal, 20)
-            .padding(.top, 24)
-            .padding(.bottom, 30)
-            .background(AppColor.neutralWhite)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .shadow(color: Color.black.opacity(0.1), radius: 24, x: 0, y: -8)
-            
+            .buttonStyle(.plain)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 20)
+        .padding(.top, 24)
+        .padding(.bottom, 30)
+        .background(AppColor.neutralWhite)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(color: Color.black.opacity(0.1), radius: 24, x: 0, y: -8)
     }
 }
 

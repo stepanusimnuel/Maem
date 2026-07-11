@@ -53,13 +53,15 @@ struct SearchSlicingView: View {
                     viewModel.saveSearchQuery(suggestion, context: contextWorkaround(modelContext))
                     viewModel.showResult = true
                 }
-
-                RecentSearchSection(
-                    histories: viewModel.recentSearches
-                ) { historyText in
-                    viewModel.searchText = historyText
-                    viewModel.saveSearchQuery(historyText, context: modelContext)
-                    viewModel.showResult = true
+                
+                if viewModel.recentSearches.isEmpty == false {
+                    RecentSearchSection(
+                        histories: viewModel.recentSearches
+                    ) { historyText in
+                        viewModel.searchText = historyText
+                        viewModel.saveSearchQuery(historyText, context: modelContext)
+                        viewModel.showResult = true
+                    }
                 }
 
                 FoodCategorySection(
@@ -95,6 +97,27 @@ struct SearchSlicingView: View {
                 foodCourt: selectedFoodCourt
             )
 
+        }
+        .navigationTitle("Cari Menu")
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+
+                Button {
+
+                    dismiss()
+
+                } label: {
+
+                    Image(systemName: "chevron.left")
+
+                        .font(AppFont.headline(weight: .semibold))
+
+                        .foregroundStyle(AppColor.red700)
+
+                }
+
+            }
         }
     }
     

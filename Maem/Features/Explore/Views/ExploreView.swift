@@ -15,9 +15,8 @@ struct ExploreView: View {
 
     @State
     private var viewModel = ExploreViewModel()
-
-    @State
-    private var locationManager = LocationManager()
+    
+    let locationManager: LocationManager
     
     @State private var showAlert = false
     
@@ -29,7 +28,7 @@ struct ExploreView: View {
             ScrollView {
 
                 VStack(alignment: .leading, spacing: 15) {
-
+                    
                     CurrentLocationCard(
                         selectedFoodCourt: viewModel.selectedFoodCourt,
                         currentLocation: locationManager.currentLocation,
@@ -120,6 +119,7 @@ struct ExploreView: View {
                             .padding(.leading, 4)
 
                         }
+                        .padding(.horizontal)
                         
                         NavigationLink {
 
@@ -144,6 +144,7 @@ struct ExploreView: View {
                                 }
                             }
                         }
+                        .padding(.horizontal)
 
                     }
                 }
@@ -154,8 +155,6 @@ struct ExploreView: View {
                 let repository = FoodCourtRepository(
                     context: modelContext
                 )
-
-                locationManager.requestLocationPermission()
 
                 viewModel.load(
                     repository: repository,
@@ -184,7 +183,7 @@ struct ExploreView: View {
             
             .scrollIndicators(.hidden)
             
-            .sheet(isPresented: $isShowingLocationPicker) {
+            .fullScreenCover(isPresented: $isShowingLocationPicker) {
 
                 LocationPickerView(
                     foodCourts: viewModel.foodCourtsByDistance,
@@ -201,6 +200,8 @@ struct ExploreView: View {
             }
             
             .ignoresSafeArea()
+            
+            .background(AppColor.neutralWhite)
             
             if showAlert {
                 VStack {
@@ -227,7 +228,7 @@ struct ExploreView: View {
 
     NavigationStack {
 
-        ExploreView()
+        ExploreView(locationManager: LocationManager())
 
     }
 

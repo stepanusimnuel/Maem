@@ -78,7 +78,26 @@ struct ResultView: View {
         .padding(.top, viewModel.navigationTitle == nil ? -28 : 0)
         .navigationTitle(inlineTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
+            
+            ToolbarItem(placement: .topBarLeading) {
+
+                Button {
+
+                    dismiss()
+
+                } label: {
+
+                    Image(systemName: "chevron.left")
+
+                        .font(AppFont.headline(weight: .semibold))
+
+                        .foregroundStyle(AppColor.red700)
+
+                }
+
+            }
 
             if viewModel.shouldShowSearchHeader {
 

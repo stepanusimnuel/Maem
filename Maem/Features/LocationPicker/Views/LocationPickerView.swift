@@ -59,6 +59,7 @@ struct LocationPickerView: View {
                     .padding(.horizontal)
 
                 }
+                .scrollDismissesKeyboard(.interactively)
             }
 
         }
@@ -74,26 +75,35 @@ private extension LocationPickerView {
     var header: some View {
 
         ZStack {
+
             Text("Pilih Lokasi")
                 .font(AppFont.body(weight: .bold))
-            
+
             HStack {
+
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "chevron.left")
-                        .font(AppFont.title2(weight: .medium))
-                        .frame(width: 44, height: 44)
-                        .glassEffect()
-                        .foregroundStyle(AppColor.red700)
+
+                    ZStack {
+
+                        Image(systemName: "chevron.left")
+                            .font(AppFont.title2(weight: .medium))
+                            .foregroundStyle(AppColor.red700)
+
+                    }
+                    .frame(width: 44, height: 44)
+                    .glassEffect()
+
                 }
-                .clipShape(Circle())
-                
+                .buttonStyle(.plain)
+
                 Spacer()
+
             }
+
         }
         .padding(.horizontal)
-
 
     }
 
@@ -106,18 +116,19 @@ private extension LocationPickerView {
         HStack(spacing: 8) {
 
             Image(systemName: "magnifyingglass")
-                .font(AppFont.headline(weight: .medium))
+                .font(AppFont.body(weight: .semibold))
 
             TextField(
                 "cari food court",
                 text: $searchText
             )
+            .font(AppFont.caption(weight: .medium))
 
         }
         .font(AppFont.callout(weight: .medium))
         .padding(.horizontal, 12)
         .frame(height: 44)
-        .glassEffect(in: .capsule)
+        .glassEffect()
         .padding(.horizontal)
 
     }

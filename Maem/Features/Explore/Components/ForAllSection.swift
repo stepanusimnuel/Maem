@@ -60,7 +60,6 @@ struct ForAllSection: View {
                 }
 
             }
-            .padding(.horizontal)
 
         }
         .background(Color.clear)

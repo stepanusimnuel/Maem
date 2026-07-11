@@ -79,10 +79,16 @@ extension MenuTags {
 
         if spicy == false {
             tags.append(.notSpicy)
+        } else {
+            tags.append(.spicy)
         }
         
         if portion == .kids {
             tags.append(.kidsPortion)
+        }
+        
+        if isInstant == true {
+            tags.append(.isInstant)
         }
         
         if let texture {

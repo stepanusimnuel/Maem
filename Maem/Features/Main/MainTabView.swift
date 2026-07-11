@@ -9,38 +9,39 @@ import SwiftUI
 
 struct MainTabView: View {
 
+    let locationManager: LocationManager
+
     var body: some View {
 
         TabView {
 
             NavigationStack {
-                ExploreView()
+                ExploreView(
+                    locationManager: locationManager
+                )
             }
-                .tabItem {
-
-                    Label(
-                        "Jelajah",
-                        systemImage: "magnifyingglass"
-                    )
-
-                }
+            .tabItem {
+                Label(
+                    "Jelajah",
+                    systemImage: "magnifyingglass"
+                )
+            }
 
             NavigationStack {
                 BookmarkView()
             }
-                .tabItem {
+            .tabItem {
 
-                    VStack {
-                        Image(systemName: "bookmark")
-                            .environment(\.symbolVariants, .none)
-                        
-                        Text("Tersimpan")
-                    }
+                VStack {
+                    Image(systemName: "bookmark")
+                        .environment(\.symbolVariants, .none)
 
+                    Text("Tersimpan")
                 }
 
+            }
+
         }
-        .tint(AppColor.red700)
 
     }
 
@@ -48,6 +49,6 @@ struct MainTabView: View {
 
 #Preview {
 
-    MainTabView()
+    MainTabView(locationManager: LocationManager())
 
 }

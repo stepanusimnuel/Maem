@@ -142,7 +142,7 @@ private extension MenuListCard {
                 id: \.self
             ) {
 
-                TagChip(tag: $0)
+                TagChip(tag: $0, style: .small)
 
             }
 

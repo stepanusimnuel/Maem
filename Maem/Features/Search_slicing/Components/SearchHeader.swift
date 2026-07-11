@@ -19,10 +19,10 @@ struct SearchHeader: View {
 
     var body: some View {
 
-        HStack(spacing: 8) {
+        HStack(spacing: 4) {
 
             Image(systemName: "magnifyingglass")
-                .font(AppFont.headline(weight: .medium))
+                .font(AppFont.body(weight: .medium))
 
             if isEditable {
 
@@ -61,6 +61,7 @@ struct SearchHeader: View {
                     lineWidth: 2
                 )
         )
+        .background(AppColor.neutralWhite)
         .glassEffect(.clear)
         .shadow(
             color: Color.blue500.opacity(0.12),

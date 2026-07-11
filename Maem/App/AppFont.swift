@@ -11,7 +11,7 @@ import SwiftUI
 enum AppFont {
 
     static func largeTitle(weight: Font.Weight = .bold) -> Font {
-        .system(size: 34, weight: weight, design: .rounded)
+        .system(size: 48, weight: weight, design: .rounded)
     }
 
     static func title(weight: Font.Weight = .bold) -> Font {
