@@ -113,11 +113,7 @@ final class ResultViewModel {
         }
 
         // Custom harga
-        if !filter.minimumPrice.isEmpty {
-            count += 1
-        }
-
-        if !filter.maximumPrice.isEmpty {
+        if !filter.minimumPrice.isEmpty || !filter.maximumPrice.isEmpty {
             count += 1
         }
 

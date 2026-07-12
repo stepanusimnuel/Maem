@@ -36,7 +36,7 @@ struct FilterSheet: View {
 
                     tagSection
 
-                    cookMethodSection
+//                    cookMethodSection
 
                     allergenSection
 
