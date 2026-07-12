@@ -10,8 +10,8 @@ import SwiftUI
 struct MenuListCard: View {
 
     let menu: Menu
-    
-    var onBookmarkToggled: () -> Void
+
+    var onBookmarkTapped: (Menu) -> Void
 
     var body: some View {
 
@@ -91,9 +91,8 @@ private extension MenuListCard {
 
                 Button {
 
-                    menu.isBookmarked.toggle()
-                    onBookmarkToggled()
-                    
+                    onBookmarkTapped(menu)
+
                 } label: {
 
                     Image(
@@ -105,7 +104,16 @@ private extension MenuListCard {
                     .foregroundStyle(AppColor.red700)
 
                 }
+                // 24pt icon kept small so it doesn't inflate this row's
+                // height beyond the title text; the 44pt tap target
+                // (HIG minimum) comes from the enlarged contentShape
+                // instead of .frame, which would otherwise stretch the
+                // whole row and leave a visible gap above the tenant/price
+                // lines below.
+                .frame(width: 24, height: 24)
+                .contentShape(Rectangle().inset(by: -10))
                 .buttonStyle(.plain)
+                .accessibilityLabel(menu.isBookmarked ? "Batal simpan menu" : "Simpan menu")
 
             }
             

@@ -41,6 +41,8 @@ struct ResultView: View {
 
     var body: some View {
 
+        ZStack {
+
         ScrollView {
 
             VStack(
@@ -78,7 +80,6 @@ struct ResultView: View {
 
         }
         .padding(.top, viewModel.navigationTitle == nil ? -28 : 0)
-        .navigationTitle(inlineTitle)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -118,17 +119,25 @@ struct ResultView: View {
 
                 }
 
+            } else if !inlineTitle.isEmpty {
+
+                // Styles just this toolbar's title text directly, instead of the
+                // previous UINavigationBar.appearance() proxy — that mutated a
+                // GLOBAL style shared by every navigation bar in the app, so
+                // visiting this screen once permanently changed every other
+                // screen's title styling for the rest of the session.
+                ToolbarItem(placement: .principal) {
+
+                    Text(inlineTitle)
+                        .font(AppFont.body(weight: .bold))
+                        .foregroundStyle(AppColor.neutralBlack)
+
+                }
+
             }
 
         }
-        .navigationBarTitleDisplayMode(.inline)
         .task {
-            
-            let inlineAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 18, weight: .bold),
-                .foregroundColor: UIColor(AppColor.neutralBlack)
-            ]
-            UINavigationBar.appearance().titleTextAttributes = inlineAttributes
 
             viewModel.load(
                 context: modelContext
@@ -143,7 +152,6 @@ struct ResultView: View {
 
                 filter: $viewModel.filter,
                 inferredTags: viewModel.lastTextIntent?.impliedTags() ?? [],
-                inferredCookMethod: viewModel.lastTextIntent?.cookMethodPreference,
                 inferredAllergens: Set(viewModel.lastTextIntent?.avoidAllergens ?? [])
 
             ) {
@@ -154,6 +162,25 @@ struct ResultView: View {
             .presentationDetents([
                 .fraction(0.95)
             ])
+
+        }
+
+        if showAlert {
+            VStack {
+                SaveSuccessAlert(isPresented: $showAlert)
+                Spacer()
+            }
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .zIndex(100)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        withAnimation {
+                            showAlert = false
+                        }
+                    }
+                }
+                .padding(.top, 56)
+        }
 
         }
 
@@ -269,6 +296,7 @@ private extension ResultView {
                 reasons: viewModel.bindingConstraint.map { [$0] } ?? viewModel.relaxationNotes,
                 suggestions: viewModel.filteredMenus,
                 onBookmarkToggled: { menu in
+                    menu.isBookmarked.toggle()
                     if menu.isBookmarked {
                         withAnimation(.spring()) {
                             showAlert = true
@@ -296,8 +324,9 @@ private extension ResultView {
 
                         MenuListCard(
                             menu: menu
-                        ) {
-                            if menu.isBookmarked {
+                        ) { tappedMenu in
+                            tappedMenu.isBookmarked.toggle()
+                            if tappedMenu.isBookmarked {
                                 withAnimation(.spring()) {
                                     showAlert = true
                                 }

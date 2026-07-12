@@ -81,6 +81,19 @@ private extension KeywordIntentParser {
 
     static let sentinelRawValues: Set<String> = ["other", "none", "tidak ada", "lainnya"]
 
+    /// Trigger phrase, then up to 4 filler words (non-greedy), then one of the
+    /// KNOWN allergen words specifically — not "any word" via `\w+`. A plain
+    /// `(alergi|tanpa|gak boleh)\s+(\w+)` only matched when the allergen word
+    /// was immediately adjacent to the trigger, so common phrasings like
+    /// "alergi sama kacang" or "gak boleh makan udang" captured the filler
+    /// word ("sama"/"makan") instead of the real allergen and silently missed
+    /// it entirely — a real safety gap, since avoidAllergens is meant to be
+    /// code-enforced and never miss a stated allergy.
+    static let allergenMentionPattern: String = {
+        let words = allergenSynonyms.keys.map { NSRegularExpression.escapedPattern(for: $0) }
+        return "(alergi|tanpa|gak boleh)(?:\\s+\\w+){0,4}?\\s+(\(words.joined(separator: "|")))\\b"
+    }()
+
     static let knownVocabulary: Set<String> = {
         var words = Set<String>()
         for c in Carb.allCases where !sentinelRawValues.contains(c.rawValue.lowercased()) {
@@ -119,7 +132,7 @@ private extension KeywordIntentParser {
     }
 
     static func sanitizeAllergenMentions(from text: String) -> String {
-        guard let regex = try? NSRegularExpression(pattern: #"(alergi|tanpa|gak boleh)\s+(\w+)"#) else {
+        guard let regex = try? NSRegularExpression(pattern: allergenMentionPattern) else {
             return text
         }
         let range = NSRange(text.startIndex..., in: text)
@@ -151,7 +164,7 @@ private extension KeywordIntentParser {
 
     static func extractAllergens(from text: String) -> [Allergen]? {
 
-        guard let regex = try? NSRegularExpression(pattern: #"(alergi|tanpa|gak boleh)\s+(\w+)"#) else {
+        guard let regex = try? NSRegularExpression(pattern: allergenMentionPattern) else {
             return nil
         }
 

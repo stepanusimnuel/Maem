@@ -37,17 +37,14 @@ struct SearchSlicingView: View {
                     alignment: .leading,
                     spacing: 24
                 ) {
-                    
-                    
                     SearchHeader(
                         searchText: $viewModel.searchText,
                         onTap: nil
                     ) {
                         viewModel.saveSearchQuery(
                             viewModel.searchText,
-                            context: modelContext
+                            repository: searchHistoryRepository
                         )
-
                         viewModel.showResult = true
                     }
                     .padding(.top)
@@ -56,16 +53,16 @@ struct SearchSlicingView: View {
                         suggestions: viewModel.suggestions
                     ) { suggestion in
                         viewModel.searchText = suggestion
-                        viewModel.saveSearchQuery(suggestion, context: contextWorkaround(modelContext))
+                        viewModel.saveSearchQuery(suggestion, repository: searchHistoryRepository)
                         viewModel.showResult = true
                     }
                     
-                    if viewModel.recentSearches.isEmpty == false {
+                    if !viewModel.recentSearches.isEmpty {
                         RecentSearchSection(
                             histories: viewModel.recentSearches
                         ) { historyText in
                             viewModel.searchText = historyText
-                            viewModel.saveSearchQuery(historyText, context: modelContext)
+                            viewModel.saveSearchQuery(historyText, repository: searchHistoryRepository)
                             viewModel.showResult = true
                         }
                     }
@@ -73,18 +70,15 @@ struct SearchSlicingView: View {
                     FoodCategorySection(
                         categories: viewModel.categories
                     ) { category in
-
                         selectedCategory = category
-
                     }
-
                 }
                 .padding(.horizontal)
             }
-
         }
+
         .onAppear {
-            viewModel.fetchRecentSearches(context: modelContext)
+            viewModel.fetchRecentSearches(repository: searchHistoryRepository)
         }
         .navigationDestination(
             isPresented: $viewModel.showResult
@@ -126,8 +120,10 @@ struct SearchSlicingView: View {
             }
         }
     }
-    
-    private func contextWorkaround(_ context: ModelContext) -> ModelContext { context }
+
+    private var searchHistoryRepository: SearchHistoryRepositoryProtocol {
+        SearchHistoryRepository(context: modelContext)
+    }
 }
 
 #Preview {

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct TenantView: View {
-    @StateObject private var viewModel: TenantViewModel
-    
+    @State private var viewModel: TenantViewModel
+
     init(tenant: Tenant) {
-        _viewModel = StateObject(wrappedValue: TenantViewModel(tenant: tenant))
+        _viewModel = State(initialValue: TenantViewModel(tenant: tenant))
     }
     
     var body: some View {
@@ -47,8 +47,8 @@ struct TenantView: View {
                                 NavigationLink {
                                     MenuDetailView(menu: menu)
                                 } label: {
-                                    MenuListCard(menu: menu) {
-                                        viewModel.handleMenuBookmark(for: menu)
+                                    MenuListCard(menu: menu) { tappedMenu in
+                                        viewModel.handleMenuBookmark(for: tappedMenu)
                                     }
                                 }
                                 .buttonStyle(.plain)
