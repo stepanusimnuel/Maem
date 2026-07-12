@@ -17,8 +17,6 @@ struct FilterSheet: View {
 
     var inferredTags: Set<DisplayTag> = []
 
-    var inferredCookMethod: CookMethod? = nil
-
     var inferredAllergens: Set<Allergen> = []
 
     let onApply: () -> Void
@@ -35,8 +33,6 @@ struct FilterSheet: View {
                 ) {
 
                     tagSection
-
-                    cookMethodSection
 
                     allergenSection
 
@@ -138,45 +134,6 @@ private extension FilterSheet {
                     }
                 }
             }
-        }
-    }
-
-}
-
-private extension FilterSheet {
-
-    var cookMethodSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Cara Masak")
-                .font(AppFont.body(weight: .bold))
-
-            FlowLayout(spacing: 10) {
-                ForEach(CookMethod.allCases.filter { $0 != .other }, id: \.self) { method in
-                    let isSelected = effectiveCookMethod == method
-                    FilterChip(title: method.rawValue, isSelected: isSelected) {
-                        if isSelected {
-                            filter.cookMethod = .cleared
-                        } else {
-                            filter.cookMethod = .value(method)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /// Resolves the same way toSearchIntent(inferred:) resolves cookMethod,
-    /// so the chip the user sees matches what the next search will actually
-    /// filter on: .unset defers to whatever the last submitted query implied,
-    /// .cleared shows nothing selected, .value shows that exact choice.
-    var effectiveCookMethod: CookMethod? {
-        switch filter.cookMethod {
-        case .unset:
-            return inferredCookMethod
-        case .cleared:
-            return nil
-        case .value(let method):
-            return method
         }
     }
 
@@ -342,8 +299,7 @@ private extension FilterSheet {
     FilterSheet(
 
         filter: $filter,
-        inferredTags: [.halal, .notSpicy],
-        inferredCookMethod: .fried
+        inferredTags: [.halal, .notSpicy]
 
     ) {
 
