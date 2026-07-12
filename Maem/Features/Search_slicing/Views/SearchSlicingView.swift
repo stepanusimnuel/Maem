@@ -28,52 +28,59 @@ struct SearchSlicingView: View {
 
         ScrollView {
 
-            VStack(
-                alignment: .leading,
-                spacing: 32
-            ) {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Cari Menu")
+                    .font(AppFont.title2(weight: .bold))
+                    .padding(.horizontal)
                 
-                SearchHeader(
-                    searchText: $viewModel.searchText,
-                    onTap: nil
+                VStack(
+                    alignment: .leading,
+                    spacing: 24
                 ) {
-                    viewModel.saveSearchQuery(
-                        viewModel.searchText,
-                        context: modelContext
-                    )
+                    
+                    
+                    SearchHeader(
+                        searchText: $viewModel.searchText,
+                        onTap: nil
+                    ) {
+                        viewModel.saveSearchQuery(
+                            viewModel.searchText,
+                            context: modelContext
+                        )
 
-                    viewModel.showResult = true
-                }
-                .padding(.top)
-
-                SearchSuggestionSection(
-                    suggestions: viewModel.suggestions
-                ) { suggestion in
-                    viewModel.searchText = suggestion
-                    viewModel.saveSearchQuery(suggestion, context: contextWorkaround(modelContext))
-                    viewModel.showResult = true
-                }
-                
-                if viewModel.recentSearches.isEmpty == false {
-                    RecentSearchSection(
-                        histories: viewModel.recentSearches
-                    ) { historyText in
-                        viewModel.searchText = historyText
-                        viewModel.saveSearchQuery(historyText, context: modelContext)
                         viewModel.showResult = true
                     }
+                    .padding(.top)
+
+                    SearchSuggestionSection(
+                        suggestions: viewModel.suggestions
+                    ) { suggestion in
+                        viewModel.searchText = suggestion
+                        viewModel.saveSearchQuery(suggestion, context: contextWorkaround(modelContext))
+                        viewModel.showResult = true
+                    }
+                    
+                    if viewModel.recentSearches.isEmpty == false {
+                        RecentSearchSection(
+                            histories: viewModel.recentSearches
+                        ) { historyText in
+                            viewModel.searchText = historyText
+                            viewModel.saveSearchQuery(historyText, context: modelContext)
+                            viewModel.showResult = true
+                        }
+                    }
+
+                    FoodCategorySection(
+                        categories: viewModel.categories
+                    ) { category in
+
+                        selectedCategory = category
+
+                    }
+
                 }
-
-                FoodCategorySection(
-                    categories: viewModel.categories
-                ) { category in
-
-                    selectedCategory = category
-
-                }
-
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
 
         }
         .onAppear {
@@ -98,7 +105,6 @@ struct SearchSlicingView: View {
             )
 
         }
-        .navigationTitle("Cari Menu")
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
