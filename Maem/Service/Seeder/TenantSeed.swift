@@ -135,7 +135,7 @@ enum TenantSeed {
             closeDay: 6,
             openTime: "08.00",
             closeTime: "17.00",
-            detailLocation: "Soto yang paling ramai di Foodcourt ITC BSD",
+            detailLocation: "Terletak di depan pintu foodcourt sebelah kiri setelah 3 tenant",
             halalStatus: .belumSertifikasi
         )
         
