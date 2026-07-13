@@ -24,7 +24,7 @@ struct SearchSuggestionSection: View {
                 .font(AppFont.body(weight: .bold))
                 .foregroundStyle(AppColor.neutralBlack)
 
-            FlowLayout(spacing: 12) {
+            FlowLayout() {
 
                 ForEach(suggestions, id: \.self) { suggestion in
 

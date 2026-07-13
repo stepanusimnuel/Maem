@@ -26,8 +26,8 @@ struct FilterChip: View {
                         .lineLimit(1)
                 }
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
             .background(isSelected ? AppColor.red100 : AppColor.neutralLightGrey)
             .clipShape(Capsule())
             .overlay(
@@ -44,5 +44,5 @@ struct FilterChip: View {
 }
 
 #Preview {
-    FilterChip(isSelected: true, systemImage: "bookmark", action: {})
+    FilterChip(title: "Halal", isSelected: false, action: {})
 }

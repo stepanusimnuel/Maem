@@ -18,23 +18,23 @@ struct RecentSearchSection: View {
                     .font(AppFont.body(weight: .bold))
                 
                 VStack {
-                    FlowLayout(spacing: 8) {
+                    FlowLayout() {
                         ForEach(histories) { history in
                             Button {
                                 onHistoryTapped(history.text)
                             } label: {
                                 HStack(spacing: 4) {
                                     Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
-                                        .font(AppFont.caption2())
+                                        .font(AppFont.caption())
                                         .foregroundStyle(AppColor.neutralDarkGrey)
                                     
                                     Text(history.text)
-                                        .font(AppFont.caption2(weight: .regular))
+                                        .font(AppFont.caption(weight: .regular))
                                         .lineLimit(1)
                                         .foregroundStyle(AppColor.red700)
                                 }
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 10)
                                 .foregroundStyle(AppColor.neutralBlack)
                                 .background(AppColor.red100)
                                 .clipShape(Capsule())
@@ -43,7 +43,7 @@ struct RecentSearchSection: View {
                         }
                     }
                 }
-                .frame(maxHeight: 74, alignment: .topLeading)
+                .frame(maxHeight: 95, alignment: .topLeading)
                 .clipped()
             }
         }
@@ -52,7 +52,7 @@ struct RecentSearchSection: View {
 
 #Preview {
     RecentSearchSection(
-        histories: [SearchHistory(text: "Test", timestamp: Date())],
+        histories: [SearchHistory(text: "snack gluten free", timestamp: Date())],
         onHistoryTapped: {_ in }
     )
 }

@@ -257,9 +257,7 @@ private extension MenuDetailView {
 
     var tagSection: some View {
 
-        FlowLayout(
-            spacing: 6
-        ) {
+        FlowLayout() {
 
             ForEach(
                 viewModel.menu.tags.displayTags,
@@ -284,7 +282,7 @@ private extension MenuDetailView {
     var saveButton: some View {
         VStack(spacing: 10) {
             Text(viewModel.menu.tenant?.name ?? "")
-                .font(AppFont.body(weight: .semibold))
+                .font(AppFont.body(weight: .bold))
                 .foregroundStyle(AppColor.neutralBlack)
             
             Button {
@@ -315,7 +313,7 @@ private extension MenuDetailView {
                 .frame(maxWidth: .infinity)
                 .background(viewModel.menu.isBookmarked ? AppColor.red300 : AppColor.red700)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
-                .shadow(color: AppColor.red50.opacity(0.25), radius: 10, x: 0, y: 1)
+                .shadow(color: AppColor.red700.opacity(0.25), radius: 15, x: 0, y: 1)
             }
             .buttonStyle(.plain)
         }

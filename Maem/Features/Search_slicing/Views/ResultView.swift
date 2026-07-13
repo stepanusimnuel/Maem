@@ -210,6 +210,7 @@ private extension ResultView {
                         if viewModel.activeFilterCount == 0 {
 
                             Image(systemName: "slider.vertical.3")
+                                .font(AppFont.body(weight: .regular))
 
                         } else {
 
@@ -219,7 +220,9 @@ private extension ResultView {
                         }
 
                     }
-                    .frame(width: 36, height: 36)
+                    .frame(width: 18, height: 18)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
                     .background(
                         isFilterActive
                         ? AppColor.red100

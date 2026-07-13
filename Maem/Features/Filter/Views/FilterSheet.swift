@@ -36,9 +36,11 @@ struct FilterSheet: View {
 
                     allergenSection
 
-                    priceSection
+                    VStack(alignment: .leading, spacing: 12) {
+                        priceSection
 
-                    manualPriceSection
+                        manualPriceSection
+                    }
 
                     categorySection
 
@@ -122,11 +124,11 @@ private extension FilterSheet {
 private extension FilterSheet {
 
     var tagSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Tags")
                 .font(AppFont.body(weight: .bold))
 
-            FlowLayout(spacing: 10) {
+            FlowLayout() {
                 ForEach([DisplayTag.isInstant, .spicy, .notSpicy, .kidsPortion, .halal, .healthy], id: \.self) { tag in
                     let isSelected = filter.isEffectivelyOn(tag, inferred: inferredTags)
                     FilterChip(title: tag.title, isSelected: isSelected) {
@@ -146,7 +148,7 @@ private extension FilterSheet {
             Text("Alergen")
                 .font(AppFont.body(weight: .bold))
 
-            FlowLayout(spacing: 12) {
+            FlowLayout() {
                 ForEach(Allergen.allCases, id: \.self) { allergen in
                     let isSelected = filter.allergens.contains(allergen) || inferredAllergens.contains(allergen)
                     FilterChip(title: allergen.rawValue.capitalized, isSelected: isSelected) {
@@ -169,12 +171,12 @@ private extension FilterSheet {
     var priceSection: some View {
         VStack(
             alignment: .leading,
-            spacing: 12
+            spacing: 10
         ) {
             Text("Harga")
                 .font(AppFont.body(weight: .bold))
 
-            FlowLayout(spacing: 12) {
+            FlowLayout() {
                 ForEach(PriceFilter.allCases, id: \.self) { option in
                     let isSelected = filter.priceFilter == option
                     
@@ -197,7 +199,7 @@ private extension FilterSheet {
     var manualPriceSection: some View {
         VStack(
             alignment: .leading,
-            spacing: 12
+            spacing: 10
         ) {
             HStack(spacing: 16) {
                 CustomPriceField(label: "Min", text: $filter.minimumPrice)

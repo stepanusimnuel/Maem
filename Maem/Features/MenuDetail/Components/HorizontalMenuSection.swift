@@ -21,7 +21,7 @@ struct HorizontalMenuSection: View {
 
         VStack(
             alignment: .leading,
-            spacing: 16
+            spacing: 4
         ) {
 
             header
@@ -48,6 +48,7 @@ struct HorizontalMenuSection: View {
                             MenuCard(menu: menu) { clickedMenu in
                                 onBookmarkTapped(clickedMenu)
                             }
+                            .shadow(color: Color.black.opacity(0.25), radius: 3, x: 0, y: 2)
 
                         }
                         .buttonStyle(.plain)
@@ -55,6 +56,7 @@ struct HorizontalMenuSection: View {
                     }
 
                 }
+                .padding(8)
 
             }
 
@@ -73,7 +75,7 @@ private extension HorizontalMenuSection {
             Text(title)
                 .font(
                     AppFont.body(
-                        weight: .semibold
+                        weight: .bold
                     )
                 )
 
