@@ -16,7 +16,7 @@ struct TenantView: View {
     
     var body: some View {
         ZStack (alignment:.top) {
-            AppColor.red50.ignoresSafeArea()
+            AppColor.neutralWhite.ignoresSafeArea()
             
             VStack (alignment: .leading, spacing: 0) {
                 Text("Menu Tenant Ini")

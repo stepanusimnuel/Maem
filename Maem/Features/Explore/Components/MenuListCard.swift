@@ -10,12 +10,14 @@ import SwiftUI
 struct MenuListCard: View {
 
     let menu: Menu
+    
+    var needDetailLocation: Bool = false
 
     var onBookmarkTapped: (Menu) -> Void
 
     var body: some View {
 
-        HStack(alignment: .top, spacing: 16) {
+        HStack(alignment: .top, spacing: 8) {
 
             imageSection
 
@@ -78,9 +80,9 @@ private extension MenuListCard {
 
     var infoSection: some View {
 
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 3) {
 
-            HStack(alignment: .top) {
+            HStack(alignment: .center) {
 
                 Text(menu.name)
                     .font(AppFont.callout(weight: .bold))
@@ -104,14 +106,13 @@ private extension MenuListCard {
                     .foregroundStyle(AppColor.red700)
 
                 }
-                // 24pt icon kept small so it doesn't inflate this row's
+                // 18pt icon kept small so it doesn't inflate this row's
                 // height beyond the title text; the 44pt tap target
                 // (HIG minimum) comes from the enlarged contentShape
                 // instead of .frame, which would otherwise stretch the
                 // whole row and leave a visible gap above the tenant/price
                 // lines below.
-                .frame(width: 24, height: 24)
-                .contentShape(Rectangle().inset(by: -10))
+                .frame(width: 18, height: 18)
                 .buttonStyle(.plain)
                 .accessibilityLabel(menu.isBookmarked ? "Batal simpan menu" : "Simpan menu")
 
@@ -126,13 +127,32 @@ private extension MenuListCard {
             .font(AppFont.caption())
             .foregroundStyle(AppColor.neutralBlack)
 
-            Text(
-                menu.price,
-                format: .currency(code: "IDR")
-            )
-            .font(AppFont.caption())
-            .foregroundStyle(AppColor.neutralSystemGrey)
-
+            if needDetailLocation == false {
+                Text(
+                    menu.price,
+                    format: .currency(code: "IDR")
+                )
+                .font(AppFont.caption())
+                .foregroundStyle(AppColor.neutralSystemGrey)
+            }
+            
+            if needDetailLocation == true
+                && menu.tenant?.foodCourt?.fcDescription != nil
+                && menu.tenant?.detailLocation != nil {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(
+                        menu.tenant?.foodCourt?.fcDescription ?? "Unknown"
+                    )
+                    .font(AppFont.caption2())
+                    .foregroundStyle(AppColor.neutralBlack)
+                    
+                    Text(
+                        menu.tenant?.detailLocation ?? "Unknown"
+                    )
+                    .font(AppFont.caption2())
+                    .foregroundStyle(AppColor.neutralBlack)
+                }
+            }
         }
 
     }
