@@ -60,7 +60,7 @@ final class SearchSlicingViewModel {
         "menu kukus buat diet",
         "jajanan buat ngemil sore-sore",
         "nasi kuning buat balita gak pedes",
-        "minuman seger di bawah 15rb"
+        "sate ayam buat anak tanpa kacang"
     ]
 
     func fetchRecentSearches(repository: SearchHistoryRepositoryProtocol) {

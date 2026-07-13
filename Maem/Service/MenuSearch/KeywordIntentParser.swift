@@ -15,6 +15,7 @@ struct KeywordIntentParser: IntentParser {
         intent.wantProteinNabati = matchEnum(PlantProtein.self, in: compositionText)
         intent.wantVeggies = matchEnum(Veggie.self, in: compositionText)
         intent.cookMethodPreference = matchCookMethod(in: compositionText)
+        intent.texturePreference = matchTexture(in: compositionText)
 
         if containsAny(normalized, Self.forKidPhrases) {
             intent.forKid = true
@@ -63,9 +64,9 @@ private extension KeywordIntentParser {
     static let forKidPhrases = ["buat anak", "bocil", "dedek", "si kecil", "balita"]
     static let mustNotSpicyPhrases = ["gak pedes", "nggak pedas", "tidak pedas", "jangan pedas", "tanpa sambal"]
     static let heavyMealPhrases = ["ngenyangin", "berat", "mengenyangkan"]
-    static let snackPhrases = ["cemilan", "ngemil", "snack"]
+    static let snackPhrases = ["cemilan", "ngemil", "snack", "jajanan"]
     static let drinkPhrases = ["minuman", "haus", "seger"]
-    static let healthyPhrases = ["sehat", "gak berminyak", "fresh", "gak bikin begah"]
+    static let healthyPhrases = ["sehat", "gak berminyak", "fresh", "gak bikin begah", "diet"]
 
     static let allergenSynonyms: [String: Allergen] = [
         "kacang": .peanut,
@@ -111,6 +112,9 @@ private extension KeywordIntentParser {
         for c in CookMethod.allCases where !sentinelRawValues.contains(c.rawValue.lowercased()) {
             words.formUnion(c.rawValue.lowercased().split(separator: " ").map(String.init))
         }
+        for t in Texture.allCases where !sentinelRawValues.contains(t.rawValue.lowercased()) {
+            words.formUnion(t.rawValue.lowercased().split(separator: " ").map(String.init))
+        }
         return words
     }()
 
@@ -127,6 +131,12 @@ private extension KeywordIntentParser {
 
     func matchCookMethod(in text: String) -> CookMethod? {
         CookMethod.allCases.first {
+            !Self.sentinelRawValues.contains($0.rawValue.lowercased()) && text.contains($0.rawValue.lowercased())
+        }
+    }
+
+    func matchTexture(in text: String) -> Texture? {
+        Texture.allCases.first {
             !Self.sentinelRawValues.contains($0.rawValue.lowercased()) && text.contains($0.rawValue.lowercased())
         }
     }
@@ -221,8 +231,10 @@ private extension KeywordIntentParser {
         "gak", "ga", "nggak", "ngga", "tidak", "jangan", "pedas", "pedes", "sambal", "tanpa", "boleh",
         "alergi", "halal",
         "murah", "murmer", "hemat", "budget", "rb", "ribu", "k",
-        "ngenyangin", "berat", "mengenyangkan", "cemilan", "ngemil", "snack", "minuman", "haus", "seger",
-        "sehat", "berminyak", "fresh", "begah",
+        "bawah", "atas", "sekitar", "kisaran", "kurang",
+        "ngenyangin", "berat", "mengenyangkan", "cemilan", "ngemil", "snack", "jajanan", "minuman", "haus", "seger",
+        "sehat", "berminyak", "fresh", "begah", "diet",
+        "sore", "pagi", "siang", "malam", "sarapan", "bikin", "anget", "hangat",
         "dan", "di", "ke", "yang", "untuk", "ya", "dong", "aja", "apa", "mau", "banget", "nih", "itu", "ini",
         "atau", "dengan", "biar", "kalau", "kalo", "mo", "pengen", "pengin", "enak",
         "makan", "makanan", "menu", "cari", "carikan", "kasih", "rekomendasi", "kuliner", "jajan",
