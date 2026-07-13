@@ -296,7 +296,6 @@ private extension ResultView {
             NotFound(
                 title: "Yah, menu ngga ketemu.",
                 subtitle: "Coba menu lainnya, yuk!",
-                reasons: viewModel.bindingConstraint.map { [$0] } ?? viewModel.relaxationNotes,
                 suggestions: viewModel.filteredMenus,
                 onBookmarkToggled: { menu in
                     menu.isBookmarked.toggle()

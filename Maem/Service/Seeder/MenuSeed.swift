@@ -94,7 +94,7 @@ enum MenuSeed {
                 name: "Ayam Suwir Kecap (Porsi Anak)",
                 menuDescription: "Ayam Suwir Kecap (Porsi Anak)",
                 price: 17000,
-                imageName: "menu-nasi-ayam-kecap",
+                imageName: "menu-ayam-suwir-kecap",
                 tags: MenuTags(
                     carbs: [.rice],
                     veggies: nil,
@@ -3664,7 +3664,7 @@ enum MenuSeed {
                 name: "Roti Bakar Anak (Coklat, Tanpa Kacang)",
                 menuDescription: "Roti Bakar Anak (Coklat, Tanpa Kacang)",
                 price: 12000,
-                imageName: "menu-roti-bakar-coklat-keju",
+                imageName: "menu-roti-bakar-anak-coklat",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: nil,
@@ -3742,7 +3742,7 @@ enum MenuSeed {
                 name: "Roti Bakar Keju Susu (Anak, Tanpa Coklat)",
                 menuDescription: "Roti Bakar Keju Susu (Anak, Tanpa Coklat)",
                 price: 13000,
-                imageName: "menu-roti-bakar-coklat-keju",
+                imageName: "menu-roti-bakar-keju-susu",
                 tags: MenuTags(
                     carbs: [.bread],
                     veggies: nil,
@@ -3768,7 +3768,7 @@ enum MenuSeed {
                 name: "Pisang Goreng Madu (Anak, Tidak Pedas)",
                 menuDescription: "Pisang Goreng Madu (Anak, Tidak Pedas)",
                 price: 11000,
-                imageName: "menu-pisang-goreng-keju",
+                imageName: "menu-pisang-goreng-madu",
                 tags: MenuTags(
                     carbs: nil,
                     veggies: nil,

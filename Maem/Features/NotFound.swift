@@ -10,7 +10,6 @@ import SwiftUI
 struct NotFound: View {
     let title: String
     let subtitle: String
-    var reasons: [String] = []
     var suggestions: [Menu] = []
     var onBookmarkToggled: (Menu) -> Void = { _ in }
 
@@ -24,12 +23,6 @@ struct NotFound: View {
                     .font(AppFont.body(weight: .bold))
                 Text(subtitle)
                     .font(AppFont.callout())
-                ForEach(reasons, id: \.self) { reason in
-                    Text(reason)
-                        .font(AppFont.caption())
-                        .foregroundStyle(AppColor.neutralSystemGrey)
-                        .multilineTextAlignment(.center)
-                }
             }
             .foregroundStyle(AppColor.neutralBlack)
 
@@ -57,11 +50,10 @@ struct NotFound: View {
     NotFound(title: "Test", subtitle: "Test")
 }
 
-#Preview("With reasons and suggestions") {
+#Preview("With suggestions") {
     NotFound(
         title: "Yah, menu ngga ketemu.",
         subtitle: "Coba menu lainnya, yuk!",
-        reasons: ["Harga sedikit di atas budget yang diminta."],
         suggestions: []
     )
 }
