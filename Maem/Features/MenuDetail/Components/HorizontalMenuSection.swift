@@ -94,7 +94,7 @@ private extension HorizontalMenuSection {
                 }
                 .font(
                     AppFont.callout(
-                        weight: .semibold
+                        weight: .bold
                     )
                 )
                 .foregroundStyle(AppColor.red700)

@@ -21,7 +21,7 @@ struct FindFoodcourtAnimation: View {
 
         ZStack {
 
-            AppColor.red50
+            AppColor.neutralWhite
                 .ignoresSafeArea()
 
             VStack(spacing: 48) {
